@@ -1,0 +1,32 @@
+# Directories
+node_modules/
+vendor/
+.idea/
+.vscode/
+.DS_Store
+
+# Backend (Laravel)
+backend/.env
+backend/storage/*.key
+backend/.phpunit.result.cache
+backend/bootstrap/cache/*
+backend/public/storage
+
+# Frontend (React)
+frontend/build/
+frontend/.env
+frontend/coverage/
+
+# Database
+*.sqlite
+
+# Logs
+*.log
+npm-debug.log*
+
+# Temporary
+*.swp
+*.swo
+*~
+.env.local
+.env.*.local
