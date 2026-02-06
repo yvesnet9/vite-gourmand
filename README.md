@@ -2,13 +2,28 @@
 
 Application web de traiteur événementiel
 
-**Stack :** Laravel + React + PostgreSQL + MongoDB  
-**Formation :** TP Développeur Web et Web Mobile
-
-## 🚧 En cours de développement
-
-Projet organisé en 12 features (F01 à F12)
+**Stack :** Laravel + React + PostgreSQL + MongoDB
 
 ## 📦 Installation
 
-Instructions à venir...
+### Backend
+```bash
+cd backend
+composer install
+php artisan serve
+```
+
+### Frontend
+```bash
+cd frontend
+npm install
+npm start
+```
+
+## 🔑 Comptes de test
+- **Admin :** jose@vitegourmand.fr / Password123!
+- **Employé :** julie@vitegourmand.fr / Password123!
+- **Client :** sophie.martin@email.fr / Password123!
+
+## 📊 Progression
+Voir [PROGRESSION.md](PROGRESSION.md)
