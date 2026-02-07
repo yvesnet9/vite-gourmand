@@ -7,16 +7,27 @@ use App\Http\Controllers\Api\MenuController;
 use App\Http\Controllers\Api\PlatController;
 use App\Http\Controllers\Api\AllergeneController;
 
+// Route de test
+Route::middleware('auth:sanctum')->post('/test', function() {
+    return response()->json(['message' => 'Test réussi !']);
+});
+
 // Routes publiques - Authentification
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
+
 
 // Routes publiques - Menus (consultation)
 Route::get('/menus', [MenuController::class, 'index']);
 Route::get('/menus/{id}', [MenuController::class, 'show']);
 
+// Routes publiques - Plats (consultation)
+Route::get('/plats', [PlatController::class, 'index']);
+Route::get('/plats/{id}', [PlatController::class, 'show']);
+
 // Routes publiques - Allergènes (consultation)
 Route::get('/allergenes', [AllergeneController::class, 'index']);
+Route::get('/allergenes/{id}', [AllergeneController::class, 'show']);
 
 // Routes protégées - Authentification
 Route::middleware('auth:sanctum')->group(function () {
@@ -29,7 +40,9 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::delete('/menus/{id}', [MenuController::class, 'destroy']);
 
     // Gestion des plats (employé/admin)
-    Route::apiResource('plats', PlatController::class);
+    Route::post('/plats', [PlatController::class, 'store']);
+    Route::put('/plats/{id}', [PlatController::class, 'update']);
+    Route::delete('/plats/{id}', [PlatController::class, 'destroy']);
 
     // Gestion des allergènes (employé/admin)
     Route::post('/allergenes', [AllergeneController::class, 'store']);
