@@ -10,12 +10,16 @@ return new class extends Migration
      * Run the migrations.
      */
     public function up(): void
-    {
-        Schema::create('horaires', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
-        });
-    }
+{
+    Schema::create('horaires', function (Blueprint $table) {
+        $table->id();
+        $table->enum('jour', ['lundi', 'mardi', 'mercredi', 'jeudi', 'vendredi', 'samedi', 'dimanche'])->unique();
+        $table->time('heure_ouverture');
+        $table->time('heure_fermeture');
+        $table->boolean('ferme')->default(false);
+        $table->timestamps();
+    });
+}
 
     /**
      * Reverse the migrations.

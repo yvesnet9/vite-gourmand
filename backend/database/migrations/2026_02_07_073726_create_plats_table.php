@@ -10,12 +10,17 @@ return new class extends Migration
      * Run the migrations.
      */
     public function up(): void
-    {
-        Schema::create('plats', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
-        });
-    }
+{
+    Schema::create('plats', function (Blueprint $table) {
+        $table->id();
+        $table->string('nom', 255);
+        $table->text('description')->nullable();
+        $table->enum('type', ['entree', 'plat', 'dessert']);
+        $table->string('image_url', 500)->nullable();
+        $table->boolean('actif')->default(true);
+        $table->timestamps();
+    });
+}
 
     /**
      * Reverse the migrations.
