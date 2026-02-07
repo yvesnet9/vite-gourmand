@@ -9,14 +9,20 @@ return new class extends Migration
     /**
      * Run the migrations.
      */
-    public function up(): void
-    {
-        Schema::create('avis', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
-        });
-    }
-
+public function up(): void
+{
+    Schema::create('avis', function (Blueprint $table) {
+        $table->id();
+        $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
+        $table->foreignId('commande_id')->unique()->constrained('commandes')->onDelete('cascade');
+        $table->integer('note')->unsigned();
+        $table->text('commentaire');
+        $table->boolean('valide')->default(false);
+        $table->timestamp('date_validation')->nullable();
+        $table->foreignId('validateur_id')->nullable()->constrained('users')->onDelete('set null');
+        $table->timestamps();
+    });
+}
     /**
      * Reverse the migrations.
      */

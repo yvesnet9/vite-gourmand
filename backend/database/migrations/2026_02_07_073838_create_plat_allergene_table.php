@@ -10,12 +10,17 @@ return new class extends Migration
      * Run the migrations.
      */
     public function up(): void
-    {
-        Schema::create('plat_allergene', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
-        });
-    }
+{
+    Schema::create('plat_allergene', function (Blueprint $table) {
+        $table->id();
+        $table->foreignId('plat_id')->constrained('plats')->onDelete('cascade');
+        $table->foreignId('allergene_id')->constrained('allergenes')->onDelete('cascade');
+        $table->timestamps();
+
+        // Éviter les doublons
+        $table->unique(['plat_id', 'allergene_id']);
+    });
+}
 
     /**
      * Reverse the migrations.

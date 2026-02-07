@@ -10,12 +10,17 @@ return new class extends Migration
      * Run the migrations.
      */
     public function up(): void
-    {
-        Schema::create('menu_plat', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
-        });
-    }
+{
+    Schema::create('menu_plat', function (Blueprint $table) {
+        $table->id();
+        $table->foreignId('menu_id')->constrained('menus')->onDelete('cascade');
+        $table->foreignId('plat_id')->constrained('plats')->onDelete('cascade');
+        $table->timestamps();
+
+        // Éviter les doublons
+        $table->unique(['menu_id', 'plat_id']);
+    });
+}
 
     /**
      * Reverse the migrations.

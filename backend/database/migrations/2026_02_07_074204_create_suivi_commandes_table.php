@@ -10,12 +10,17 @@ return new class extends Migration
      * Run the migrations.
      */
     public function up(): void
-    {
-        Schema::create('suivi_commandes', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
-        });
-    }
+{
+    Schema::create('suivi_commandes', function (Blueprint $table) {
+        $table->id();
+        $table->foreignId('commande_id')->constrained('commandes')->onDelete('cascade');
+        $table->string('ancien_statut', 50)->nullable();
+        $table->string('nouveau_statut', 50);
+        $table->text('commentaire')->nullable();
+        $table->foreignId('created_by')->nullable()->constrained('users')->onDelete('set null');
+        $table->timestamps();
+    });
+}
 
     /**
      * Reverse the migrations.
