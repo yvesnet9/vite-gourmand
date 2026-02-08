@@ -5,7 +5,7 @@
 - [x] F02 - Backend API Base ✅ (2025-02-07)
 - [x] F03 - Backend API Menus ✅ (2025-02-07)
 - [x] F04 - Backend API Commandes ✅ (2025-02-08)
-- [ ] F05 - Frontend Base
+- [x] F05 - Frontend Base ✅ (2025-02-08)
 - [ ] F06 - Frontend Menus
 - [ ] F07 - Frontend Utilisateur
 - [ ] F08 - Frontend Employé & Admin
@@ -47,3 +47,12 @@
 - ✅ CRUD Avis avec validation admin
 - ✅ Permissions par rôle (utilisateur/employé/admin)
 - ✅ Tests Thunder Client validés
+
+### 2025-02-08: F05 terminée
+- ✅ Configuration React Router
+- ✅ Service API avec Axios (intercepteurs)
+- ✅ AuthContext pour état global
+- ✅ Pages : Accueil, Login, Register
+- ✅ Navbar responsive
+- ✅ Authentification fonctionnelle
+- ⚠️ Utiliser 127.0.0.1 au lieu de localhost dans .env
