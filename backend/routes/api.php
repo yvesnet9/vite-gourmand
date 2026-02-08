@@ -7,10 +7,17 @@ use App\Http\Controllers\Api\MenuController;
 use App\Http\Controllers\Api\PlatController;
 use App\Http\Controllers\Api\AllergeneController;
 
+use App\Http\Controllers\Api\CommandeController;
+use App\Http\Controllers\Api\SuiviCommandeController;
+use App\Http\Controllers\Api\AvisController;
+
 // Route de test
 Route::middleware('auth:sanctum')->post('/test', function() {
     return response()->json(['message' => 'Test réussi !']);
 });
+// Routes publiques - Avis (consultation)
+Route::get('/avis', [AvisController::class, 'index']);
+Route::get('/avis/{id}', [AvisController::class, 'show']);
 
 // Routes publiques - Authentification
 Route::post('/register', [AuthController::class, 'register']);
@@ -48,4 +55,13 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('/allergenes', [AllergeneController::class, 'store']);
     Route::put('/allergenes/{id}', [AllergeneController::class, 'update']);
     Route::delete('/allergenes/{id}', [AllergeneController::class, 'destroy']);
+    // Gestion des commandes (utilisateurs authentifiés)
+    Route::apiResource('commandes', CommandeController::class);
+
+    // Suivi des commandes
+    Route::get('/commandes/{commande_id}/suivis', [SuiviCommandeController::class, 'index']);
+    Route::post('/commandes/{commande_id}/suivis', [SuiviCommandeController::class, 'store']);
+
+    // Gestion des avis (création et gestion)
+    Route::apiResource('avis', AvisController::class)->except(['index', 'show']);
 });
