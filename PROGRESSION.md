@@ -4,7 +4,7 @@
 - [x] F01 - Configuration initiale ✅ (2025-02-06)
 - [x] F02 - Backend API Base ✅ (2025-02-07)
 - [x] F03 - Backend API Menus ✅ (2025-02-07)
-- [ ] F04 - Backend API Commandes
+- [x] F04 - Backend API Commandes ✅ (2025-02-08)
 - [ ] F05 - Frontend Base
 - [ ] F06 - Frontend Menus
 - [ ] F07 - Frontend Utilisateur
@@ -38,3 +38,12 @@
 - ✅ Relations Menu-Plat-Allergène fonctionnelles
 - ✅ Tests Thunder Client validés
 - ⚠️ Note importante : Utiliser 127.0.0.1 au lieu de localhost
+
+### 2025-02-08: F04 terminée
+- ✅ CRUD Commandes (index, show, store, update, destroy)
+- ✅ Calcul automatique des prix (menu, livraison, réductions)
+- ✅ Gestion des statuts (en_attente, accepte, en_preparation, etc.)
+- ✅ Système de suivi des commandes (historique automatique)
+- ✅ CRUD Avis avec validation admin
+- ✅ Permissions par rôle (utilisateur/employé/admin)
+- ✅ Tests Thunder Client validés
