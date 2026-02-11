@@ -5,6 +5,8 @@ import Navbar from './components/layout/Navbar';
 import HomePage from './pages/HomePage';
 import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
+import MenusListPage from './pages/MenusListPage';
+import MenuDetailPage from './pages/MenuDetailPage';
 
 function App() {
   return (
@@ -16,7 +18,8 @@ function App() {
             <Route path="/" element={<HomePage />} />
             <Route path="/login" element={<LoginPage />} />
             <Route path="/register" element={<RegisterPage />} />
-            {/* Autres routes à venir */}
+            <Route path="/menus" element={<MenusListPage />} />
+            <Route path="/menus/:id" element={<MenuDetailPage />} />
           </Routes>
         </div>
       </Router>
