@@ -6,7 +6,7 @@
 - [x] F03 - Backend API Menus ✅ (2025-02-07)
 - [x] F04 - Backend API Commandes ✅ (2025-02-08)
 - [x] F05 - Frontend Base ✅ (2025-02-08)
-- [ ] F06 - Frontend Menus
+- [x] F06 - Frontend Menus ✅ (2025-02-08)
 - [ ] F07 - Frontend Utilisateur
 - [ ] F08 - Frontend Employé & Admin
 - [ ] F09 - Sécurité & RGPD
@@ -56,3 +56,12 @@
 - ✅ Navbar responsive
 - ✅ Authentification fonctionnelle
 - ⚠️ Utiliser 127.0.0.1 au lieu de localhost dans .env
+
+### 2025-02-08: F06 terminée
+- ✅ Page liste des menus avec grille responsive
+- ✅ Filtres dynamiques (prix, thème, régime, nb personnes)
+- ✅ Page détail d'un menu
+- ✅ Affichage des plats par catégorie (entrée, plat, dessert)
+- ✅ Affichage des allergènes
+- ✅ Bouton "Commander" (redirection vers formulaire)
+- ✅ Design responsive et user-friendly
