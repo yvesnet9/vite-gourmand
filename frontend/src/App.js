@@ -7,6 +7,10 @@ import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
 import MenusListPage from './pages/MenusListPage';
 import MenuDetailPage from './pages/MenuDetailPage';
+import CommanderPage from './pages/CommanderPage';
+import MesCommandesPage from './pages/MesCommandesPage';
+import CommandeDetailPage from './pages/CommandeDetailPage';
+import DashboardEmployePage from './pages/DashboardEmployePage';
 
 function App() {
   return (
@@ -20,6 +24,10 @@ function App() {
             <Route path="/register" element={<RegisterPage />} />
             <Route path="/menus" element={<MenusListPage />} />
             <Route path="/menus/:id" element={<MenuDetailPage />} />
+            <Route path="/commander/:menuId" element={<CommanderPage />} />
+            <Route path="/mes-commandes" element={<MesCommandesPage />} />
+            <Route path="/mes-commandes/:id" element={<CommandeDetailPage />} />
+            <Route path="/dashboard-employe" element={<DashboardEmployePage />} />
           </Routes>
         </div>
       </Router>

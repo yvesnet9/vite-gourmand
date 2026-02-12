@@ -7,7 +7,7 @@
 - [x] F04 - Backend API Commandes ✅ (2025-02-08)
 - [x] F05 - Frontend Base ✅ (2025-02-08)
 - [x] F06 - Frontend Menus ✅ (2025-02-08)
-- [ ] F07 - Frontend Utilisateur
+- [x] F07 - Frontend Utilisateur ✅ (2025-02-08)
 - [ ] F08 - Frontend Employé & Admin
 - [ ] F09 - Sécurité & RGPD
 - [ ] F10 - Tests
@@ -65,3 +65,11 @@
 - ✅ Affichage des allergènes
 - ✅ Bouton "Commander" (redirection vers formulaire)
 - ✅ Design responsive et user-friendly
+
+### 2025-02-08: F07 terminée
+- ✅ Formulaire de commande avec calcul des prix en temps réel
+- ✅ Page "Mes Commandes" avec statuts colorés
+- ✅ Page détail d'une commande avec historique des suivis
+- ✅ Annulation de commande (si en_attente ou accepte)
+- ✅ Affichage chronologique des suivis
+- ✅ Tous les tests validés

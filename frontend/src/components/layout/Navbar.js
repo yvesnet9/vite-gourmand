@@ -3,7 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../contexts/AuthContext';
 
 const Navbar = () => {
-  const { user, isAuthenticated, logout } = useAuth();
+  const { user, isAuthenticated, isEmployee, logout } = useAuth();
   const navigate = useNavigate();
 
   const handleLogout = async () => {
@@ -33,12 +33,22 @@ const Navbar = () => {
 
         {isAuthenticated() ? (
           <>
-            <Link to="/commandes" style={{ color: 'white', textDecoration: 'none' }}>
-              Mes Commandes
-            </Link>
+            {/* Lien Mes Commandes pour utilisateurs */}
+            {!isEmployee() && (
+              <Link to="/mes-commandes" style={{ color: 'white', textDecoration: 'none' }}>
+                Mes Commandes
+              </Link>
+            )}
+
+            {/* Lien Dashboard pour employés/admins */}
+            {isEmployee() && (
+              <Link to="/dashboard-employe" style={{ color: 'white', textDecoration: 'none' }}>
+                🏢 Dashboard
+              </Link>
+            )}
             
             <span style={{ color: '#aaa' }}>
-              Bonjour {user?.prenom}
+              Bonjour {user?.prenom} {isEmployee() && `(${user?.role})`}
             </span>
             
             <button
