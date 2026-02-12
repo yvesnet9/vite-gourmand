@@ -6,7 +6,7 @@ import HomePage from './pages/HomePage';
 import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
 import MenusListPage from './pages/MenusListPage';
-import MenuDetailPage from './pages/MenuDetailPage';
+import MenuDetailPage from './pages/MenuDetailPage.js';
 
 function App() {
   return (
