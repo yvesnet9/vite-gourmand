@@ -31,13 +31,13 @@ const MenuDetailPage = () => {
   };
 
   const handleCommander = () => {
-    if (!isAuthenticated()) {
-      alert('Vous devez être connecté pour commander');
-      navigate('/login');
-      return;
-    }
-    navigate(`/commander/${menu.id}`);
-  };
+  if (!isAuthenticated()) {
+    alert('Vous devez être connecté pour commander');
+    navigate('/login');
+    return;
+  }
+  navigate(`/commander/${id}`);  // Utiliser id au lieu de menu.id
+};
 
   if (loading) {
     return <div style={{ padding: '20px', textAlign: 'center' }}>Chargement...</div>;
