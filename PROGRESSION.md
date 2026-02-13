@@ -9,7 +9,7 @@
 - [x] F06 - Frontend Menus ✅ (2025-02-08)
 - [x] F07 - Frontend Utilisateur ✅ (2025-02-08)
 - [x] F08 - Frontend Employé & Admin ✅ (2025-02-13)
-- [ ] F09 - Sécurité & RGPD
+- [x] F09 - Sécurité & RGPD ✅ (2025-02-14)
 - [ ] F10 - Tests
 - [ ] F11 - Déploiement
 - [ ] F12 - Documentation
@@ -81,3 +81,24 @@
 - ✅ Protection des routes avec PrivateRoute
 - ✅ Contrôle d'accès par rôle
 - ✅ Tous les tests validés
+
+- [x] F09 - Sécurité & RGPD ✅ (2025-02-14)
+  - **Phase 1 - Sécurité Backend**
+    - FormRequests pour validation stricte (Register, Login, Menu, Plat, Commande, Avis, Allergène)
+    - Policies pour autorisations basées sur les rôles (Menu, Plat, Commande, Avis, Allergène)
+    - Rate Limiting : login (5/min), api (60/min), admin (100/min)
+    - Middleware SecurityHeaders : X-Frame-Options, X-Content-Type-Options, X-XSS-Protection, CSP, Referrer-Policy, Permissions-Policy
+  - **Phase 2 - RGPD Backend**
+    - Migration : ajout champs consentement_rgpd, date_consentement, newsletter
+    - RgpdController : export données (JSON), suppression compte, mise à jour consentement
+    - Routes API : /rgpd/export-data, /rgpd/delete-account, /rgpd/consent, /rgpd/politique-confidentialite, /rgpd/mentions-legales
+  - **Phase 3 - RGPD Frontend**
+    - Formulaire inscription avec checkbox consentement RGPD obligatoire + confirmation mot de passe
+    - Pages : Politique de confidentialité, Mentions légales, Mes Données, Supprimer mon compte
+    - Service rgpdService.js pour appels API
+    - Routes protégées avec PrivateRoute
+  - **Tests réalisés**
+    - ✅ Inscription avec consentement RGPD
+    - ✅ Pages RGPD publiques (politique, mentions)
+    - ✅ Téléchargement des données personnelles (JSON)
+    - ✅ Suppression de compte avec confirmat
