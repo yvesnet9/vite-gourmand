@@ -14,6 +14,7 @@ import DashboardEmployePage from './pages/DashboardEmployePage';
 import MenusAdminPage from './pages/admin/MenusAdminPage';
 import PlatsAdminPage from './pages/admin/PlatsAdminPage';
 import AllergenesAdminPage from './pages/admin/AllergenesAdminPage';
+import AvisAdminPage from './pages/admin/AvisAdminPage';
 
 function App() {
   return (
@@ -34,6 +35,7 @@ function App() {
             <Route path="/admin/menus" element={<MenusAdminPage />} />
             <Route path="/admin/plats" element={<PlatsAdminPage />} />
             <Route path="/admin/allergenes" element={<AllergenesAdminPage />} />
+            <Route path="/admin/avis" element={<AvisAdminPage />} />
           </Routes>
         </div>
       </Router>
