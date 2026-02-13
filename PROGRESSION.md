@@ -8,7 +8,7 @@
 - [x] F05 - Frontend Base ✅ (2025-02-08)
 - [x] F06 - Frontend Menus ✅ (2025-02-08)
 - [x] F07 - Frontend Utilisateur ✅ (2025-02-08)
-- [ ] F08 - Frontend Employé & Admin
+- [x] F08 - Frontend Employé & Admin ✅ (2025-02-13)
 - [ ] F09 - Sécurité & RGPD
 - [ ] F10 - Tests
 - [ ] F11 - Déploiement
@@ -72,4 +72,12 @@
 - ✅ Page détail d'une commande avec historique des suivis
 - ✅ Annulation de commande (si en_attente ou accepte)
 - ✅ Affichage chronologique des suivis
+- ✅ Tous les tests validés
+
+### 2025-02-13: F08 terminée
+- ✅ Dashboard employé avec gestion complète des commandes
+- ✅ CRUD Menus, Plats, Allergènes (admin)
+- ✅ Page de validation des avis (employé/admin)
+- ✅ Protection des routes avec PrivateRoute
+- ✅ Contrôle d'accès par rôle
 - ✅ Tous les tests validés
