@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\RegisterRequest;
+use App\Http\Requests\LoginRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -13,25 +15,8 @@ class AuthController extends Controller
     /**
      * Inscription d'un nouvel utilisateur
      */
-    public function register(Request $request)
+    public function register(RegisterRequest $request)
     {
-        $request->validate([
-            'nom' => 'required|string|max:100',
-            'prenom' => 'required|string|max:100',
-            'email' => 'required|email|unique:users,email',
-            'password' => [
-                'required',
-                'string',
-                'min:10',
-                'regex:/[a-z]/',      // au moins une minuscule
-                'regex:/[A-Z]/',      // au moins une majuscule
-                'regex:/[0-9]/',      // au moins un chiffre
-                'regex:/[@$!%*#?&]/', // au moins un caractère spécial
-            ],
-            'gsm' => 'required|string|max:20',
-            'adresse' => 'required|string',
-        ]);
-
         $user = User::create([
             'nom' => $request->nom,
             'prenom' => $request->prenom,
@@ -41,6 +26,8 @@ class AuthController extends Controller
             'adresse' => $request->adresse,
             'role' => 'utilisateur',
             'active' => true,
+            'consentement_rgpd' => true,
+            'date_consentement' => now(),
         ]);
 
         // TODO: Envoyer email de bienvenue
@@ -57,13 +44,8 @@ class AuthController extends Controller
     /**
      * Connexion utilisateur
      */
-    public function login(Request $request)
+    public function login(LoginRequest $request)
     {
-        $request->validate([
-            'email' => 'required|email',
-            'password' => 'required',
-        ]);
-
         $user = User::where('email', $request->email)->first();
 
         if (!$user || !Hash::check($request->password, $user->password)) {

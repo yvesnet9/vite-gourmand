@@ -8,25 +8,40 @@ const RegisterPage = () => {
     prenom: '',
     email: '',
     password: '',
+    password_confirmation: '',
     gsm: '',
     adresse: '',
+    consentement_rgpd: false,
   });
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
-  
   const { register } = useAuth();
   const navigate = useNavigate();
 
   const handleChange = (e) => {
+    const { name, value, type, checked } = e.target;
     setFormData({
       ...formData,
-      [e.target.name]: e.target.value
+      [name]: type === 'checkbox' ? checked : value
     });
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError('');
+
+    // Vérifier que le consentement RGPD est coché
+    if (!formData.consentement_rgpd) {
+      setError('Vous devez accepter la politique de confidentialité pour continuer.');
+      return;
+    }
+
+    // Vérifier que les mots de passe correspondent
+    if (formData.password !== formData.password_confirmation) {
+      setError('Les mots de passe ne correspondent pas.');
+      return;
+    }
+
     setLoading(true);
 
     try {
@@ -107,6 +122,19 @@ const RegisterPage = () => {
         </div>
 
         <div style={{ marginBottom: '15px' }}>
+          <label>Confirmer le mot de passe :</label>
+          <input
+            type="password"
+            name="password_confirmation"
+            value={formData.password_confirmation}
+            onChange={handleChange}
+            required
+            minLength="10"
+            style={{ width: '100%', padding: '8px', marginTop: '5px' }}
+          />
+        </div>
+
+        <div style={{ marginBottom: '15px' }}>
           <label>Téléphone :</label>
           <input
             type="tel"
@@ -127,6 +155,24 @@ const RegisterPage = () => {
             required
             style={{ width: '100%', padding: '8px', marginTop: '5px', minHeight: '60px' }}
           />
+        </div>
+
+        {/* RGPD - Consentement obligatoire */}
+        <div style={{ marginBottom: '20px', padding: '15px', background: '#f8f9fa', borderRadius: '5px' }}>
+          <label style={{ display: 'flex', alignItems: 'flex-start', cursor: 'pointer' }}>
+            <input
+              type="checkbox"
+              name="consentement_rgpd"
+              checked={formData.consentement_rgpd}
+              onChange={handleChange}
+              required
+              style={{ marginRight: '10px', marginTop: '3px' }}
+            />
+            <span>
+              J'accepte la <Link to="/politique-confidentialite" target="_blank" style={{ color: '#007bff' }}>politique de confidentialité</Link> et 
+              les <Link to="/mentions-legales" target="_blank" style={{ color: '#007bff' }}>conditions d'utilisation</Link> *
+            </span>
+          </label>
         </div>
 
         <button

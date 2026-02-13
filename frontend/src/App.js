@@ -17,6 +17,12 @@ import AllergenesAdminPage from './pages/admin/AllergenesAdminPage';
 import AvisAdminPage from './pages/admin/AvisAdminPage';
 import PrivateRoute from './components/PrivateRoute';
 
+// Pages RGPD
+import PolitiqueConfidentialitePage from './pages/rgpd/PolitiqueConfidentialitePage';
+import MentionsLegalesPage from './pages/rgpd/MentionsLegalesPage';
+import MesDonneesPage from './pages/rgpd/MesDonneesPage';
+import SupprimerComptePage from './pages/rgpd/SupprimerComptePage';
+
 function App() {
   return (
     <AuthProvider>
@@ -30,6 +36,10 @@ function App() {
             <Route path="/register" element={<RegisterPage />} />
             <Route path="/menus" element={<MenusListPage />} />
             <Route path="/menus/:id" element={<MenuDetailPage />} />
+
+            {/* Routes RGPD publiques */}
+            <Route path="/politique-confidentialite" element={<PolitiqueConfidentialitePage />} />
+            <Route path="/mentions-legales" element={<MentionsLegalesPage />} />
 
             {/* Routes utilisateurs authentifiés */}
             <Route path="/commander/:menuId" element={
@@ -45,6 +55,18 @@ function App() {
             <Route path="/mes-commandes/:id" element={
               <PrivateRoute>
                 <CommandeDetailPage />
+              </PrivateRoute>
+            } />
+
+            {/* Routes RGPD protégées */}
+            <Route path="/mes-donnees" element={
+              <PrivateRoute>
+                <MesDonneesPage />
+              </PrivateRoute>
+            } />
+            <Route path="/supprimer-compte" element={
+              <PrivateRoute>
+                <SupprimerComptePage />
               </PrivateRoute>
             } />
 

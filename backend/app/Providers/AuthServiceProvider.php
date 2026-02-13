@@ -2,7 +2,16 @@
 
 namespace App\Providers;
 
-// use Illuminate\Support\Facades\Gate;
+use App\Models\Menu;
+use App\Models\Plat;
+use App\Models\Commande;
+use App\Models\Avis;
+use App\Models\Allergene;
+use App\Policies\MenuPolicy;
+use App\Policies\PlatPolicy;
+use App\Policies\CommandePolicy;
+use App\Policies\AvisPolicy;
+use App\Policies\AllergenePolicy;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 
 class AuthServiceProvider extends ServiceProvider
@@ -13,7 +22,11 @@ class AuthServiceProvider extends ServiceProvider
      * @var array<class-string, class-string>
      */
     protected $policies = [
-        //
+        Menu::class => MenuPolicy::class,
+        Plat::class => PlatPolicy::class,
+        Commande::class => CommandePolicy::class,
+        Avis::class => AvisPolicy::class,
+        Allergene::class => AllergenePolicy::class,
     ];
 
     /**
@@ -21,6 +34,6 @@ class AuthServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+        $this->registerPolicies();
     }
 }

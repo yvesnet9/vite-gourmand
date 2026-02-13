@@ -3,90 +3,27 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\StoreMenuRequest;
+use App\Http\Requests\UpdateMenuRequest;
 use App\Models\Menu;
 use Illuminate\Http\Request;
 
 class MenuController extends Controller
 {
     /**
-     * Liste tous les menus (avec filtres)
+     * Liste des menus actifs
      */
-    public function index(Request $request)
+    public function index()
     {
+        $this->authorize('viewAny', Menu::class);
 
-        $query = Menu::with(['plats.allergenes']);
-        // Filtre par prix maximum
-        if ($request->has('prix_max')) {
-            $query->where('prix_base', '<=', $request->prix_max);
-        }
-
-        // Filtre par fourchette de prix
-        if ($request->has('prix_min') && $request->has('prix_max')) {
-            $query->whereBetween('prix_base', [$request->prix_min, $request->prix_max]);
-        }
-
-        // Filtre par thème
-        if ($request->has('theme')) {
-            $query->where('theme', $request->theme);
-        }
-
-        // Filtre par régime
-        if ($request->has('regime')) {
-            $query->where('regime', $request->regime);
-        }
-
-        // Filtre par nombre de personnes minimum
-        if ($request->has('nb_personnes')) {
-            $query->where('nb_personne_min', '<=', $request->nb_personnes);
-        }
-
-        // Seulement les menus actifs par défaut
-
-        $query->where('actif', true);
-
-        $menus = $query->get();
+        $menus = Menu::with('plats.allergenes')
+            ->where('actif', true)
+            ->where('date_debut', '<=', now())
+            ->where('date_fin', '>=', now())
+            ->get();
 
         return response()->json($menus);
-    }
-
-    /**
-     * Créer un nouveau menu
-     */
-    public function store(Request $request)
-    {
-        $request->validate([
-            'titre' => 'required|string|max:255',
-            'description' => 'required|string',
-            'theme' => 'required|string|max:50',
-            'regime' => 'required|string|max:50',
-            'nb_personne_min' => 'required|integer|min:1',
-            'prix_base' => 'required|numeric|min:0',
-            'stock' => 'required|integer|min:0',
-            'conditions' => 'nullable|string',
-            'plats' => 'nullable|array',
-            'plats.*' => 'exists:plats,id',
-        ]);
-
-        $menu = Menu::create($request->only([
-            'titre',
-            'description',
-            'theme',
-            'regime',
-            'nb_personne_min',
-            'prix_base',
-            'stock',
-            'conditions',
-        ]));
-
-        // Associer les plats
-        if ($request->has('plats')) {
-            $menu->plats()->attach($request->plats);
-        }
-
-        return response()->json([
-            'message' => 'Menu créé avec succès',
-            'menu' => $menu->load(['plats']),
-        ], 201);
     }
 
     /**
@@ -94,66 +31,69 @@ class MenuController extends Controller
      */
     public function show($id)
     {
+        $menu = Menu::with('plats.allergenes')->findOrFail($id);
+        $this->authorize('view', $menu);
 
-        $menu = Menu::with(['plats.allergenes'])->findOrFail($id);
         return response()->json($menu);
     }
 
     /**
-     * Mettre à jour un menu
+     * Créer un nouveau menu (admin/employé)
      */
-    public function update(Request $request, $id)
+    public function store(StoreMenuRequest $request)
+    {
+        $this->authorize('create', Menu::class);
+
+        $menu = Menu::create([
+            'titre' => $request->titre,
+            'description' => $request->description,
+            'prix' => $request->prix,
+            'date_debut' => $request->date_debut,
+            'date_fin' => $request->date_fin,
+            'actif' => $request->actif ?? true,
+        ]);
+
+        $menu->plats()->attach($request->plat_ids);
+
+        return response()->json($menu->load('plats.allergenes'), 201);
+    }
+
+    /**
+     * Mettre à jour un menu (admin/employé)
+     */
+    public function update(UpdateMenuRequest $request, $id)
     {
         $menu = Menu::findOrFail($id);
-
-        $request->validate([
-            'titre' => 'sometimes|required|string|max:255',
-            'description' => 'sometimes|required|string',
-            'theme' => 'sometimes|required|string|max:50',
-            'regime' => 'sometimes|required|string|max:50',
-            'nb_personne_min' => 'sometimes|required|integer|min:1',
-            'prix_base' => 'sometimes|required|numeric|min:0',
-            'stock' => 'sometimes|required|integer|min:0',
-            'conditions' => 'nullable|string',
-            'plats' => 'nullable|array',
-            'plats.*' => 'exists:plats,id',
-        ]);
+        $this->authorize('update', $menu);
 
         $menu->update($request->only([
             'titre',
             'description',
-            'theme',
-            'regime',
-            'nb_personne_min',
-            'prix_base',
-            'stock',
-            'conditions',
-
-            'actif',
+            'prix',
+            'date_debut',
+            'date_fin',
+            'actif'
         ]));
 
-        // Mettre à jour les plats associés
-        if ($request->has('plats')) {
-            $menu->plats()->sync($request->plats);
+        if ($request->has('plat_ids')) {
+            $menu->plats()->sync($request->plat_ids);
         }
 
-        return response()->json([
-            'message' => 'Menu mis à jour avec succès',
-
-            'menu' => $menu->load(['plats']),
-        ]);
+        return response()->json($menu->load('plats.allergenes'));
     }
 
     /**
-     * Supprimer un menu
+     * Supprimer un menu (admin uniquement)
      */
     public function destroy($id)
     {
         $menu = Menu::findOrFail($id);
+        $this->authorize('delete', $menu);
+
         $menu->delete();
 
         return response()->json([
-            'message' => 'Menu supprimé avec succès',
+            'message' => 'Menu supprimé avec succès'
         ]);
     }
 }

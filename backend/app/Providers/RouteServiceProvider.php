@@ -24,9 +24,7 @@ class RouteServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        RateLimiter::for('api', function (Request $request) {
-            return Limit::perMinute(60)->by($request->user()?->id ?: $request->ip());
-        });
+        $this->configureRateLimiting();
 
         $this->routes(function () {
             Route::middleware('api')
@@ -35,6 +33,32 @@ class RouteServiceProvider extends ServiceProvider
 
             Route::middleware('web')
                 ->group(base_path('routes/web.php'));
+        });
+    }
+
+    /**
+     * Configure the rate limiters for the application.
+     */
+    protected function configureRateLimiting(): void
+    {
+        // Rate limit général API : 60 requêtes par minute
+        RateLimiter::for('api', function (Request $request) {
+            return Limit::perMinute(60)->by($request->user()?->id ?: $request->ip());
+        });
+
+        // Rate limit pour login/register : 5 tentatives par minute
+        RateLimiter::for('login', function (Request $request) {
+            return Limit::perMinute(5)->by($request->ip())
+                ->response(function () {
+                    return response()->json([
+                        'message' => 'Trop de tentatives. Veuillez réessayer dans quelques minutes.'
+                    ], 429);
+                });
+        });
+
+        // Rate limit pour admin : 100 requêtes par minute
+        RateLimiter::for('admin', function (Request $request) {
+            return Limit::perMinute(100)->by($request->user()?->id ?: $request->ip());
         });
     }
 }

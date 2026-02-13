@@ -3,40 +3,22 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\StoreAllergeneRequest;
+use App\Http\Requests\UpdateAllergeneRequest;
 use App\Models\Allergene;
 use Illuminate\Http\Request;
 
 class AllergeneController extends Controller
 {
     /**
-     * Liste tous les allergènes
+     * Liste de tous les allergènes
      */
     public function index()
     {
-        $allergenes = Allergene::all();
+        $this->authorize('viewAny', Allergene::class);
 
+        $allergenes = Allergene::orderBy('nom')->get();
         return response()->json($allergenes);
-    }
-
-    /**
-     * Créer un nouvel allergène
-     */
-    public function store(Request $request)
-    {
-        $request->validate([
-            'nom' => 'required|string|max:100|unique:allergenes,nom',
-            'icone' => 'nullable|string|max:50',
-        ]);
-
-        $allergene = Allergene::create($request->only([
-            'nom',
-            'icone',
-        ]));
-
-        return response()->json([
-            'message' => 'Allergène créé avec succès',
-            'allergene' => $allergene,
-        ], 201);
     }
 
     /**
@@ -44,44 +26,53 @@ class AllergeneController extends Controller
      */
     public function show($id)
     {
-        $allergene = Allergene::with('plats')->findOrFail($id);
+        $allergene = Allergene::findOrFail($id);
+        $this->authorize('view', $allergene);
 
         return response()->json($allergene);
     }
 
     /**
-     * Mettre à jour un allergène
+     * Créer un nouvel allergène (admin)
      */
-    public function update(Request $request, $id)
+    public function store(StoreAllergeneRequest $request)
     {
-        $allergene = Allergene::findOrFail($id);
+        $this->authorize('create', Allergene::class);
 
-        $request->validate([
-            'nom' => 'sometimes|required|string|max:100|unique:allergenes,nom,' . $id,
-            'icone' => 'nullable|string|max:50',
+        $allergene = Allergene::create([
+            'nom' => $request->nom,
         ]);
 
-        $allergene->update($request->only([
-            'nom',
-            'icone',
-        ]));
-
-        return response()->json([
-            'message' => 'Allergène mis à jour avec succès',
-            'allergene' => $allergene,
-        ]);
+        return response()->json($allergene, 201);
     }
 
     /**
-     * Supprimer un allergène
+     * Mettre à jour un allergène (admin)
+     */
+    public function update(UpdateAllergeneRequest $request, $id)
+    {
+        $allergene = Allergene::findOrFail($id);
+        $this->authorize('update', $allergene);
+
+        $allergene->update([
+            'nom' => $request->nom,
+        ]);
+
+        return response()->json($allergene);
+    }
+
+    /**
+     * Supprimer un allergène (admin)
      */
     public function destroy($id)
     {
         $allergene = Allergene::findOrFail($id);
+        $this->authorize('delete', $allergene);
+
         $allergene->delete();
 
         return response()->json([
-            'message' => 'Allergène supprimé avec succès',
+            'message' => 'Allergène supprimé avec succès'
         ]);
     }
 }

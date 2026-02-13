@@ -3,63 +3,22 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\StorePlatRequest;
+use App\Http\Requests\UpdatePlatRequest;
 use App\Models\Plat;
 use Illuminate\Http\Request;
 
 class PlatController extends Controller
 {
     /**
-     * Liste tous les plats
+     * Liste de tous les plats
      */
-    public function index(Request $request)
+    public function index()
     {
-        $query = Plat::with('allergenes');
+        $this->authorize('viewAny', Plat::class);
 
-        // Filtre par type (entrée, plat, dessert)
-        if ($request->has('type')) {
-            $query->where('type', $request->type);
-        }
-
-        // Seulement les plats actifs par défaut
-        if (!$request->has('show_inactive')) {
-            $query->where('actif', true);
-        }
-
-        $plats = $query->get();
-
+        $plats = Plat::with('allergenes')->get();
         return response()->json($plats);
-    }
-
-    /**
-     * Créer un nouveau plat
-     */
-    public function store(Request $request)
-    {
-        $request->validate([
-            'nom' => 'required|string|max:255',
-            'description' => 'nullable|string',
-            'type' => 'required|in:entree,plat,dessert',
-            'image_url' => 'nullable|string|max:500',
-            'allergenes' => 'nullable|array',
-            'allergenes.*' => 'exists:allergenes,id',
-        ]);
-
-        $plat = Plat::create($request->only([
-            'nom',
-            'description',
-            'type',
-            'image_url',
-        ]));
-
-        // Associer les allergènes
-        if ($request->has('allergenes')) {
-            $plat->allergenes()->attach($request->allergenes);
-        }
-
-        return response()->json([
-            'message' => 'Plat créé avec succès',
-            'plat' => $plat->load('allergenes'),
-        ], 201);
     }
 
     /**
@@ -67,57 +26,65 @@ class PlatController extends Controller
      */
     public function show($id)
     {
-        $plat = Plat::with('allergenes', 'menus')->findOrFail($id);
+        $plat = Plat::with('allergenes')->findOrFail($id);
+        $this->authorize('view', $plat);
 
         return response()->json($plat);
     }
 
     /**
-     * Mettre à jour un plat
+     * Créer un nouveau plat (admin/employé)
      */
-    public function update(Request $request, $id)
+    public function store(StorePlatRequest $request)
+    {
+        $this->authorize('create', Plat::class);
+
+        $plat = Plat::create([
+            'nom' => $request->nom,
+            'description' => $request->description,
+            'type' => $request->type,
+        ]);
+
+        if ($request->has('allergene_ids')) {
+            $plat->allergenes()->attach($request->allergene_ids);
+        }
+
+        return response()->json($plat->load('allergenes'), 201);
+    }
+
+    /**
+     * Mettre à jour un plat (admin/employé)
+     */
+    public function update(UpdatePlatRequest $request, $id)
     {
         $plat = Plat::findOrFail($id);
-
-        $request->validate([
-            'nom' => 'sometimes|required|string|max:255',
-            'description' => 'nullable|string',
-            'type' => 'sometimes|required|in:entree,plat,dessert',
-            'image_url' => 'nullable|string|max:500',
-            'actif' => 'sometimes|boolean',
-            'allergenes' => 'nullable|array',
-            'allergenes.*' => 'exists:allergenes,id',
-        ]);
+        $this->authorize('update', $plat);
 
         $plat->update($request->only([
             'nom',
             'description',
-            'type',
-            'image_url',
-            'actif',
+            'type'
         ]));
 
-        // Mettre à jour les allergènes
-        if ($request->has('allergenes')) {
-            $plat->allergenes()->sync($request->allergenes);
+        if ($request->has('allergene_ids')) {
+            $plat->allergenes()->sync($request->allergene_ids);
         }
 
-        return response()->json([
-            'message' => 'Plat mis à jour avec succès',
-            'plat' => $plat->load('allergenes'),
-        ]);
+        return response()->json($plat->load('allergenes'));
     }
 
     /**
-     * Supprimer un plat
+     * Supprimer un plat (admin uniquement)
      */
     public function destroy($id)
     {
         $plat = Plat::findOrFail($id);
+        $this->authorize('delete', $plat);
+
         $plat->delete();
 
         return response()->json([
-            'message' => 'Plat supprimé avec succès',
+            'message' => 'Plat supprimé avec succès'
         ]);
     }
 }
