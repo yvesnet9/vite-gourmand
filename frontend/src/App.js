@@ -11,6 +11,7 @@ import CommanderPage from './pages/CommanderPage';
 import MesCommandesPage from './pages/MesCommandesPage';
 import CommandeDetailPage from './pages/CommandeDetailPage';
 import DashboardEmployePage from './pages/DashboardEmployePage';
+import MenusAdminPage from './pages/admin/MenusAdminPage';
 
 function App() {
   return (
@@ -28,6 +29,7 @@ function App() {
             <Route path="/mes-commandes" element={<MesCommandesPage />} />
             <Route path="/mes-commandes/:id" element={<CommandeDetailPage />} />
             <Route path="/dashboard-employe" element={<DashboardEmployePage />} />
+            <Route path="/admin/menus" element={<MenusAdminPage />} />
           </Routes>
         </div>
       </Router>

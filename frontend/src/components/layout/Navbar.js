@@ -41,11 +41,20 @@ const Navbar = () => {
             )}
 
             {/* Lien Dashboard pour employés/admins */}
-            {isEmployee() && (
-              <Link to="/dashboard-employe" style={{ color: 'white', textDecoration: 'none' }}>
-                🏢 Dashboard
-              </Link>
-            )}
+{isEmployee() && (
+  <>
+    <Link to="/dashboard-employe" style={{ color: 'white', textDecoration: 'none' }}>
+      🏢 Dashboard
+    </Link>
+    
+    {/* Lien Admin pour admins uniquement */}
+    {user?.role === 'admin' && (
+      <Link to="/admin/menus" style={{ color: 'white', textDecoration: 'none' }}>
+        ⚙️ Admin Menus
+      </Link>
+    )}
+  </>
+)}
             
             <span style={{ color: '#aaa' }}>
               Bonjour {user?.prenom} {isEmployee() && `(${user?.role})`}
