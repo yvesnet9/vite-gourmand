@@ -12,6 +12,7 @@ import MesCommandesPage from './pages/MesCommandesPage';
 import CommandeDetailPage from './pages/CommandeDetailPage';
 import DashboardEmployePage from './pages/DashboardEmployePage';
 import MenusAdminPage from './pages/admin/MenusAdminPage';
+import PlatsAdminPage from './pages/admin/PlatsAdminPage';
 
 function App() {
   return (
@@ -30,6 +31,7 @@ function App() {
             <Route path="/mes-commandes/:id" element={<CommandeDetailPage />} />
             <Route path="/dashboard-employe" element={<DashboardEmployePage />} />
             <Route path="/admin/menus" element={<MenusAdminPage />} />
+            <Route path="/admin/plats" element={<PlatsAdminPage />} />
           </Routes>
         </div>
       </Router>
