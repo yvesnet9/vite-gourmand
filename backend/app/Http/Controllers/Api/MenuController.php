@@ -13,8 +13,8 @@ class MenuController extends Controller
      */
     public function index(Request $request)
     {
-        $query = Menu::with(['images', 'plats.allergenes']);
 
+        $query = Menu::with(['plats.allergenes']);
         // Filtre par prix maximum
         if ($request->has('prix_max')) {
             $query->where('prix_base', '<=', $request->prix_max);
@@ -41,6 +41,7 @@ class MenuController extends Controller
         }
 
         // Seulement les menus actifs par défaut
+
         $query->where('actif', true);
 
         $menus = $query->get();
@@ -84,7 +85,7 @@ class MenuController extends Controller
 
         return response()->json([
             'message' => 'Menu créé avec succès',
-            'menu' => $menu->load(['images', 'plats']),
+            'menu' => $menu->load(['plats']),
         ], 201);
     }
 
@@ -93,8 +94,8 @@ class MenuController extends Controller
      */
     public function show($id)
     {
-        $menu = Menu::with(['images', 'plats.allergenes'])->findOrFail($id);
 
+        $menu = Menu::with(['plats.allergenes'])->findOrFail($id);
         return response()->json($menu);
     }
 
@@ -127,6 +128,7 @@ class MenuController extends Controller
             'prix_base',
             'stock',
             'conditions',
+
             'actif',
         ]));
 
@@ -137,7 +139,8 @@ class MenuController extends Controller
 
         return response()->json([
             'message' => 'Menu mis à jour avec succès',
-            'menu' => $menu->load(['images', 'plats']),
+
+            'menu' => $menu->load(['plats']),
         ]);
     }
 

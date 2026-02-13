@@ -22,13 +22,19 @@ const MenusAdminPage = () => {
   });
 
   useEffect(() => {
+    if (!user) {
+      // Attendre que l'utilisateur soit chargé
+      return;
+    }
+    
     if (!isAdmin()) {
       setError('Accès non autorisé - Admin uniquement');
       setLoading(false);
       return;
     }
+    
     fetchMenus();
-  }, []);
+  }, [user, isAdmin]);
 
   const fetchMenus = async () => {
     setLoading(true);

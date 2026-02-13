@@ -5,7 +5,9 @@ const authService = {
   register: async (userData) => {
     const response = await api.post('/register', userData);
     if (response.data.token) {
-      localStorage.setItem('token', response.data.token);
+      // Nettoyer le token des guillemets éventuels
+      const token = String(response.data.token).replace(/^["']|["']$/g, '');
+      localStorage.setItem('token', token);
       localStorage.setItem('user', JSON.stringify(response.data.user));
     }
     return response.data;
@@ -14,10 +16,12 @@ const authService = {
   // Connexion
   login: async (credentials) => {
     const response = await api.post('/login', credentials);
-    if (response.data.token) {
-      localStorage.setItem('token', response.data.token);
-      localStorage.setItem('user', JSON.stringify(response.data.user));
-    }
+    
+    // Nettoyer le token des guillemets éventuels
+    const token = String(response.data.token).replace(/^["']|["']$/g, '');
+    localStorage.setItem('token', token);
+    localStorage.setItem('user', JSON.stringify(response.data.user));
+    
     return response.data;
   },
 

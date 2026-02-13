@@ -36,8 +36,8 @@ export const AuthProvider = ({ children }) => {
   };
 
   const isAdmin = () => {
-    return user?.role === 'administrateur';
-  };
+  return user?.role === 'admin' || user?.role === 'administrateur';
+};
 
   const isEmployee = () => {
     return user?.role === 'employe' || user?.role === 'administrateur';
