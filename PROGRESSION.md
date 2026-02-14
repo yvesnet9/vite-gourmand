@@ -10,7 +10,7 @@
 - [x] F07 - Frontend Utilisateur ✅ (2025-02-08)
 - [x] F08 - Frontend Employé & Admin ✅ (2025-02-13)
 - [x] F09 - Sécurité & RGPD ✅ (2025-02-14)
-- [ ] F10 - Tests
+- [x] F10 - Tests Unitaires et d'Intégration ✅ (2025-02-14)
 - [ ] F11 - Déploiement
 - [ ] F12 - Documentation
 
@@ -102,3 +102,20 @@
     - ✅ Pages RGPD publiques (politique, mentions)
     - ✅ Téléchargement des données personnelles (JSON)
     - ✅ Suppression de compte avec confirmat
+
+
+  - **Tests RGPD (6 tests)**
+    - Export données utilisateur (JSON)
+    - Suppression compte avec mot de passe correct
+    - Suppression compte échouée (mauvais mot de passe)
+    - Mise à jour consentement newsletter
+    - Politique de confidentialité publique
+    - Mentions légales publiques
+  - **Factories créées**
+    - UserFactory (avec admin() et employee())
+    - MenuFactory (avec tous les champs requis)
+    - PlatFactory
+  - **Résultat final**
+    - ✅ 20 tests passent
+    - ✅ 66 assertions validées
+    - ✅ Couverture : Auth, Menus, RGPD
