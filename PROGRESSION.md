@@ -119,3 +119,17 @@
     - ✅ 20 tests passent
     - ✅ 66 assertions validées
     - ✅ Couverture : Auth, Menus, RGPD
+
+    - [x] F10 - Tests ✅ (2025-02-14)
+  - **Tests Authentification** : Register (6 tests), Login/Logout (3 tests)
+  - **Tests Menus** : CRUD basique avec autorisations (3 tests)
+  - **Tests RGPD** : Export données, suppression compte, consentement (6 tests)
+  - **Total** : 15 tests passent
+  - Configuration .env.testing avec SQLite en mémoire
+  - Factories User, Menu, Plat
+
+- [ ] F11 - Déploiement ⏳ (2025-02-14)
+  - Domaine acheté : vite-gourmand.fr
+  - DNS configuré : 37.59.124.193
+  - En attente : Accès SSH VPS (ticket OVH CS15199982)
+  - À faire : Installation stack, déploiement Laravel + React, SSL
