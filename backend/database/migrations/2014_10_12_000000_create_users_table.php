@@ -9,20 +9,22 @@ return new class extends Migration
     public function up(): void
 {
     Schema::create('users', function (Blueprint $table) {
-        $table->id();
-        $table->string('nom', 100);
-        $table->string('prenom', 100);
-        $table->string('email', 255)->unique();
-        $table->string('password');
-        $table->string('gsm', 20);
-        $table->text('adresse');
-        $table->enum('role', ['visiteur', 'utilisateur', 'employe', 'administrateur'])->default('utilisateur');
-        $table->boolean('active')->default(true);
-        $table->timestamp('email_verified_at')->nullable();
-        $table->rememberToken();
-        $table->timestamps();
-    });
-
+    $table->id();
+    $table->string('nom', 100);
+    $table->string('prenom', 100);
+    $table->string('email', 255)->unique();
+    $table->string('password');
+    $table->string('gsm', 20);
+    $table->text('adresse');
+    $table->enum('role', ['visiteur', 'utilisateur', 'employe', 'administrateur'])->default('utilisateur');
+    $table->boolean('active')->default(true);
+    $table->boolean('consentement_rgpd')->default(false);    // AJOUTÉ
+    $table->timestamp('date_consentement')->nullable();      // AJOUTÉ
+    $table->boolean('newsletter')->default(false);           // AJOUTÉ
+    $table->timestamp('email_verified_at')->nullable();
+    $table->rememberToken();
+    $table->timestamps();
+});
     Schema::create('password_reset_tokens', function (Blueprint $table) {
         $table->string('email')->primary();
         $table->string('token');

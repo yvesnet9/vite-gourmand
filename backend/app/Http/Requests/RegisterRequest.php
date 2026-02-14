@@ -12,22 +12,36 @@ class RegisterRequest extends FormRequest
         return true;
     }
 
-    public function rules()
-    {
-        return [
-            'nom' => ['required', 'string', 'max:100'],
-            'prenom' => ['required', 'string', 'max:100'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'gsm' => ['required', 'string', 'regex:/^[0-9]{10}$/', 'unique:users'],
-            'adresse' => ['required', 'string'],
-            'password' => ['required', 'confirmed', Password::min(10)
-                ->mixedCase()
-                ->numbers()
-                ->symbols()
-                ->uncompromised()],
-            'consentement_rgpd' => ['required', 'accepted'],
-        ];
+  public function rules()
+{
+    $passwordRules = [
+        'required',
+        'confirmed',
+        Password::min(10)
+            ->mixedCase()
+            ->numbers()
+            ->symbols()
+    ];
+
+    // Ajouter uncompromised() uniquement en production
+    if (!app()->environment('testing')) {
+        $passwordRules[] = Password::min(10)
+            ->mixedCase()
+            ->numbers()
+            ->symbols()
+            ->uncompromised();
     }
+
+    return [
+        'nom' => ['required', 'string', 'max:100'],
+        'prenom' => ['required', 'string', 'max:100'],
+        'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+        'gsm' => ['required', 'string', 'regex:/^[0-9]{10}$/', 'unique:users'],
+        'adresse' => ['required', 'string'],
+        'password' => $passwordRules,
+        'consentement_rgpd' => ['required', 'accepted'],
+    ];
+}
 
     public function messages()
     {

@@ -15,12 +15,15 @@ class StoreMenuRequest extends FormRequest
     {
         return [
             'titre' => ['required', 'string', 'max:255'],
-            'description' => ['required', 'string', 'max:1000'],
-            'prix' => ['required', 'numeric', 'min:0', 'max:9999.99'],
-            'date_debut' => ['required', 'date', 'after_or_equal:today'],
-            'date_fin' => ['required', 'date', 'after:date_debut'],
+            'description' => ['required', 'string'],
+            'theme' => ['required', 'string', 'max:50'],
+            'regime' => ['required', 'string', 'max:50'],
+            'nb_personne_min' => ['required', 'integer', 'min:1', 'max:100'],
+            'prix_base' => ['required', 'numeric', 'min:0', 'max:9999.99'],
+            'stock' => ['nullable', 'integer', 'min:0'],
+            'conditions' => ['nullable', 'string'],
             'actif' => ['boolean'],
-            'plat_ids' => ['required', 'array', 'min:1'],
+            'plat_ids' => ['nullable', 'array'],
             'plat_ids.*' => ['exists:plats,id'],
         ];
     }
@@ -29,19 +32,12 @@ class StoreMenuRequest extends FormRequest
     {
         return [
             'titre.required' => 'Le titre est obligatoire.',
-            'titre.max' => 'Le titre ne peut pas dépasser 255 caractères.',
             'description.required' => 'La description est obligatoire.',
-            'description.max' => 'La description ne peut pas dépasser 1000 caractères.',
-            'prix.required' => 'Le prix est obligatoire.',
-            'prix.numeric' => 'Le prix doit être un nombre.',
-            'prix.min' => 'Le prix doit être positif.',
-            'prix.max' => 'Le prix ne peut pas dépasser 9999.99.',
-            'date_debut.required' => 'La date de début est obligatoire.',
-            'date_debut.after_or_equal' => 'La date de début ne peut pas être dans le passé.',
-            'date_fin.required' => 'La date de fin est obligatoire.',
-            'date_fin.after' => 'La date de fin doit être après la date de début.',
-            'plat_ids.required' => 'Au moins un plat est requis.',
-            'plat_ids.array' => 'Le format des plats est invalide.',
+            'theme.required' => 'Le thème est obligatoire.',
+            'regime.required' => 'Le régime est obligatoire.',
+            'nb_personne_min.required' => 'Le nombre minimum de personnes est obligatoire.',
+            'prix_base.required' => 'Le prix de base est obligatoire.',
+            'prix_base.numeric' => 'Le prix doit être un nombre.',
             'plat_ids.*.exists' => 'Un ou plusieurs plats n\'existent pas.',
         ];
     }

@@ -19,8 +19,6 @@ class MenuController extends Controller
 
         $menus = Menu::with('plats.allergenes')
             ->where('actif', true)
-            ->where('date_debut', '<=', now())
-            ->where('date_fin', '>=', now())
             ->get();
 
         return response()->json($menus);
@@ -47,13 +45,18 @@ class MenuController extends Controller
         $menu = Menu::create([
             'titre' => $request->titre,
             'description' => $request->description,
-            'prix' => $request->prix,
-            'date_debut' => $request->date_debut,
-            'date_fin' => $request->date_fin,
+            'theme' => $request->theme,
+            'regime' => $request->regime,
+            'nb_personne_min' => $request->nb_personne_min,
+            'prix_base' => $request->prix_base,
+            'stock' => $request->stock ?? 0,
+            'conditions' => $request->conditions,
             'actif' => $request->actif ?? true,
         ]);
 
-        $menu->plats()->attach($request->plat_ids);
+        if ($request->has('plat_ids')) {
+            $menu->plats()->attach($request->plat_ids);
+        }
 
         return response()->json($menu->load('plats.allergenes'), 201);
     }
@@ -69,9 +72,12 @@ class MenuController extends Controller
         $menu->update($request->only([
             'titre',
             'description',
-            'prix',
-            'date_debut',
-            'date_fin',
+            'theme',
+            'regime',
+            'nb_personne_min',
+            'prix_base',
+            'stock',
+            'conditions',
             'actif'
         ]));
 

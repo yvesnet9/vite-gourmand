@@ -11,27 +11,33 @@ class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
 
-    protected $fillable = [
-        'nom',
-        'prenom',
-        'email',
-        'password',
-        'gsm',
-        'adresse',
-        'role',
-        'active',
-    ];
+   protected $fillable = [
+    'nom',
+    'prenom',
+    'email',
+    'password',
+    'gsm',
+    'adresse',
+    'role',
+    'active',
+    'consentement_rgpd',      // AJOUTEZ
+    'date_consentement',      // AJOUTEZ
+    'newsletter',             // AJOUTEZ
+];
 
     protected $hidden = [
         'password',
         'remember_token',
     ];
 
-    protected $casts = [
-        'email_verified_at' => 'datetime',
-        'active' => 'boolean',
-        'password' => 'hashed',
-    ];
+   protected $casts = [
+    'email_verified_at' => 'datetime',
+    'active' => 'boolean',
+    'password' => 'hashed',
+    'consentement_rgpd' => 'boolean',     // AJOUTEZ
+    'date_consentement' => 'datetime',    // AJOUTEZ
+    'newsletter' => 'boolean',            // AJOUTEZ
+];
 
     // Relations
     public function commandes()

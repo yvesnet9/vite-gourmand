@@ -15,12 +15,15 @@ class UpdateMenuRequest extends FormRequest
     {
         return [
             'titre' => ['sometimes', 'string', 'max:255'],
-            'description' => ['sometimes', 'string', 'max:1000'],
-            'prix' => ['sometimes', 'numeric', 'min:0', 'max:9999.99'],
-            'date_debut' => ['sometimes', 'date'],
-            'date_fin' => ['sometimes', 'date', 'after:date_debut'],
+            'description' => ['sometimes', 'string'],
+            'theme' => ['sometimes', 'string', 'max:50'],
+            'regime' => ['sometimes', 'string', 'max:50'],
+            'nb_personne_min' => ['sometimes', 'integer', 'min:1', 'max:100'],
+            'prix_base' => ['sometimes', 'numeric', 'min:0', 'max:9999.99'],
+            'stock' => ['sometimes', 'integer', 'min:0'],
+            'conditions' => ['nullable', 'string'],
             'actif' => ['sometimes', 'boolean'],
-            'plat_ids' => ['sometimes', 'array', 'min:1'],
+            'plat_ids' => ['sometimes', 'array'],
             'plat_ids.*' => ['exists:plats,id'],
         ];
     }
@@ -29,12 +32,7 @@ class UpdateMenuRequest extends FormRequest
     {
         return [
             'titre.max' => 'Le titre ne peut pas dépasser 255 caractères.',
-            'description.max' => 'La description ne peut pas dépasser 1000 caractères.',
-            'prix.numeric' => 'Le prix doit être un nombre.',
-            'prix.min' => 'Le prix doit être positif.',
-            'prix.max' => 'Le prix ne peut pas dépasser 9999.99.',
-            'date_fin.after' => 'La date de fin doit être après la date de début.',
-            'plat_ids.array' => 'Le format des plats est invalide.',
+            'prix_base.numeric' => 'Le prix doit être un nombre.',
             'plat_ids.*.exists' => 'Un ou plusieurs plats n\'existent pas.',
         ];
     }
