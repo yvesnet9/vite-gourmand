@@ -11,7 +11,7 @@
 - [x] F08 - Frontend Employé & Admin ✅ (2025-02-13)
 - [x] F09 - Sécurité & RGPD ✅ (2025-02-14)
 - [x] F10 - Tests Unitaires et d'Intégration ✅ (2025-02-14)
-- [ ] F11 - Déploiement
+- [x] F11 - Déploiement ✅ (2025-02-18)
 - [ ] F12 - Documentation
 
 ## Notes
@@ -128,8 +128,36 @@
   - Configuration .env.testing avec SQLite en mémoire
   - Factories User, Menu, Plat
 
-- [ ] F11 - Déploiement ⏳ (2025-02-14)
-  - Domaine acheté : vite-gourmand.fr
-  - DNS configuré : 37.59.124.193
-  - En attente : Accès SSH VPS (ticket OVH CS15199982)
-  - À faire : Installation stack, déploiement Laravel + React, SSL
+- [x] F11 - Déploiement ✅ (2025-02-18)
+  - **Infrastructure**
+    - Domaine : vite-gourmand.fr (OVH)
+    - VPS : Ubuntu 22.04 (37.59.124.193)
+    - Certificat SSL : Let's Encrypt (HTTPS)
+  - **Stack déployée**
+    - Backend : Laravel 10 + PHP 8.2 + PostgreSQL 14
+    - Frontend : React (Create React App) + Nginx
+    - Authentification : Sanctum
+  - **Configuration**
+    - Nginx : proxy inverse, routes API/Frontend
+    - Base de données : vite_gourmand_prod
+    - Environnement : production (.env.production)
+  - **Tests en production**
+    - ✅ Inscription/Connexion
+    - ✅ Navigation (Menus, Commandes)
+    - ✅ API REST fonctionnelle
+    - ✅ Export données RGPD
+    - ✅ Sécurité (HTTPS, CORS, Headers)
+
+- [x] F12 - Documentation finale ✅ (2025-02-18)
+  - Mise à jour PROGRESSION.md
+  - Mise à jour README.md
+  - Commits de production
+  - Projet finalisé : 100% ✅
+
+## 🎊 PROJET TERMINÉ - 100% COMPLÉTÉ !
+
+**Date de début :** 2025-02-06  
+**Date de fin :** 2025-02-18  
+**Durée totale :** 12 jours
+
+**URL de production :** https://vite-gourmand.fr
