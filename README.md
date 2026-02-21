@@ -1,70 +1,53 @@
+cd ~/Developer/vite-gourmand
+
+# Créer le nouveau README
+cat > README.md << 'EOF'
 # 🍽️ Vite & Gourmand
 
-Application web de traiteur événementiel - Projet de fin de formation
+Application web de traiteur événementiel développée avec Laravel 10 (Backend) et React 18 (Frontend).
 
-**URL de production :** [https://vite-gourmand.fr](https://vite-gourmand.fr)
+## 📖 Description
+
+Vite & Gourmand est une plateforme permettant à un service de traiteur événementiel de gérer ses menus, commandes et clients en ligne. L'application offre :
+
+- **Espace Public** : Consultation des menus avec filtres (thème, régime alimentaire)
+- **Espace Client** : Commande en ligne, suivi, avis, gestion RGPD
+- **Espace Employé** : Gestion des commandes et validation des avis
+- **Espace Admin** : CRUD complet (menus, plats, allergènes, utilisateurs)
 
 ---
 
-## 📋 Description
+## 🚀 Fonctionnalités
 
-Vite & Gourmand est une plateforme de commande en ligne pour un service de traiteur événementiel. L'application permet aux clients de parcourir des menus, passer des commandes, et laisser des avis. Les employés et administrateurs disposent d'interfaces de gestion dédiées.
+✅ Authentification sécurisée (Laravel Sanctum)  
+✅ Gestion complète des menus et plats  
+✅ Système de commandes avec workflow  
+✅ Avis clients avec modération  
+✅ Conformité RGPD (export données, droit à l'oubli)  
+✅ Interface responsive (mobile et desktop)  
+✅ Tests automatisés (15 tests)  
+✅ Déployé en production avec HTTPS  
 
 ---
 
-## 🚀 Technologies
+## 🛠️ Technologies
 
 ### Backend
 - **Laravel 10** (PHP 8.2)
 - **PostgreSQL 14**
-- **Sanctum** (Authentification API)
-- **Nginx** (Serveur web)
+- **Laravel Sanctum** (authentification API)
+- **PHPUnit** (tests)
 
 ### Frontend
-- **React 18** (Create React App)
-- **React Router** (Navigation)
-- **Axios** (Requêtes HTTP)
+- **React 18**
+- **React Router v6**
+- **Axios**
+- **Context API** (gestion d'état)
 
-### Déploiement
+### Infrastructure
+- **Nginx** (serveur web)
 - **VPS OVH** (Ubuntu 22.04)
-- **Let's Encrypt** (Certificat SSL)
-- **GitHub** (Gestion de version)
-
----
-
-## ✨ Fonctionnalités
-
-### 👤 Utilisateurs
-- ✅ Inscription / Connexion avec validation sécurisée
-- ✅ Consultation des menus disponibles
-- ✅ Passage de commandes avec suivi
-- ✅ Gestion des avis sur les menus
-- ✅ Export des données personnelles (RGPD)
-- ✅ Suppression de compte
-
-### 👨‍💼 Employés
-- ✅ Gestion des commandes (statuts, suivi)
-- ✅ Validation des avis clients
-- ✅ Création et modification de menus
-
-### 🔧 Administrateurs
-- ✅ Gestion complète des menus et plats
-- ✅ Gestion des allergènes
-- ✅ Gestion des utilisateurs
-- ✅ Accès à toutes les fonctionnalités
-
----
-
-## 🔒 Sécurité
-
-- **Authentification** : Laravel Sanctum (tokens API)
-- **Validation** : FormRequests avec règles strictes
-- **Autorisations** : Policies pour contrôle d'accès
-- **Rate Limiting** : Protection contre les abus (5 req/min login, 60 req/min API)
-- **Headers HTTP** : X-Frame-Options, CSP, HSTS, etc.
-- **HTTPS** : Certificat SSL Let's Encrypt
-- **Mots de passe** : Hashage bcrypt, validation complexité (10+ caractères)
-- **RGPD** : Export données, suppression compte, consentement
+- **Let's Encrypt** (SSL)
 
 ---
 
@@ -131,11 +114,37 @@ Le projet est déployé sur **https://vite-gourmand.fr**
 
 ---
 
+## 📚 Documentation
+
+Documentation complète pour la soutenance disponible dans le dossier [`docs/`](./docs/)
+
+### Documents Principaux
+
+- **ECF STUDI** : [`docs/01-ecf-studi/`](./docs/01-ecf-studi/) - Document à rendre à l'école (15 pages)
+- **Dossier Projet** : [`docs/02-dossier-jury/`](./docs/02-dossier-jury/) - Pour le jury DREETS (75 pages)
+- **Présentation** : [`docs/03-presentation/`](./docs/03-presentation/) - PowerPoint 18 slides
+- **Screenshots** : [`docs/04-screenshots/`](./docs/04-screenshots/) - 11 captures d'écran
+- **Docs Techniques** : [`docs/05-documentation-technique/`](./docs/05-documentation-technique/) - 10 fichiers MD
+
+### Liens Utiles
+
+- **Application** : https://vite-gourmand.fr
+- **Trello** : https://trello.com/b/TmPyFsmL/vite-gourmand-projet-dwwm
+- **GitHub** : https://github.com/yvesnet9/vite-gourmand
+
+### Comptes de Démo
+
+- **Admin** : admin@demo.fr / Password123!
+- **Employé** : employe@demo.fr / Password123!
+- **Client** : client@demo.fr / Password123!
+
+---
+
 ## 👨‍💻 Auteur
 
-**Yves Mukuna**
-
+**Jamesy MUKUNA MUKENKETAYI**
 - GitHub : [@yvesnet9](https://github.com/yvesnet9)
+- Email : yvesnet9@gmail.com
 - Projet : https://github.com/yvesnet9/vite-gourmand
 
 ---
@@ -145,10 +154,16 @@ Le projet est déployé sur **https://vite-gourmand.fr**
 - **Date de début** : 06/02/2025
 - **Date de fin** : 18/02/2025
 - **Durée** : 12 jours
-- **Type** : Projet de fin de formation
+- **Type** : Projet de Titre Professionnel DWWM
+- **Formation** : STUDI - Paris
+- **Session** : Juin-Juillet 2026
 
 ---
 
 ## 📄 Licence
 
 Projet académique - Formation développement web
+EOF
+
+echo "✅ README principal mis à jour !"
+cat README.md
