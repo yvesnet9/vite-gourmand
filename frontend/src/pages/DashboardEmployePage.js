@@ -25,7 +25,7 @@ const DashboardEmployePage = () => {
 
     try {
       const params = filter !== 'all' ? { statut: filter } : {};
-      const data = await commandeService.getMesCommandes();
+      const data = await commandeService.getAllCommandes();
       setCommandes(data);
     } catch (err) {
       setError('Erreur lors du chargement des commandes');

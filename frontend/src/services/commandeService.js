@@ -7,9 +7,15 @@ const commandeService = {
     return response.data;
   },
 
-  // Liste des commandes de l'utilisateur (ou toutes si employé/admin)
+  // Liste des commandes de l'utilisateur
   getMesCommandes: async () => {
     const response = await api.get('/commandes');
+    return response.data;
+  },
+
+  // Liste de TOUTES les commandes (admin/employé uniquement)
+  getAllCommandes: async () => {
+    const response = await api.get('/commandes/all');
     return response.data;
   },
 
