@@ -1,6 +1,12 @@
+cd ~/Developer/vite-gourmand/backend
+
+# Sauvegarder l'ancien
+cp routes/api.php routes/api.php.backup
+
+# Créer le nouveau fichier
+cat > routes/api.php << 'EOF'
 <?php
 
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\MenuController;
@@ -58,7 +64,14 @@ Route::middleware(['auth:sanctum', 'throttle:api'])->group(function () {
     Route::post('/logout', [AuthController::class, 'logout']);
     Route::get('/me', [AuthController::class, 'me']);
 
-    // Gestion des commandes (utilisateurs authentifiés)
+    // Route pour obtenir TOUTES les commandes (admin/employé uniquement)
+    // IMPORTANT : Cette route doit être AVANT apiResource sinon "all" sera considéré comme un ID
+    Route::get('/commandes/all', [CommandeController::class, 'all']);
+
+    // Annulation de commande (client)
+    Route::put('/commandes/{id}/cancel', [CommandeController::class, 'cancel']);
+
+    // Gestion des commandes (utilisateurs authentifiés - leurs propres commandes)
     Route::apiResource('commandes', CommandeController::class);
 
     // Suivi des commandes
