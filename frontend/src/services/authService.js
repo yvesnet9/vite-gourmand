@@ -4,12 +4,13 @@ const authService = {
   // Inscription
   register: async (userData) => {
     const response = await api.post('/register', userData);
-    if (response.data.token) {
-      // Nettoyer le token des guillemets éventuels
+    
+    if (response.data && response.data.token && response.data.user) {
       const token = String(response.data.token).replace(/^["']|["']$/g, '');
       localStorage.setItem('token', token);
       localStorage.setItem('user', JSON.stringify(response.data.user));
     }
+    
     return response.data;
   },
 
@@ -17,10 +18,14 @@ const authService = {
   login: async (credentials) => {
     const response = await api.post('/login', credentials);
     
-    // Nettoyer le token des guillemets éventuels
-    const token = String(response.data.token).replace(/^["']|["']$/g, '');
-    localStorage.setItem('token', token);
-    localStorage.setItem('user', JSON.stringify(response.data.user));
+    if (response.data && response.data.token && response.data.user) {
+      const token = String(response.data.token).replace(/^["']|["']$/g, '');
+      localStorage.setItem('token', token);
+      localStorage.setItem('user', JSON.stringify(response.data.user));
+    } else {
+      console.error('Login response invalid:', response.data);
+      throw new Error('Réponse de connexion invalide');
+    }
     
     return response.data;
   },
@@ -38,15 +43,22 @@ const authService = {
   // Obtenir l'utilisateur connecté
   getCurrentUser: () => {
     const userStr = localStorage.getItem('user');
-    if (userStr) {
-      return JSON.parse(userStr);
+    if (userStr && userStr !== 'undefined') {
+      try {
+        return JSON.parse(userStr);
+      } catch (e) {
+        console.error('Error parsing user data:', e);
+        localStorage.removeItem('user');
+        return null;
+      }
     }
     return null;
   },
 
   // Vérifier si connecté
   isAuthenticated: () => {
-    return !!localStorage.getItem('token');
+    const token = localStorage.getItem('token');
+    return !!(token && token !== 'undefined');
   },
 };
 
