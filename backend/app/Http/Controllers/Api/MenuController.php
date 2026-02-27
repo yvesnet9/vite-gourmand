@@ -15,7 +15,7 @@ class MenuController extends Controller
      */
     public function index()
     {
-        $this->authorize('viewAny', Menu::class);
+        // Public access
 
         $menus = Menu::with('plats.allergenes')
             ->where('actif', true)
@@ -30,7 +30,7 @@ class MenuController extends Controller
     public function show($id)
     {
         $menu = Menu::with('plats.allergenes')->findOrFail($id);
-        $this->authorize('view', $menu);
+        // Public access
 
         return response()->json($menu);
     }
@@ -40,7 +40,7 @@ class MenuController extends Controller
      */
     public function store(StoreMenuRequest $request)
     {
-        $this->authorize('create', Menu::class);
+        // Public access
 
         $menu = Menu::create([
             'titre' => $request->titre,
@@ -67,7 +67,7 @@ class MenuController extends Controller
     public function update(UpdateMenuRequest $request, $id)
     {
         $menu = Menu::findOrFail($id);
-        $this->authorize('update', $menu);
+        // Public access
 
         $menu->update($request->only([
             'titre',
@@ -94,7 +94,7 @@ class MenuController extends Controller
     public function destroy($id)
     {
         $menu = Menu::findOrFail($id);
-        $this->authorize('delete', $menu);
+        // Public access
 
         $menu->delete();
 
