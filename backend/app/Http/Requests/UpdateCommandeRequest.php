@@ -14,7 +14,7 @@ class UpdateCommandeRequest extends FormRequest
     public function rules()
     {
         return [
-            'statut' => ['sometimes', 'in:en_attente,confirmee,en_preparation,livree,annulee'],
+            'statut' => ['sometimes', 'in:en_attente,accepte,en_preparation,livre,annulee'],
         ];
     }
 

@@ -15,7 +15,7 @@ class PlatController extends Controller
      */
     public function index()
     {
-        $this->authorize('viewAny', Plat::class);
+        // Public access
 
         $plats = Plat::with('allergenes')->get();
         return response()->json($plats);
@@ -27,7 +27,7 @@ class PlatController extends Controller
     public function show($id)
     {
         $plat = Plat::with('allergenes')->findOrFail($id);
-        $this->authorize('view', $plat);
+        // Public access
 
         return response()->json($plat);
     }
@@ -37,7 +37,7 @@ class PlatController extends Controller
      */
     public function store(StorePlatRequest $request)
     {
-        $this->authorize('create', Plat::class);
+        // Public access
 
         $plat = Plat::create([
             'nom' => $request->nom,
@@ -58,7 +58,7 @@ class PlatController extends Controller
     public function update(UpdatePlatRequest $request, $id)
     {
         $plat = Plat::findOrFail($id);
-        $this->authorize('update', $plat);
+        // Public access
 
         $plat->update($request->only([
             'nom',
@@ -79,7 +79,7 @@ class PlatController extends Controller
     public function destroy($id)
     {
         $plat = Plat::findOrFail($id);
-        $this->authorize('delete', $plat);
+        // Public access
 
         $plat->delete();
 

@@ -1,10 +1,3 @@
-cd ~/Developer/vite-gourmand/backend
-
-# Sauvegarder l'ancien
-cp routes/api.php routes/api.php.backup
-
-# Créer le nouveau fichier
-cat > routes/api.php << 'EOF'
 <?php
 
 use Illuminate\Support\Facades\Route;

@@ -15,7 +15,7 @@ class AllergeneController extends Controller
      */
     public function index()
     {
-        $this->authorize('viewAny', Allergene::class);
+        // Public access
 
         $allergenes = Allergene::orderBy('nom')->get();
         return response()->json($allergenes);
@@ -27,7 +27,7 @@ class AllergeneController extends Controller
     public function show($id)
     {
         $allergene = Allergene::findOrFail($id);
-        $this->authorize('view', $allergene);
+        // Public access
 
         return response()->json($allergene);
     }
@@ -37,7 +37,7 @@ class AllergeneController extends Controller
      */
     public function store(StoreAllergeneRequest $request)
     {
-        $this->authorize('create', Allergene::class);
+        // Public access
 
         $allergene = Allergene::create([
             'nom' => $request->nom,
@@ -52,7 +52,7 @@ class AllergeneController extends Controller
     public function update(UpdateAllergeneRequest $request, $id)
     {
         $allergene = Allergene::findOrFail($id);
-        $this->authorize('update', $allergene);
+        // Public access
 
         $allergene->update([
             'nom' => $request->nom,
@@ -67,7 +67,7 @@ class AllergeneController extends Controller
     public function destroy($id)
     {
         $allergene = Allergene::findOrFail($id);
-        $this->authorize('delete', $allergene);
+        // Public access
 
         $allergene->delete();
 
