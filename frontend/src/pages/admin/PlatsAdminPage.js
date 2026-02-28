@@ -10,6 +10,7 @@ const PlatsAdminPage = () => {
   const [error, setError] = useState('');
   const [showForm, setShowForm] = useState(false);
   const [editingPlat, setEditingPlat] = useState(null);
+  const [filterType, setFilterType] = useState('');
 
   const [formData, setFormData] = useState({
     nom: '',
@@ -139,6 +140,14 @@ const PlatsAdminPage = () => {
     };
     return colors[type] || '#6c757d';
   };
+
+  // Filtrage des plats
+  const filteredPlats = plats.filter(plat => {
+    if (filterType && plat.type !== filterType) {
+      return false;
+    }
+    return true;
+  });
 
   if (loading) {
     return <div style={{ padding: '20px', textAlign: 'center' }}>Chargement...</div>;
@@ -305,14 +314,63 @@ const PlatsAdminPage = () => {
         </div>
       )}
 
+      {/* FILTRES */}
+      <div style={{ 
+        background: '#f8f9fa', 
+        padding: '20px', 
+        borderRadius: '8px',
+        marginBottom: '20px'
+      }}>
+        <h3 style={{ marginTop: 0 }}>Filtres</h3>
+        <div style={{ display: 'flex', gap: '15px', alignItems: 'center' }}>
+          <div style={{ flex: 1 }}>
+            <label style={{ display: 'block', marginBottom: '5px', fontWeight: 'bold' }}>
+              Type de plat :
+            </label>
+            <select
+              value={filterType}
+              onChange={(e) => setFilterType(e.target.value)}
+              style={{ 
+                width: '100%', 
+                padding: '10px', 
+                borderRadius: '4px', 
+                border: '1px solid #ccc' 
+              }}
+            >
+              <option value="">Tous les types</option>
+              <option value="entree">🥗 Entrées</option>
+              <option value="plat">🍽️ Plats principaux</option>
+              <option value="dessert">🍰 Desserts</option>
+            </select>
+          </div>
+          
+          {filterType && (
+            <button
+              onClick={() => setFilterType('')}
+              style={{
+                padding: '10px 20px',
+                background: '#6c757d',
+                color: 'white',
+                border: 'none',
+                borderRadius: '4px',
+                cursor: 'pointer',
+                marginTop: '22px'
+              }}
+            >
+              Réinitialiser
+            </button>
+          )}
+        </div>
+      </div>
+
       {/* LISTE DES PLATS */}
       <div>
-        <h2>Liste des plats ({plats.length})</h2>
-        {plats.length === 0 ? (
+        <h2>Liste des plats ({filteredPlats.length} / {plats.length})</h2>
+        {filteredPlats.length === 0 ? (
           <p>Aucun plat trouvé</p>
         ) : (
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(350px, 1fr))', gap: '20px' }}>
-            {plats.map(plat => (
+            {filteredPlats.map(plat => (
               <div
                 key={plat.id}
                 style={{
