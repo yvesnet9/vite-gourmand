@@ -115,9 +115,9 @@ const MenusListPage = () => {
                 onChange={handleFilterChange}
                 style={{ width: '100%', padding: '8px', marginTop: '5px' }}
               >
-                <option value="">Tous</option>
-                <option value="classique">Classique</option>
-                <option value="vegetarien">Végétarien</option>
+               <option value="">Tous</option>
+                <option value="normal">Normal</option>
+                <option value="végétarien">Végétarien</option>
                 <option value="vegan">Vegan</option>
                 <option value="sans_gluten">Sans gluten</option>
               </select>
