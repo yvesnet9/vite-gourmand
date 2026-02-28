@@ -17,14 +17,13 @@ const DashboardEmployePage = () => {
       return;
     }
     fetchCommandes();
-  }, [filter]);
+  }, [isEmployee]);
 
   const fetchCommandes = async () => {
     setLoading(true);
     setError('');
 
     try {
-      const params = filter !== 'all' ? { statut: filter } : {};
       const data = await commandeService.getAllCommandes();
       setCommandes(data);
     } catch (err) {
@@ -62,6 +61,14 @@ const DashboardEmployePage = () => {
     return colors[statut] || '#6c757d';
   };
 
+  // Filtrage des commandes
+  const filteredCommandes = commandes.filter(commande => {
+    if (filter !== 'all' && commande.statut !== filter) {
+      return false;
+    }
+    return true;
+  });
+
   if (loading) {
     return <div style={{ padding: '20px', textAlign: 'center' }}>Chargement...</div>;
   }
@@ -87,13 +94,13 @@ const DashboardEmployePage = () => {
         borderRadius: '8px',
         marginBottom: '20px'
       }}>
-        <label style={{ marginRight: '10px' }}>Filtrer par statut :</label>
+        <label style={{ marginRight: '10px', fontWeight: 'bold' }}>Filtrer par statut :</label>
         <select
           value={filter}
           onChange={(e) => setFilter(e.target.value)}
           style={{ padding: '8px', borderRadius: '4px', border: '1px solid #ccc' }}
         >
-          <option value="all">Tous</option>
+          <option value="all">Tous ({commandes.length})</option>
           <option value="en_attente">En attente</option>
           <option value="accepte">Acceptées</option>
           <option value="en_preparation">En préparation</option>
@@ -101,14 +108,19 @@ const DashboardEmployePage = () => {
           <option value="livre">Livrées</option>
           <option value="terminee">Terminées</option>
         </select>
+        {filter !== 'all' && (
+          <span style={{ marginLeft: '10px', color: '#666' }}>
+            ({filteredCommandes.length} résultat{filteredCommandes.length > 1 ? 's' : ''})
+          </span>
+        )}
       </div>
 
       {/* Liste des commandes */}
-      {commandes.length === 0 ? (
+      {filteredCommandes.length === 0 ? (
         <p>Aucune commande trouvée</p>
       ) : (
         <div>
-          {commandes.map(commande => (
+          {filteredCommandes.map(commande => (
             <div
               key={commande.id}
               style={{
