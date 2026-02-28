@@ -13,17 +13,44 @@ class MenuController extends Controller
     /**
      * Liste des menus actifs
      */
-    public function index()
+    /**
+     * Liste des menus actifs avec filtres
+     */
+    public function index(Request $request)
     {
         // Public access
-
-        $menus = Menu::with('plats.allergenes')
-            ->where('actif', true)
-            ->get();
-
+        $query = Menu::with('plats.allergenes')
+            ->where('actif', true);
+        
+        // Filtrer par prix maximum
+        if ($request->has('prix_max')) {
+            $query->where('prix_base', '<=', $request->prix_max);
+        }
+        
+        // Filtrer par prix minimum
+        if ($request->has('prix_min')) {
+            $query->where('prix_base', '>=', $request->prix_min);
+        }
+        
+        // Filtrer par thème
+        if ($request->has('theme')) {
+            $query->where('theme', $request->theme);
+        }
+        
+        // Filtrer par régime
+        if ($request->has('regime')) {
+            $query->where('regime', $request->regime);
+        }
+        
+        // Filtrer par nombre de personnes minimum
+        if ($request->has('nb_personnes')) {
+            $query->where('nb_personne_min', '<=', $request->nb_personnes);
+        }
+        
+        $menus = $query->get();
+        
         return response()->json($menus);
     }
-
     /**
      * Afficher un menu spécifique
      */
