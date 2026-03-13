@@ -81,8 +81,8 @@ const CommandeDetailPage = () => {
         <p><strong>Statut :</strong> <span style={{ 
           padding: '5px 10px', 
           borderRadius: '4px',
-          background: commande.statut === 'livree' ? '#d4edda' : commande.statut === 'en_attente' ? '#fff3cd' : '#cce5ff',
-          color: commande.statut === 'livree' ? '#155724' : commande.statut === 'en_attente' ? '#856404' : '#004085'
+          background: commande.statut === 'livre' ? '#d4edda' : commande.statut === 'en_attente' ? '#fff3cd' : '#cce5ff',
+          color: commande.statut === 'livre' ? '#155724' : commande.statut === 'en_attente' ? '#856404' : '#004085'
         }}>{commande.statut.replace('_', ' ')}</span></p>
         <p><strong>Prix total :</strong> {commande.prix_total} €</p>
       </div>
@@ -125,7 +125,8 @@ const CommandeDetailPage = () => {
       )}
 
       {/* Formulaire d'avis (seulement si commande livrée) */}
-      {commande.statut === 'livree' && (
+    
+        {commande.statut === 'livre' && (
         <div style={{ 
           background: '#e7f3ff', 
           padding: '20px', 
