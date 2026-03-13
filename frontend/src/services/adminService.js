@@ -82,20 +82,19 @@ const adminService = {
   // ============ AVIS ============
   
   // Liste tous les avis en attente de validation
+  // Gestion des avis
   getPendingAvis: async () => {
-    const response = await api.get('/admin/avis/pending');
+    const response = await api.get('/avis/pending');
     return response.data;
   },
 
-  // Valider un avis
   validerAvis: async (id) => {
-    const response = await api.put(`/admin/avis/${id}/valider`);
+    const response = await api.put(`/avis/${id}`, { valide: true });
     return response.data;
   },
 
-  // Rejeter un avis
   rejeterAvis: async (id) => {
-    const response = await api.delete(`/admin/avis/${id}`);
+    const response = await api.delete(`/avis/${id}`);
     return response.data;
   },
 };

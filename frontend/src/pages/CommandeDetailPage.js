@@ -1,240 +1,209 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import commandeService from '../services/commandeService';
+import avisService from '../services/avisService';
 
 const CommandeDetailPage = () => {
   const { id } = useParams();
   const [commande, setCommande] = useState(null);
-  const [suivis, setSuivis] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
+  
+  // État pour le formulaire d'avis
+  const [avisForm, setAvisForm] = useState({
+    note: 5,
+    commentaire: ''
+  });
+  const [avisLoading, setAvisLoading] = useState(false);
+  const [avisMessage, setAvisMessage] = useState('');
 
   useEffect(() => {
     fetchCommandeDetail();
   }, [id]);
 
   const fetchCommandeDetail = async () => {
-    setLoading(true);
-    setError('');
-
     try {
-      const commandeData = await commandeService.getCommandeById(id);
-      setCommande(commandeData);
-
-      const suivisData = await commandeService.getSuivisCommande(id);
-      setSuivis(suivisData);
+      const data = await commandeService.getCommandeById(id);
+      setCommande(data);
     } catch (err) {
       setError('Erreur lors du chargement de la commande');
+      console.error(err);
     } finally {
       setLoading(false);
     }
   };
 
-  const getStatutColor = (statut) => {
-    const colors = {
-      'en_attente': '#ffc107',
-      'accepte': '#17a2b8',
-      'en_preparation': '#007bff',
-      'en_cours_livraison': '#6f42c1',
-      'livre': '#28a745',
-      'en_attente_retour_materiel': '#fd7e14',
-      'terminee': '#28a745',
-      'annulee': '#dc3545',
-    };
-    return colors[statut] || '#6c757d';
+  const handleSubmitAvis = async (e) => {
+    e.preventDefault();
+    setAvisLoading(true);
+    setAvisMessage('');
+
+    try {
+      await avisService.createAvis({
+        commande_id: commande.id,
+        note: avisForm.note,
+        commentaire: avisForm.commentaire
+      });
+      setAvisMessage('Merci pour votre avis ! Il sera publié après validation.');
+      setAvisForm({ note: 5, commentaire: '' });
+    } catch (err) {
+      setAvisMessage('Erreur lors de l\'envoi de l\'avis.');
+      console.error(err);
+    } finally {
+      setAvisLoading(false);
+    }
   };
 
-  const getStatutLabel = (statut) => {
-    const labels = {
-      'en_attente': '⏳ En attente',
-      'accepte': '✅ Acceptée',
-      'en_preparation': '👨‍🍳 En préparation',
-      'en_cours_livraison': '🚚 En livraison',
-      'livre': '📦 Livrée',
-      'en_attente_retour_materiel': '🔄 Retour matériel',
-      'terminee': '✅ Terminée',
-      'annulee': '❌ Annulée',
-    };
-    return labels[statut] || statut;
-  };
-
-  if (loading) {
-    return <div style={{ padding: '20px', textAlign: 'center' }}>Chargement...</div>;
-  }
-
-  if (error || !commande) {
-    return (
-      <div style={{ padding: '20px' }}>
-        <p style={{ color: 'red' }}>{error || 'Commande introuvable'}</p>
-        <Link to="/mes-commandes">← Retour à mes commandes</Link>
-      </div>
-    );
-  }
+  if (loading) return <div style={{ textAlign: 'center', padding: '50px' }}>Chargement...</div>;
+  if (error) return <div style={{ textAlign: 'center', padding: '50px', color: 'red' }}>{error}</div>;
+  if (!commande) return <div style={{ textAlign: 'center', padding: '50px' }}>Commande introuvable</div>;
 
   return (
-    <div style={{ padding: '20px', maxWidth: '900px', margin: '0 auto' }}>
-      <div style={{ marginBottom: '20px' }}>
-        <Link to="/mes-commandes" style={{ color: '#007bff', textDecoration: 'none' }}>
-          ← Retour à mes commandes
-        </Link>
-      </div>
+    <div style={{ maxWidth: '800px', margin: '50px auto', padding: '20px' }}>
+      <Link to="/mes-commandes" style={{ color: '#007bff', textDecoration: 'none', marginBottom: '20px', display: 'inline-block' }}>
+        ← Retour à mes commandes
+      </Link>
 
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '30px' }}>
-        <h1 style={{ margin: 0 }}>Commande #{commande.id}</h1>
-        <div
-          style={{
-            padding: '10px 20px',
-            background: getStatutColor(commande.statut),
-            color: 'white',
-            borderRadius: '20px',
-            fontSize: '16px',
-            fontWeight: 'bold'
-          }}
-        >
-          {getStatutLabel(commande.statut)}
-        </div>
-      </div>
+      <h1 style={{ marginBottom: '30px' }}>Détail de la commande #{commande.id}</h1>
 
-      {/* Menu */}
+      {/* Informations de la commande */}
       <div style={{ 
-        background: 'white', 
-        border: '1px solid #ddd',
+        background: '#f8f9fa', 
+        padding: '20px', 
         borderRadius: '8px',
-        padding: '20px',
-        marginBottom: '20px'
+        marginBottom: '30px'
       }}>
-        <h2>📋 Menu</h2>
-        <h3>{commande.menu?.titre}</h3>
-        <p style={{ color: '#666' }}>{commande.menu?.description}</p>
+        <h2 style={{ marginBottom: '15px' }}>Informations générales</h2>
+        <p><strong>Menu :</strong> {commande.menu?.titre}</p>
+        <p><strong>Nombre de personnes :</strong> {commande.nb_personnes}</p>
+        <p><strong>Date de prestation :</strong> {new Date(commande.date_prestation).toLocaleDateString('fr-FR')}</p>
+        <p><strong>Heure :</strong> {commande.heure_prestation}</p>
+        <p><strong>Statut :</strong> <span style={{ 
+          padding: '5px 10px', 
+          borderRadius: '4px',
+          background: commande.statut === 'livree' ? '#d4edda' : commande.statut === 'en_attente' ? '#fff3cd' : '#cce5ff',
+          color: commande.statut === 'livree' ? '#155724' : commande.statut === 'en_attente' ? '#856404' : '#004085'
+        }}>{commande.statut.replace('_', ' ')}</span></p>
+        <p><strong>Prix total :</strong> {commande.prix_total} €</p>
       </div>
 
-      {/* Détails de la prestation */}
+      {/* Adresse de livraison */}
       <div style={{ 
-        background: 'white', 
-        border: '1px solid #ddd',
+        background: '#f8f9fa', 
+        padding: '20px', 
         borderRadius: '8px',
-        padding: '20px',
-        marginBottom: '20px'
+        marginBottom: '30px'
       }}>
-        <h2>🎯 Détails de la prestation</h2>
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '15px' }}>
-          <div>
-            <p><strong>📅 Date :</strong> {new Date(commande.date_prestation).toLocaleDateString('fr-FR')}</p>
-            <p><strong>🕐 Heure :</strong> {commande.heure_prestation}</p>
-            <p><strong>👥 Nombre de personnes :</strong> {commande.nb_personnes}</p>
-          </div>
-          <div>
-            <p><strong>📍 Adresse :</strong> {commande.adresse_livraison}</p>
-            <p><strong>🏙️ Ville :</strong> {commande.ville_livraison} ({commande.code_postal})</p>
-            <p><strong>🍽️ Prêt de matériel :</strong> {commande.pret_materiel ? 'Oui' : 'Non'}</p>
-          </div>
-        </div>
+        <h2 style={{ marginBottom: '15px' }}>Adresse de livraison</h2>
+        <p>{commande.adresse_livraison}</p>
+        <p>{commande.code_postal} {commande.ville_livraison}</p>
       </div>
 
-      {/* Prix */}
-      <div style={{ 
-        background: 'white', 
-        border: '1px solid #ddd',
-        borderRadius: '8px',
-        padding: '20px',
-        marginBottom: '20px'
-      }}>
-        <h2>💰 Tarification</h2>
-        <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '10px' }}>
-          <span>Menu ({commande.nb_personnes} personnes) :</span>
-          <strong>{commande.prix_menu} €</strong>
-        </div>
-        <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '10px' }}>
-          <span>Livraison {commande.distance_km && `(${commande.distance_km} km)`} :</span>
-          <strong>{commande.prix_livraison} €</strong>
-        </div>
-        {commande.reduction > 0 && (
-          <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '10px', color: '#28a745' }}>
-            <span>Réduction :</span>
-            <strong>- {commande.reduction} €</strong>
-          </div>
-        )}
-        <hr />
-        <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '20px' }}>
-          <span><strong>Total :</strong></span>
-          <strong style={{ color: '#28a745' }}>{commande.prix_total} €</strong>
-        </div>
-      </div>
-
-      {/* Historique */}
-      {suivis.length > 0 && (
+      {/* Détail du menu */}
+      {commande.menu && (
         <div style={{ 
-          background: 'white', 
-          border: '1px solid #ddd',
+          background: '#f8f9fa', 
+          padding: '20px', 
           borderRadius: '8px',
-          padding: '20px'
+          marginBottom: '30px'
         }}>
-          <h2>📜 Historique</h2>
-          <div style={{ position: 'relative', paddingLeft: '30px' }}>
-            {suivis.map((suivi, index) => (
-              <div key={suivi.id} style={{ marginBottom: '20px', position: 'relative' }}>
-                <div
-                  style={{
-                    position: 'absolute',
-                    left: '-30px',
-                    width: '12px',
-                    height: '12px',
-                    borderRadius: '50%',
-                    background: index === 0 ? '#007bff' : '#ccc',
-                    border: '2px solid white',
-                    boxShadow: '0 0 0 2px #ddd'
-                  }}
-                />
-                {index < suivis.length - 1 && (
-                  <div
-                    style={{
-                      position: 'absolute',
-                      left: '-24px',
-                      top: '12px',
-                      width: '2px',
-                      height: 'calc(100% + 20px)',
-                      background: '#ddd'
-                    }}
-                  />
-                )}
-                <div>
-                  <div style={{ fontWeight: 'bold', color: getStatutColor(suivi.statut) }}>
-                    {getStatutLabel(suivi.statut)}
-                  </div>
-                  <div style={{ fontSize: '12px', color: '#666', marginBottom: '5px' }}>
-                    {new Date(suivi.created_at).toLocaleString('fr-FR')}
-                  </div>
-                  {suivi.commentaire && (
-                    <p style={{ margin: '5px 0', color: '#333' }}>{suivi.commentaire}</p>
-                  )}
-                  <div style={{ fontSize: '12px', color: '#999' }}>
-                    Par : {suivi.createur?.prenom} {suivi.createur?.nom}
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
+          <h2 style={{ marginBottom: '15px' }}>Détail du menu</h2>
+          <p><strong>{commande.menu.titre}</strong></p>
+          <p style={{ color: '#666' }}>{commande.menu.description}</p>
+          
+          {commande.menu.plats && commande.menu.plats.length > 0 && (
+            <div style={{ marginTop: '15px' }}>
+              <strong>Plats :</strong>
+              <ul>
+                {commande.menu.plats.map(plat => (
+                  <li key={plat.id}>{plat.nom}</li>
+                ))}
+              </ul>
+            </div>
+          )}
         </div>
       )}
 
-      {/* Bouton Avis */}
-      {commande.statut === 'terminee' && !commande.avis && (
-        <div style={{ marginTop: '20px', textAlign: 'center' }}>
-          <Link
-            to={`/mes-commandes/${commande.id}/avis`}
-            style={{
-              display: 'inline-block',
-              padding: '15px 30px',
-              background: '#ffc107',
-              color: '#000',
-              textDecoration: 'none',
-              borderRadius: '8px',
-              fontSize: '16px',
-              fontWeight: 'bold'
-            }}
-          >
-            ⭐ Laisser un avis
-          </Link>
+      {/* Formulaire d'avis (seulement si commande livrée) */}
+      {commande.statut === 'livree' && (
+        <div style={{ 
+          background: '#e7f3ff', 
+          padding: '20px', 
+          borderRadius: '8px',
+          marginTop: '30px'
+        }}>
+          <h2 style={{ marginBottom: '15px' }}>Laisser un avis</h2>
+          
+          {avisMessage && (
+            <div style={{
+              padding: '10px',
+              marginBottom: '15px',
+              borderRadius: '4px',
+              background: avisMessage.includes('Erreur') ? '#f8d7da' : '#d4edda',
+              color: avisMessage.includes('Erreur') ? '#721c24' : '#155724'
+            }}>
+              {avisMessage}
+            </div>
+          )}
+
+          <form onSubmit={handleSubmitAvis}>
+            <div style={{ marginBottom: '15px' }}>
+              <label style={{ display: 'block', marginBottom: '5px', fontWeight: 'bold' }}>
+                Note :
+              </label>
+              <div style={{ fontSize: '24px' }}>
+                {[1, 2, 3, 4, 5].map(star => (
+                  <span
+                    key={star}
+                    onClick={() => setAvisForm({ ...avisForm, note: star })}
+                    style={{ 
+                      cursor: 'pointer', 
+                      color: star <= avisForm.note ? '#ffc107' : '#ddd',
+                      marginRight: '5px'
+                    }}
+                  >
+                    ⭐
+                  </span>
+                ))}
+              </div>
+            </div>
+
+            <div style={{ marginBottom: '15px' }}>
+              <label style={{ display: 'block', marginBottom: '5px', fontWeight: 'bold' }}>
+                Commentaire :
+              </label>
+              <textarea
+                value={avisForm.commentaire}
+                onChange={(e) => setAvisForm({ ...avisForm, commentaire: e.target.value })}
+                rows="4"
+                required
+                style={{ 
+                  width: '100%', 
+                  padding: '10px', 
+                  borderRadius: '4px', 
+                  border: '1px solid #ccc',
+                  fontSize: '14px'
+                }}
+                placeholder="Partagez votre expérience..."
+              />
+            </div>
+
+            <button
+              type="submit"
+              disabled={avisLoading}
+              style={{
+                padding: '10px 20px',
+                background: '#007bff',
+                color: 'white',
+                border: 'none',
+                borderRadius: '4px',
+                cursor: avisLoading ? 'not-allowed' : 'pointer',
+                fontSize: '16px'
+              }}
+            >
+              {avisLoading ? 'Envoi...' : 'Envoyer mon avis'}
+            </button>
+          </form>
         </div>
       )}
     </div>
