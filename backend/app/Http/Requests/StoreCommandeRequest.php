@@ -12,33 +12,41 @@ class StoreCommandeRequest extends FormRequest
     }
 
     public function rules()
-    {
-        return [
-            'menu_id' => ['required', 'exists:menus,id'],
-            'quantite' => ['required', 'integer', 'min:1', 'max:100'],
-            'date_livraison' => ['required', 'date', 'after:today'],
-            'heure_livraison' => ['required', 'date_format:H:i'],
-            'adresse_livraison' => ['required', 'string', 'max:500'],
-            'instructions' => ['nullable', 'string', 'max:1000'],
-        ];
-    }
+{
+    return [
+        'menu_id' => ['required', 'exists:menus,id'],
+        'nb_personnes' => ['required', 'integer', 'min:1', 'max:100'],
+        'date_prestation' => ['required', 'date', 'after:today'],
+        'heure_prestation' => ['required', 'date_format:H:i'],
+        'adresse_livraison' => ['required', 'string', 'max:500'],
+        'ville_livraison' => ['required', 'string', 'max:100'],
+        'code_postal' => ['required', 'string', 'max:10'],
+        'pret_materiel' => ['nullable', 'boolean'],
+        'instructions' => ['nullable', 'string', 'max:1000'],
+    ];
+}    
+
+
+
+
+
 
     public function messages()
-    {
-        return [
-            'menu_id.required' => 'Le menu est obligatoire.',
-            'menu_id.exists' => 'Ce menu n\'existe pas.',
-            'quantite.required' => 'La quantité est obligatoire.',
-            'quantite.integer' => 'La quantité doit être un nombre entier.',
-            'quantite.min' => 'La quantité minimale est 1.',
-            'quantite.max' => 'La quantité maximale est 100.',
-            'date_livraison.required' => 'La date de livraison est obligatoire.',
-            'date_livraison.after' => 'La date de livraison doit être dans le futur.',
-            'heure_livraison.required' => 'L\'heure de livraison est obligatoire.',
-            'heure_livraison.date_format' => 'Le format de l\'heure est invalide (HH:MM).',
-            'adresse_livraison.required' => 'L\'adresse de livraison est obligatoire.',
-            'adresse_livraison.max' => 'L\'adresse ne peut pas dépasser 500 caractères.',
-            'instructions.max' => 'Les instructions ne peuvent pas dépasser 1000 caractères.',
-        ];
-    }
+{
+    return [
+        'menu_id.required' => 'Le menu est obligatoire.',
+        'menu_id.exists' => 'Ce menu n\'existe pas.',
+        'nb_personnes.required' => 'Le nombre de personnes est obligatoire.',
+        'nb_personnes.integer' => 'Le nombre de personnes doit être un entier.',
+        'nb_personnes.min' => 'Le minimum est 1 personne.',
+        'nb_personnes.max' => 'Le maximum est 100 personnes.',
+        'date_prestation.required' => 'La date de prestation est obligatoire.',
+        'date_prestation.after' => 'La date doit être dans le futur.',
+        'heure_prestation.required' => 'L\'heure de prestation est obligatoire.',
+        'heure_prestation.date_format' => 'Le format de l\'heure est invalide (HH:MM).',
+        'adresse_livraison.required' => 'L\'adresse de livraison est obligatoire.',
+        'ville_livraison.required' => 'La ville est obligatoire.',
+        'code_postal.required' => 'Le code postal est obligatoire.',
+    ];
+}
 }

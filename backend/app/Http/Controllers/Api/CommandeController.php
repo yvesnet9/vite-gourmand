@@ -41,26 +41,39 @@ class CommandeController extends Controller
     /**
      * Créer une nouvelle commande
      */
-    public function store(StoreCommandeRequest $request)
-    {
-        $this->authorize('create', Commande::class);
+    
+public function store(StoreCommandeRequest $request)
+{
+    $this->authorize('create', Commande::class);
+    
+    $menu = \App\Models\Menu::findOrFail($request->menu_id);
+    
+    $prixMenu = $menu->prix_base * $request->nb_personnes;
+    $prixLivraison = 5 + (rand(0, 2000) / 100);
+    $prixTotal = $prixMenu + $prixLivraison;
+    
+    $commande = Commande::create([
+        'user_id' => $request->user()->id,
+        'menu_id' => $request->menu_id,
+        'nb_personnes' => $request->nb_personnes,
+        'prix_menu' => $prixMenu,
+        'prix_livraison' => $prixLivraison,
+        'prix_total' => $prixTotal,
+        'date_prestation' => $request->date_prestation,
+        'heure_prestation' => $request->heure_prestation,
+        'adresse_livraison' => $request->adresse_livraison,
+        'ville_livraison' => $request->ville_livraison,
+        'code_postal' => $request->code_postal,
+        'distance_km' => 0,
+        'reduction' => 0,
+        'pret_materiel' => $request->pret_materiel ?? false,
+        'instructions' => $request->instructions,
+        'statut' => 'en_attente',
+    ]);
+    
+    return response()->json($commande->load('menu.plats.allergenes'), 201);
+}
 
-        $menu = \App\Models\Menu::findOrFail($request->menu_id);
-
-        $commande = Commande::create([
-            'user_id' => $request->user()->id,
-            'menu_id' => $request->menu_id,
-            'quantite' => $request->quantite,
-            'prix_total' => $menu->prix * $request->quantite,
-            'date_livraison' => $request->date_livraison,
-            'heure_livraison' => $request->heure_livraison,
-            'adresse_livraison' => $request->adresse_livraison,
-            'instructions' => $request->instructions,
-            'statut' => 'en_attente',
-        ]);
-
-        return response()->json($commande->load('menu.plats.allergenes'), 201);
-    }
 
     /**
      * Mettre à jour le statut d'une commande (admin/employé)

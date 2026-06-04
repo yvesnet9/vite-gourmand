@@ -61,7 +61,7 @@ class AvisController extends Controller
         // Vérifier que la commande appartient à l'utilisateur
         $commande = \App\Models\Commande::where('id', $request->commande_id)
             ->where('user_id', $request->user()->id)
-            ->where('statut', 'livree')
+            ->where('statut', 'livre')
             ->firstOrFail();
 
         // Vérifier qu'il n'y a pas déjà un avis pour cette commande

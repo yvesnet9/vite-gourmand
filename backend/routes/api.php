@@ -37,7 +37,9 @@ Route::middleware(['throttle:api'])->group(function () {
     Route::get('/allergenes/{id}', [AllergeneController::class, 'show']);
 
     // Avis validés
+   
     Route::get('/avis', [AvisController::class, 'index']);
+    Route::get('/avis/pending', [AvisController::class, 'pending']);  // ← DÉPLACER ICI
     Route::get('/avis/{id}', [AvisController::class, 'show']);
 
     // RGPD - Routes publiques
@@ -71,10 +73,12 @@ Route::middleware(['auth:sanctum', 'throttle:api'])->group(function () {
     Route::get('/commandes/{commande_id}/suivis', [SuiviCommandeController::class, 'index']);
     Route::post('/commandes/{commande_id}/suivis', [SuiviCommandeController::class, 'store']);
 
-    // Gestion des avis (création uniquement pour les utilisateurs)
+    // Gestion des avis
+    Route::get('/avis/pending', [AvisController::class, 'pending']);  
     Route::post('/avis', [AvisController::class, 'store']);
     Route::put('/avis/{id}', [AvisController::class, 'update']);
     Route::delete('/avis/{id}', [AvisController::class, 'destroy']);
+
 
     // RGPD - Routes protégées
     Route::get('/rgpd/export-data', [RgpdController::class, 'exportData']);
@@ -107,7 +111,7 @@ Route::middleware(['auth:sanctum', 'throttle:admin'])->prefix('admin')->group(fu
     Route::delete('/allergenes/{id}', [AllergeneController::class, 'destroy']);
 
     // Avis en attente de validation
-    Route::get('/avis/pending', [AvisController::class, 'pending']);
+    
     Route::put('/avis/{id}', [AvisController::class, 'update']);
     Route::delete('/avis/{id}', [AvisController::class, 'destroy']);
 });
