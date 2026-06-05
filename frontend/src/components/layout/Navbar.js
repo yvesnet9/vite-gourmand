@@ -17,9 +17,10 @@ const Navbar = () => {
 
   return (
     <nav style={{
-      background: '#333',
+      background: '#f5ecdd',
       padding: '15px 20px',
-      color: 'white',
+      color: '#241b13',
+      borderBottom: '1px solid #e3d5bf',
       position: 'relative'
     }}>
       <div style={{
@@ -27,8 +28,9 @@ const Navbar = () => {
         justifyContent: 'space-between',
         alignItems: 'center'
       }}>
-        <Link to="/" style={{ color: 'white', textDecoration: 'none', fontSize: '20px', fontWeight: 'bold' }} onClick={closeMenu}>
-          🍽️ Vite & Gourmand
+        <Link to="/" style={{ color: '#241b13', textDecoration: 'none', fontSize: '21px', fontWeight: 700, fontFamily: "'Fraunces', Georgia, serif", letterSpacing: '-0.01em', display: 'inline-flex', alignItems: 'center', gap: '9px' }} onClick={closeMenu}>
+          <svg width="26" height="26" viewBox="0 0 28 28" fill="none" stroke="#b1492a" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" style={{ flexShrink: 0 }} aria-hidden="true"><circle cx="14" cy="14" r="5.5" /><path d="M4 4v4 M6 4v4 M5 8v16" /><path d="M24 4c-1.6 0-2.6 2.2-2.6 4.8 0 1.7 1 2.6 2 2.8 M23.4 11.6V24" /></svg>
+          Vite & Gourmand
         </Link>
 
         <button
@@ -36,7 +38,7 @@ const Navbar = () => {
           style={{
             background: 'none',
             border: 'none',
-            color: 'white',
+            color: '#241b13',
             fontSize: '28px',
             cursor: 'pointer',
             display: 'none',
@@ -48,45 +50,45 @@ const Navbar = () => {
         </button>
 
         <div style={{ display: 'flex', gap: '20px', alignItems: 'center' }} className="desktop-menu">
-          <Link to="/menus" style={{ color: 'white', textDecoration: 'none' }}>
+          <Link to="/menus" style={{ color: '#241b13', textDecoration: 'none' }}>
             Menus
           </Link>
 
           {isAuthenticated() ? (
             <>
               {!isEmployee() && (
-                <Link to="/mes-commandes" style={{ color: 'white', textDecoration: 'none' }}>
+                <Link to="/mes-commandes" style={{ color: '#241b13', textDecoration: 'none' }}>
                   Mes Commandes
                 </Link>
               )}
 
               {isEmployee() && (
-                <Link to="/dashboard-employe" style={{ color: 'white', textDecoration: 'none' }}>
+                <Link to="/dashboard-employe" style={{ color: '#241b13', textDecoration: 'none' }}>
                   🏢 Dashboard
                 </Link>
               )}
 
               {user?.role === 'administrateur' && (
                 <>
-                  <Link to="/admin/menus" style={{ color: 'white', textDecoration: 'none' }}>
+                  <Link to="/admin/menus" style={{ color: '#241b13', textDecoration: 'none' }}>
                     ⚙️ Admin Menus
                   </Link>
-                  <Link to="/admin/plats" style={{ color: 'white', textDecoration: 'none' }}>
+                  <Link to="/admin/plats" style={{ color: '#241b13', textDecoration: 'none' }}>
                     🍽️ Admin Plats
                   </Link>
-                  <Link to="/admin/allergenes" style={{ color: 'white', textDecoration: 'none' }}>
+                  <Link to="/admin/allergenes" style={{ color: '#241b13', textDecoration: 'none' }}>
                     🥜 Admin Allergènes
                   </Link>
                 </>
               )}
 
               {isEmployee() && (
-                <Link to="/admin/avis" style={{ color: 'white', textDecoration: 'none' }}>
+                <Link to="/admin/avis" style={{ color: '#241b13', textDecoration: 'none' }}>
                   ⭐ Avis
                 </Link>
               )}
 
-              <span style={{ color: '#aaa' }}>
+              <span style={{ color: '#7d6f5c' }}>
                 Bonjour {user?.prenom} {isEmployee() && `(${user?.role})`}
               </span>
 
@@ -106,11 +108,11 @@ const Navbar = () => {
             </>
           ) : (
             <>
-              <Link to="/login" style={{ color: 'white', textDecoration: 'none' }}>
+              <Link to="/login" style={{ color: '#241b13', textDecoration: 'none' }}>
                 Connexion
               </Link>
               <Link to="/register" style={{
-                background: '#28a745',
+                background: '#b1492a',
                 color: 'white',
                 padding: '8px 15px',
                 borderRadius: '4px',
@@ -130,47 +132,47 @@ const Navbar = () => {
           gap: '15px',
           marginTop: '15px',
           paddingTop: '15px',
-          borderTop: '1px solid #555'
+          borderTop: '1px solid #e3d5bf'
         }} className="mobile-menu">
-          <Link to="/menus" style={{ color: 'white', textDecoration: 'none' }} onClick={closeMenu}>
+          <Link to="/menus" style={{ color: '#241b13', textDecoration: 'none' }} onClick={closeMenu}>
             Menus
           </Link>
 
           {isAuthenticated() ? (
             <>
               {!isEmployee() && (
-                <Link to="/mes-commandes" style={{ color: 'white', textDecoration: 'none' }} onClick={closeMenu}>
+                <Link to="/mes-commandes" style={{ color: '#241b13', textDecoration: 'none' }} onClick={closeMenu}>
                   Mes Commandes
                 </Link>
               )}
 
               {isEmployee() && (
-                <Link to="/dashboard-employe" style={{ color: 'white', textDecoration: 'none' }} onClick={closeMenu}>
+                <Link to="/dashboard-employe" style={{ color: '#241b13', textDecoration: 'none' }} onClick={closeMenu}>
                   🏢 Dashboard
                 </Link>
               )}
 
               {user?.role === 'administrateur' && (
                 <>
-                  <Link to="/admin/menus" style={{ color: 'white', textDecoration: 'none' }} onClick={closeMenu}>
+                  <Link to="/admin/menus" style={{ color: '#241b13', textDecoration: 'none' }} onClick={closeMenu}>
                     ⚙️ Admin Menus
                   </Link>
-                  <Link to="/admin/plats" style={{ color: 'white', textDecoration: 'none' }} onClick={closeMenu}>
+                  <Link to="/admin/plats" style={{ color: '#241b13', textDecoration: 'none' }} onClick={closeMenu}>
                     🍽️ Admin Plats
                   </Link>
-                  <Link to="/admin/allergenes" style={{ color: 'white', textDecoration: 'none' }} onClick={closeMenu}>
+                  <Link to="/admin/allergenes" style={{ color: '#241b13', textDecoration: 'none' }} onClick={closeMenu}>
                     🥜 Admin Allergènes
                   </Link>
                 </>
               )}
 
               {isEmployee() && (
-                <Link to="/admin/avis" style={{ color: 'white', textDecoration: 'none' }} onClick={closeMenu}>
+                <Link to="/admin/avis" style={{ color: '#241b13', textDecoration: 'none' }} onClick={closeMenu}>
                   ⭐ Avis
                 </Link>
               )}
 
-              <span style={{ color: '#aaa' }}>
+              <span style={{ color: '#7d6f5c' }}>
                 Bonjour {user?.prenom} {isEmployee() && `(${user?.role})`}
               </span>
 
@@ -191,11 +193,11 @@ const Navbar = () => {
             </>
           ) : (
             <>
-              <Link to="/login" style={{ color: 'white', textDecoration: 'none' }} onClick={closeMenu}>
+              <Link to="/login" style={{ color: '#241b13', textDecoration: 'none' }} onClick={closeMenu}>
                 Connexion
               </Link>
               <Link to="/register" style={{
-                background: '#28a745',
+                background: '#b1492a',
                 color: 'white',
                 padding: '10px 15px',
                 borderRadius: '4px',

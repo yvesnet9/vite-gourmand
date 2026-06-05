@@ -11,3 +11,7 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.vg-home h1, .vg-home h2, .vg-home h3 { font-family: 'Fraunces', Georgia, serif; letter-spacing: -0.01em; }
+
+@keyframes vgscroll { from { transform: translateX(0); } to { transform: translateX(-50%); } }

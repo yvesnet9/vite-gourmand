@@ -4,8 +4,8 @@ import { Link } from 'react-router-dom';
 const Footer = () => {
   return (
     <footer style={{
-      background: '#2c3e50',
-      color: 'white',
+      background: '#241b13',
+      color: '#f5ecdd',
       padding: '60px 20px 20px'
     }}>
       <div style={{
@@ -23,10 +23,11 @@ const Footer = () => {
           {/* Colonne 1 : À propos */}
           <div>
             <h3 style={{
-              fontSize: '20px',
+              fontSize: '21px',
               marginBottom: '20px',
-              fontWeight: 'bold',
-              borderBottom: '2px solid #667eea',
+              fontWeight: 700,
+              fontFamily: "'Fraunces', Georgia, serif",
+              borderBottom: '2px solid #b1492a',
               paddingBottom: '10px',
               display: 'inline-block'
             }}>
@@ -34,7 +35,7 @@ const Footer = () => {
             </h3>
             <p style={{
               lineHeight: '1.8',
-              color: '#bdc3c7',
+              color: '#cbbfa8',
               marginTop: '20px'
             }}>
               Votre traiteur professionnel pour tous vos événements. 
@@ -45,39 +46,40 @@ const Footer = () => {
           {/* Colonne 2 : Horaires */}
           <div>
             <h3 style={{
-              fontSize: '20px',
+              fontSize: '21px',
               marginBottom: '20px',
-              fontWeight: 'bold',
-              borderBottom: '2px solid #667eea',
+              fontWeight: 700,
+              fontFamily: "'Fraunces', Georgia, serif",
+              borderBottom: '2px solid #b1492a',
               paddingBottom: '10px',
               display: 'inline-block'
             }}>
               Nos Horaires
             </h3>
-            <div style={{ marginTop: '20px', lineHeight: '2', color: '#bdc3c7' }}>
+            <div style={{ marginTop: '20px', lineHeight: '2', color: '#cbbfa8' }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '8px' }}>
                 <span>Lundi :</span>
-                <span style={{ fontWeight: 'bold', color: 'white' }}>9h00 - 18h00</span>
+                <span style={{ fontWeight: 'bold', color: '#f5ecdd' }}>9h00 - 18h00</span>
               </div>
               <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '8px' }}>
                 <span>Mardi :</span>
-                <span style={{ fontWeight: 'bold', color: 'white' }}>9h00 - 18h00</span>
+                <span style={{ fontWeight: 'bold', color: '#f5ecdd' }}>9h00 - 18h00</span>
               </div>
               <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '8px' }}>
                 <span>Mercredi :</span>
-                <span style={{ fontWeight: 'bold', color: 'white' }}>9h00 - 18h00</span>
+                <span style={{ fontWeight: 'bold', color: '#f5ecdd' }}>9h00 - 18h00</span>
               </div>
               <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '8px' }}>
                 <span>Jeudi :</span>
-                <span style={{ fontWeight: 'bold', color: 'white' }}>9h00 - 18h00</span>
+                <span style={{ fontWeight: 'bold', color: '#f5ecdd' }}>9h00 - 18h00</span>
               </div>
               <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '8px' }}>
                 <span>Vendredi :</span>
-                <span style={{ fontWeight: 'bold', color: 'white' }}>9h00 - 18h00</span>
+                <span style={{ fontWeight: 'bold', color: '#f5ecdd' }}>9h00 - 18h00</span>
               </div>
               <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '8px' }}>
                 <span>Samedi :</span>
-                <span style={{ fontWeight: 'bold', color: 'white' }}>10h00 - 16h00</span>
+                <span style={{ fontWeight: 'bold', color: '#f5ecdd' }}>10h00 - 16h00</span>
               </div>
               <div style={{ display: 'flex', justifyContent: 'space-between' }}>
                 <span>Dimanche :</span>
@@ -89,31 +91,32 @@ const Footer = () => {
           {/* Colonne 3 : Contact */}
           <div>
             <h3 style={{
-              fontSize: '20px',
+              fontSize: '21px',
               marginBottom: '20px',
-              fontWeight: 'bold',
-              borderBottom: '2px solid #667eea',
+              fontWeight: 700,
+              fontFamily: "'Fraunces', Georgia, serif",
+              borderBottom: '2px solid #b1492a',
               paddingBottom: '10px',
               display: 'inline-block'
             }}>
               Contact
             </h3>
-            <div style={{ marginTop: '20px', lineHeight: '2', color: '#bdc3c7' }}>
+            <div style={{ marginTop: '20px', lineHeight: '2', color: '#cbbfa8' }}>
               <div style={{ marginBottom: '15px' }}>
-                <div style={{ fontWeight: 'bold', color: 'white', marginBottom: '5px' }}>
+                <div style={{ fontWeight: 'bold', color: '#f5ecdd', marginBottom: '5px' }}>
                   📍 Adresse
                 </div>
                 <div>123 Rue de la Gastronomie</div>
                 <div>75001 Paris, France</div>
               </div>
               <div style={{ marginBottom: '15px' }}>
-                <div style={{ fontWeight: 'bold', color: 'white', marginBottom: '5px' }}>
+                <div style={{ fontWeight: 'bold', color: '#f5ecdd', marginBottom: '5px' }}>
                   📞 Téléphone
                 </div>
                 <div>01 23 45 67 89</div>
               </div>
               <div>
-                <div style={{ fontWeight: 'bold', color: 'white', marginBottom: '5px' }}>
+                <div style={{ fontWeight: 'bold', color: '#f5ecdd', marginBottom: '5px' }}>
                   ✉️ Email
                 </div>
                 <div>contact@vite-gourmand.fr</div>
@@ -124,10 +127,11 @@ const Footer = () => {
           {/* Colonne 4 : Liens rapides */}
           <div>
             <h3 style={{
-              fontSize: '20px',
+              fontSize: '21px',
               marginBottom: '20px',
-              fontWeight: 'bold',
-              borderBottom: '2px solid #667eea',
+              fontWeight: 700,
+              fontFamily: "'Fraunces', Georgia, serif",
+              borderBottom: '2px solid #b1492a',
               paddingBottom: '10px',
               display: 'inline-block'
             }}>
@@ -138,12 +142,12 @@ const Footer = () => {
                 <Link
                   to="/menus"
                   style={{
-                    color: '#bdc3c7',
+                    color: '#cbbfa8',
                     textDecoration: 'none',
                     transition: 'color 0.3s'
                   }}
-                  onMouseEnter={(e) => e.target.style.color = '#667eea'}
-                  onMouseLeave={(e) => e.target.style.color = '#bdc3c7'}
+                  onMouseEnter={(e) => e.target.style.color = '#b1492a'}
+                  onMouseLeave={(e) => e.target.style.color = '#cbbfa8'}
                 >
                   → Nos Menus
                 </Link>
@@ -152,12 +156,12 @@ const Footer = () => {
                 <Link
                   to="/rgpd/mentions-legales"
                   style={{
-                    color: '#bdc3c7',
+                    color: '#cbbfa8',
                     textDecoration: 'none',
                     transition: 'color 0.3s'
                   }}
-                  onMouseEnter={(e) => e.target.style.color = '#667eea'}
-                  onMouseLeave={(e) => e.target.style.color = '#bdc3c7'}
+                  onMouseEnter={(e) => e.target.style.color = '#b1492a'}
+                  onMouseLeave={(e) => e.target.style.color = '#cbbfa8'}
                 >
                   → Mentions Légales
                 </Link>
@@ -166,12 +170,12 @@ const Footer = () => {
                 <Link
                   to="/rgpd/politique-confidentialite"
                   style={{
-                    color: '#bdc3c7',
+                    color: '#cbbfa8',
                     textDecoration: 'none',
                     transition: 'color 0.3s'
                   }}
-                  onMouseEnter={(e) => e.target.style.color = '#667eea'}
-                  onMouseLeave={(e) => e.target.style.color = '#bdc3c7'}
+                  onMouseEnter={(e) => e.target.style.color = '#b1492a'}
+                  onMouseLeave={(e) => e.target.style.color = '#cbbfa8'}
                 >
                   → Politique de Confidentialité
                 </Link>
@@ -180,12 +184,12 @@ const Footer = () => {
                 <Link
                   to="/rgpd/cgv"
                   style={{
-                    color: '#bdc3c7',
+                    color: '#cbbfa8',
                     textDecoration: 'none',
                     transition: 'color 0.3s'
                   }}
-                  onMouseEnter={(e) => e.target.style.color = '#667eea'}
-                  onMouseLeave={(e) => e.target.style.color = '#bdc3c7'}
+                  onMouseEnter={(e) => e.target.style.color = '#b1492a'}
+                  onMouseLeave={(e) => e.target.style.color = '#cbbfa8'}
                 >
                   → Conditions Générales de Vente
                 </Link>
@@ -196,11 +200,11 @@ const Footer = () => {
 
         {/* Ligne de séparation */}
         <div style={{
-          borderTop: '1px solid #34495e',
+          borderTop: '1px solid #3a2f24',
           paddingTop: '20px',
           marginTop: '40px',
           textAlign: 'center',
-          color: '#bdc3c7',
+          color: '#cbbfa8',
           fontSize: '14px'
         }}>
           <p>

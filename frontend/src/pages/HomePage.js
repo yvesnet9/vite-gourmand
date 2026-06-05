@@ -20,17 +20,33 @@ const HomePage = () => {
   };
 
   return (
-    <div style={{ background: '#f5f5f5' }}>
+    <div className="vg-home" style={{ background: '#f5ecdd' }}>
+      {/* Bandeau prestations defilant */}
+      <div style={{ background: '#241b13', overflow: 'hidden', whiteSpace: 'nowrap' }}>
+        <div style={{ display: 'inline-flex', animation: 'vgscroll 28s linear infinite' }}>
+          {[0, 1].map((k) => (
+            <div key={k} style={{ display: 'inline-flex' }}>
+              {['Mariages', "Séminaires d'entreprise", 'Anniversaires', 'Cocktails dînatoires', 'Réceptions privées'].map((m) => (
+                <span key={m} style={{ display: 'inline-flex', alignItems: 'center', gap: '26px', padding: '11px 26px', color: '#f5ecdd', fontSize: '13px', letterSpacing: '0.18em', textTransform: 'uppercase', fontWeight: 600 }}>
+                  {m}
+                  <span style={{ width: '5px', height: '5px', borderRadius: '50%', background: '#b1492a', display: 'inline-block' }} />
+                </span>
+              ))}
+            </div>
+          ))}
+        </div>
+      </div>
+
       {/* Hero Section */}
       <section style={{
-        background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+        background: 'linear-gradient(135deg, #2a1c12 0%, #8f3a20 100%)',
         color: 'white',
         padding: '80px 20px',
         textAlign: 'center'
       }}>
         <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
           <h1 style={{ fontSize: '48px', marginBottom: '20px', fontWeight: 'bold' }}>
-            🍽️ Vite & Gourmand
+            Vite & Gourmand
           </h1>
           <p style={{ fontSize: '24px', marginBottom: '40px', opacity: 0.9 }}>
             Votre traiteur professionnel pour tous vos événements
@@ -41,7 +57,7 @@ const HomePage = () => {
               style={{
                 padding: '15px 40px',
                 background: 'white',
-                color: '#667eea',
+                color: '#b1492a',
                 textDecoration: 'none',
                 borderRadius: '8px',
                 fontSize: '18px',
@@ -80,7 +96,7 @@ const HomePage = () => {
             fontSize: '36px',
             textAlign: 'center',
             marginBottom: '20px',
-            color: '#333'
+            color: '#241b13'
           }}>
             À propos de Vite & Gourmand
           </h2>
@@ -89,7 +105,7 @@ const HomePage = () => {
             margin: '0 auto',
             fontSize: '18px',
             lineHeight: '1.8',
-            color: '#666',
+            color: '#6f6253',
             textAlign: 'center'
           }}>
             <p style={{ marginBottom: '20px' }}>
@@ -107,7 +123,7 @@ const HomePage = () => {
 
       {/* Notre Équipe */}
       <section style={{
-        background: '#f5f5f5',
+        background: '#f5ecdd',
         padding: '80px 20px'
       }}>
         <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
@@ -115,7 +131,7 @@ const HomePage = () => {
             fontSize: '36px',
             textAlign: 'center',
             marginBottom: '50px',
-            color: '#333'
+            color: '#241b13'
           }}>
             Notre Équipe Professionnelle
           </h2>
@@ -136,22 +152,22 @@ const HomePage = () => {
                 width: '120px',
                 height: '120px',
                 borderRadius: '50%',
-                background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+                background: '#b1492a',
                 margin: '0 auto 20px',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
                 fontSize: '48px'
               }}>
-                👨‍🍳
+                <span style={{ color: '#fff', fontSize: '34px', fontFamily: "'Fraunces', serif", fontWeight: 600, letterSpacing: '0.02em' }}>PM</span>
               </div>
-              <h3 style={{ fontSize: '24px', marginBottom: '10px', color: '#333' }}>
+              <h3 style={{ fontSize: '24px', marginBottom: '10px', color: '#241b13' }}>
                 Chef Pierre Martin
               </h3>
-              <p style={{ color: '#667eea', fontWeight: 'bold', marginBottom: '15px' }}>
+              <p style={{ color: '#b1492a', fontWeight: 'bold', marginBottom: '15px' }}>
                 Chef Exécutif
               </p>
-              <p style={{ color: '#666', lineHeight: '1.6' }}>
+              <p style={{ color: '#6f6253', lineHeight: '1.6' }}>
                 15 ans d'expérience dans la gastronomie française. Formé dans les plus grandes maisons parisiennes.
               </p>
             </div>
@@ -168,22 +184,22 @@ const HomePage = () => {
                 width: '120px',
                 height: '120px',
                 borderRadius: '50%',
-                background: 'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)',
+                background: '#5c6442',
                 margin: '0 auto 20px',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
                 fontSize: '48px'
               }}>
-                👩‍🍳
+                <span style={{ color: '#fff', fontSize: '34px', fontFamily: "'Fraunces', serif", fontWeight: 600, letterSpacing: '0.02em' }}>SD</span>
               </div>
-              <h3 style={{ fontSize: '24px', marginBottom: '10px', color: '#333' }}>
+              <h3 style={{ fontSize: '24px', marginBottom: '10px', color: '#241b13' }}>
                 Sophie Dubois
               </h3>
-              <p style={{ color: '#f5576c', fontWeight: 'bold', marginBottom: '15px' }}>
+              <p style={{ color: '#5c6442', fontWeight: 'bold', marginBottom: '15px' }}>
                 Chef Pâtissière
               </p>
-              <p style={{ color: '#666', lineHeight: '1.6' }}>
+              <p style={{ color: '#6f6253', lineHeight: '1.6' }}>
                 Spécialiste des desserts raffinés. Créatrice de pièces montées uniques pour vos événements.
               </p>
             </div>
@@ -200,22 +216,22 @@ const HomePage = () => {
                 width: '120px',
                 height: '120px',
                 borderRadius: '50%',
-                background: 'linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)',
+                background: '#a9803f',
                 margin: '0 auto 20px',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
                 fontSize: '48px'
               }}>
-                🎯
+                <span style={{ color: '#fff', fontSize: '34px', fontFamily: "'Fraunces', serif", fontWeight: 600, letterSpacing: '0.02em' }}>ML</span>
               </div>
-              <h3 style={{ fontSize: '24px', marginBottom: '10px', color: '#333' }}>
+              <h3 style={{ fontSize: '24px', marginBottom: '10px', color: '#241b13' }}>
                 Marc Leroy
               </h3>
-              <p style={{ color: '#00f2fe', fontWeight: 'bold', marginBottom: '15px' }}>
+              <p style={{ color: '#a9803f', fontWeight: 'bold', marginBottom: '15px' }}>
                 Responsable Événementiel
               </p>
-              <p style={{ color: '#666', lineHeight: '1.6' }}>
+              <p style={{ color: '#6f6253', lineHeight: '1.6' }}>
                 Expert en organisation d'événements. Coordonne chaque détail pour une prestation parfaite.
               </p>
             </div>
@@ -233,13 +249,13 @@ const HomePage = () => {
             fontSize: '36px',
             textAlign: 'center',
             marginBottom: '50px',
-            color: '#333'
+            color: '#241b13'
           }}>
             Ils Nous Font Confiance
           </h2>
           
           {avis.length === 0 ? (
-            <p style={{ textAlign: 'center', color: '#666', fontSize: '18px' }}>
+            <p style={{ textAlign: 'center', color: '#6f6253', fontSize: '18px' }}>
               Aucun avis pour le moment
             </p>
           ) : (
@@ -252,11 +268,11 @@ const HomePage = () => {
                 <div
                   key={avisItem.id}
                   style={{
-                    background: '#f9f9f9',
+                    background: '#fbf6ec',
                     borderRadius: '12px',
                     padding: '30px',
                     boxShadow: '0 2px 4px rgba(0,0,0,0.1)',
-                    borderLeft: '4px solid #667eea'
+                    borderLeft: '4px solid #b1492a'
                   }}
                 >
                   <div style={{ marginBottom: '15px' }}>
@@ -265,16 +281,16 @@ const HomePage = () => {
                   <p style={{
                     fontSize: '16px',
                     lineHeight: '1.6',
-                    color: '#666',
+                    color: '#6f6253',
                     marginBottom: '20px',
                     fontStyle: 'italic'
                   }}>
                     "{avisItem.commentaire}"
                   </p>
-                  <p style={{ color: '#333', fontWeight: 'bold' }}>
+                  <p style={{ color: '#241b13', fontWeight: 'bold' }}>
                     {avisItem.user?.prenom || 'Client'}
                   </p>
-                  <p style={{ color: '#999', fontSize: '14px' }}>
+                  <p style={{ color: '#9a8b76', fontSize: '14px' }}>
                     {new Date(avisItem.created_at).toLocaleDateString('fr-FR')}
                   </p>
                 </div>
@@ -286,7 +302,7 @@ const HomePage = () => {
 
       {/* Call to Action */}
       <section style={{
-        background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+        background: 'linear-gradient(135deg, #2a1c12 0%, #8f3a20 100%)',
         color: 'white',
         padding: '60px 20px',
         textAlign: 'center'
@@ -304,7 +320,7 @@ const HomePage = () => {
               display: 'inline-block',
               padding: '15px 40px',
               background: 'white',
-              color: '#667eea',
+              color: '#b1492a',
               textDecoration: 'none',
               borderRadius: '8px',
               fontSize: '18px',
