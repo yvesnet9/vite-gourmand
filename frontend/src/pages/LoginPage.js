@@ -7,7 +7,6 @@ const LoginPage = () => {
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
-  
   const { login } = useAuth();
   const navigate = useNavigate();
 
@@ -15,10 +14,9 @@ const LoginPage = () => {
     e.preventDefault();
     setError('');
     setLoading(true);
-
     try {
       await login({ email, password });
-      navigate('/'); // Redirection vers l'accueil
+      navigate('/');
     } catch (err) {
       setError(err.response?.data?.message || 'Erreur de connexion');
     } finally {
@@ -28,68 +26,24 @@ const LoginPage = () => {
 
   return (
     <div style={{ maxWidth: '400px', margin: '50px auto', padding: '20px' }}>
-      <h2>Connexion</h2>
-      
+      <h1>Connexion</h1>
+
       {error && (
-        <div style={{ 
-          padding: '10px', 
-          background: '#f8d7da', 
-          color: '#721c24',
-          borderRadius: '5px',
-          marginBottom: '20px'
-        }}>
+        <div role="alert" style={{ padding: '10px', background: '#f8d7da', color: '#721c24', borderRadius: '5px', marginBottom: '20px' }}>
           {error}
         </div>
       )}
 
       <form onSubmit={handleSubmit}>
         <div style={{ marginBottom: '15px' }}>
-          <label>Email :</label>
-          <input
-            type="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-            style={{ 
-              width: '100%', 
-              padding: '8px', 
-              marginTop: '5px',
-              borderRadius: '4px',
-              border: '1px solid #ccc'
-            }}
-          />
+          <label htmlFor="email">Email :</label>
+          <input id="email" type="email" value={email} onChange={(e) => setEmail(e.target.value)} required autoComplete="email" style={{ width: '100%', padding: '8px', marginTop: '5px', borderRadius: '4px', border: '1px solid #ccc' }} />
         </div>
-
         <div style={{ marginBottom: '15px' }}>
-          <label>Mot de passe :</label>
-          <input
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-            style={{ 
-              width: '100%', 
-              padding: '8px', 
-              marginTop: '5px',
-              borderRadius: '4px',
-              border: '1px solid #ccc'
-            }}
-          />
+          <label htmlFor="password">Mot de passe :</label>
+          <input id="password" type="password" value={password} onChange={(e) => setPassword(e.target.value)} required autoComplete="current-password" style={{ width: '100%', padding: '8px', marginTop: '5px', borderRadius: '4px', border: '1px solid #ccc' }} />
         </div>
-
-        <button
-          type="submit"
-          disabled={loading}
-          style={{ 
-            width: '100%', 
-            padding: '10px', 
-            background: '#007bff',
-            color: 'white',
-            border: 'none',
-            borderRadius: '4px',
-            cursor: loading ? 'not-allowed' : 'pointer'
-          }}
-        >
+        <button type="submit" disabled={loading} style={{ width: '100%', padding: '10px', background: '#0a58ca', color: 'white', border: 'none', borderRadius: '4px', cursor: loading ? 'not-allowed' : 'pointer' }}>
           {loading ? 'Connexion...' : 'Se connecter'}
         </button>
       </form>

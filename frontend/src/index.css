@@ -15,3 +15,7 @@ code {
 .vg-home h1, .vg-home h2, .vg-home h3 { font-family: 'Fraunces', Georgia, serif; letter-spacing: -0.01em; }
 
 @keyframes vgscroll { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+/* Lien d'évitement — accessibilité RGAA 12.7 */
+.skip-link { position: absolute; left: -9999px; top: 0; z-index: 1000; background: #2C5F2D; color: #fff; padding: 10px 15px; border-radius: 0 0 4px 0; }
+.skip-link:focus { left: 0; }

@@ -31,8 +31,9 @@ function App() {
     <AuthProvider>
       <Router>
         <div className="App">
+          <a href="#contenu" className="skip-link">Aller au contenu principal</a>
           <Navbar />
-          <div style={{ minHeight: 'calc(100vh - 400px)' }}>
+          <main id="contenu" tabIndex={-1} style={{ minHeight: 'calc(100vh - 400px)' }}>
             <Routes>
               {/* Routes publiques */}
               <Route path="/" element={<HomePage />} />
@@ -47,69 +48,25 @@ function App() {
               <Route path="/rgpd/cgv" element={<CgvPage />} />
 
               {/* Routes utilisateurs authentifiés */}
-              <Route path="/commander/:menuId" element={
-                <PrivateRoute>
-                  <CommanderPage />
-                </PrivateRoute>
-              } />
-              <Route path="/mes-commandes" element={
-                <PrivateRoute>
-                  <MesCommandesPage />
-                </PrivateRoute>
-              } />
-              <Route path="/mes-commandes/:id" element={
-                <PrivateRoute>
-                  <CommandeDetailPage />
-                </PrivateRoute>
-              } />
+              <Route path="/commander/:menuId" element={<PrivateRoute><CommanderPage /></PrivateRoute>} />
+              <Route path="/mes-commandes" element={<PrivateRoute><MesCommandesPage /></PrivateRoute>} />
+              <Route path="/mes-commandes/:id" element={<PrivateRoute><CommandeDetailPage /></PrivateRoute>} />
 
               {/* Routes RGPD protégées */}
-              <Route path="/mes-donnees" element={
-                <PrivateRoute>
-                  <MesDonneesPage />
-                </PrivateRoute>
-              } />
-              <Route path="/supprimer-compte" element={
-                <PrivateRoute>
-                  <SupprimerComptePage />
-                </PrivateRoute>
-              } />
+              <Route path="/mes-donnees" element={<PrivateRoute><MesDonneesPage /></PrivateRoute>} />
+              <Route path="/supprimer-compte" element={<PrivateRoute><SupprimerComptePage /></PrivateRoute>} />
 
               {/* Routes employés/admins */}
-              <Route path="/dashboard-employe" element={
-                <PrivateRoute requireEmployee>
-                  <DashboardEmployePage />
-                </PrivateRoute>
-              } />
-              <Route path="/admin/avis" element={
-                <PrivateRoute requireEmployee>
-                  <AvisAdminPage />
-                </PrivateRoute>
-              } />
+              <Route path="/dashboard-employe" element={<PrivateRoute requireEmployee><DashboardEmployePage /></PrivateRoute>} />
+              <Route path="/admin/avis" element={<PrivateRoute requireEmployee><AvisAdminPage /></PrivateRoute>} />
 
               {/* Routes admin uniquement */}
-              <Route path="/admin/menus" element={
-                <PrivateRoute requireAdmin>
-                  <MenusAdminPage />
-                </PrivateRoute>
-              } />
-              <Route path="/admin/plats" element={
-                <PrivateRoute requireAdmin>
-                  <PlatsAdminPage />
-                </PrivateRoute>
-              } />
-              <Route path="/admin/allergenes" element={
-                <PrivateRoute requireAdmin>
-                  <AllergenesAdminPage />
-                </PrivateRoute>
-              } />
-             <Route path="/admin/stats" element={
-                <PrivateRoute requireAdmin>
-                  <StatsAdminPage />
-                </PrivateRoute>
-              } />
+              <Route path="/admin/menus" element={<PrivateRoute requireAdmin><MenusAdminPage /></PrivateRoute>} />
+              <Route path="/admin/plats" element={<PrivateRoute requireAdmin><PlatsAdminPage /></PrivateRoute>} />
+              <Route path="/admin/allergenes" element={<PrivateRoute requireAdmin><AllergenesAdminPage /></PrivateRoute>} />
+              <Route path="/admin/stats" element={<PrivateRoute requireAdmin><StatsAdminPage /></PrivateRoute>} />
             </Routes>
-          </div>
+          </main>
           <Footer />
         </div>
       </Router>

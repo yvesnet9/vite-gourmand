@@ -35,6 +35,9 @@ const Navbar = () => {
 
         <button
           onClick={() => setIsMenuOpen(!isMenuOpen)}
+          aria-label="Ouvrir le menu de navigation"
+          aria-expanded={isMenuOpen}
+          aria-controls="navbar-mobile"
           style={{
             background: 'none',
             border: 'none',
@@ -138,7 +141,7 @@ const Navbar = () => {
           marginTop: '15px',
           paddingTop: '15px',
           borderTop: '1px solid #e3d5bf'
-        }} className="mobile-menu">
+        }} className="mobile-menu" id="navbar-mobile">
           <Link to="/menus" style={{ color: '#241b13', textDecoration: 'none' }} onClick={closeMenu}>
             Menus
           </Link>
