@@ -86,7 +86,7 @@ Route::middleware(['auth:sanctum', 'throttle:api'])->group(function () {
 });
 
 // Routes Admin/Employé (rate limit plus élevé : 100 requêtes/minute)
-Route::middleware(['auth:sanctum', 'throttle:admin'])->prefix('admin')->group(function () {
+Route::middleware(['auth:sanctum', 'throttle:admin', \App\Http\Middleware\CheckRole::class.':administrateur,employe'])->prefix('admin')->group(function () {
     Route::get('/stats/commandes-par-menu', [AdminStatsController::class, 'commandesParMenu']);
 
     // CRUD complet pour les menus
