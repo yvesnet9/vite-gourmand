@@ -37,3 +37,4 @@ npm-debug.log*
 *.bak[0-9]
 vendor/
 node_modules/
+.env.testing
