@@ -9,13 +9,12 @@ use App\Http\Controllers\Api\CommandeController;
 use App\Http\Controllers\Api\SuiviCommandeController;
 use App\Http\Controllers\Api\AvisController;
 use App\Http\Controllers\Api\RgpdController;
-
+use App\Http\Controllers\AdminStatsController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
 |--------------------------------------------------------------------------
-*/
-
+*/ 
 // Routes publiques - Authentification (rate limit strict : 5 tentatives/minute)
 Route::middleware(['throttle:login'])->group(function () {
     Route::post('/register', [AuthController::class, 'register']);
@@ -88,6 +87,7 @@ Route::middleware(['auth:sanctum', 'throttle:api'])->group(function () {
 
 // Routes Admin/Employé (rate limit plus élevé : 100 requêtes/minute)
 Route::middleware(['auth:sanctum', 'throttle:admin'])->prefix('admin')->group(function () {
+    Route::get('/stats/commandes-par-menu', [AdminStatsController::class, 'commandesParMenu']);
 
     // CRUD complet pour les menus
     Route::get('/menus', [MenuController::class, 'index']);

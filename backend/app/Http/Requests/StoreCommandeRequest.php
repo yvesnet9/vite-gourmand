@@ -22,6 +22,7 @@ class StoreCommandeRequest extends FormRequest
         'ville_livraison' => ['required', 'string', 'max:100'],
         'code_postal' => ['required', 'string', 'max:10'],
         'pret_materiel' => ['nullable', 'boolean'],
+        'distance_km' => ['nullable', 'numeric', 'min:0'],
         'instructions' => ['nullable', 'string', 'max:1000'],
     ];
 }    

@@ -21,6 +21,7 @@ const CommanderPage = () => {
     adresse_livraison: user?.adresse || '',
     ville_livraison: '',
     code_postal: '',
+    distance_km: '',
     pret_materiel: false,
   });
 
@@ -36,7 +37,7 @@ const CommanderPage = () => {
 
   useEffect(() => {
     calculerPrix();
-  }, [formData.nb_personnes, menu]);
+  }, [formData.nb_personnes, formData.ville_livraison, formData.distance_km, menu]);
 
   const fetchMenu = async () => {
     try {
@@ -51,17 +52,27 @@ const CommanderPage = () => {
 
   const calculerPrix = () => {
     if (!menu || !formData.nb_personnes) {
-      setCalcul({ prix_menu: 0, prix_livraison: 0, prix_total: 0 });
+      setCalcul({ prix_menu: 0, prix_livraison: 0, reduction: 0, prix_total: 0 });
       return;
     }
 
-    const prixMenu = menu.prix_base * parseInt(formData.nb_personnes);
-    const prixLivraison = 5 + (Math.random() * 20);
-    const prixTotal = prixMenu + prixLivraison;
+    const nbPersonnes = parseInt(formData.nb_personnes);
+    const prixMenu = menu.prix_base * nbPersonnes;
+
+    // Livraison : 5 EUR dans Bordeaux, sinon 5 EUR + 0,59 EUR/km
+    const dansBordeaux = (formData.ville_livraison || '').trim().toLowerCase() === 'bordeaux';
+    const distanceKm = parseFloat(formData.distance_km) || 0;
+    const prixLivraison = dansBordeaux ? 5 : 5 + (0.59 * distanceKm);
+
+    // Remise : -10% si nb_personnes >= minimum du menu + 5
+    const reduction = nbPersonnes >= (menu.nb_personne_min + 5) ? prixMenu * 0.10 : 0;
+
+    const prixTotal = prixMenu + prixLivraison - reduction;
 
     setCalcul({
       prix_menu: prixMenu.toFixed(2),
       prix_livraison: prixLivraison.toFixed(2),
+      reduction: reduction.toFixed(2),
       prix_total: prixTotal.toFixed(2),
     });
   };
@@ -237,7 +248,23 @@ const CommanderPage = () => {
           </label>
         </div>
 
-        {formData.nb_personnes && (
+       
+        <div style={{ marginBottom: '20px' }}>
+          <label style={{ display: 'block', marginBottom: '5px', fontWeight: 'bold' }}>
+            Distance de livraison (km) :
+          </label>
+          <input
+            type="number"
+            name="distance_km"
+            min="0"
+            step="0.1"
+            value={formData.distance_km}
+            onChange={handleChange}
+            placeholder="0"
+            style={{ width: '100%', padding: '10px', borderRadius: '4px', border: '1px solid #ccc' }}
+          />
+          <small style={{ color: '#666' }}>0 dans Bordeaux ; sinon 0,59 €/km en plus des 5 € de base.</small>
+        </div>         {formData.nb_personnes && (
           <div style={{ 
             background: '#e7f3ff', 
             padding: '20px', 
@@ -253,6 +280,12 @@ const CommanderPage = () => {
               <span>Livraison :</span>
               <strong>{calcul.prix_livraison} €</strong>
             </div>
+            {parseFloat(calcul.reduction) > 0 && (
+              <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '10px' }}>
+                <span>Remise (−10 %) :</span>
+                <strong style={{ color: '#28a745' }}>−{calcul.reduction} €</strong>
+              </div>
+            )}
             <hr />
             <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '20px' }}>
               <span><strong>Total :</strong></span>

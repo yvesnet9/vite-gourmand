@@ -77,6 +77,11 @@ return [
             'search_path' => 'public',
             'sslmode' => 'prefer',
         ],
+          'mongodb' => [
+           'driver' => 'mongodb',
+          'dsn' => env('MONGODB_URI'),
+          'database' => env('MONGODB_DATABASE', 'vite_gourmand_stats'),
+        ],
 
         'sqlsrv' => [
             'driver' => 'sqlsrv',

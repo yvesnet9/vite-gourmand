@@ -16,6 +16,7 @@ import MenusAdminPage from './pages/admin/MenusAdminPage';
 import PlatsAdminPage from './pages/admin/PlatsAdminPage';
 import AllergenesAdminPage from './pages/admin/AllergenesAdminPage';
 import AvisAdminPage from './pages/admin/AvisAdminPage';
+import StatsAdminPage from './pages/admin/StatsAdminPage';
 import PrivateRoute from './components/PrivateRoute';
 
 // Pages RGPD
@@ -100,6 +101,11 @@ function App() {
               <Route path="/admin/allergenes" element={
                 <PrivateRoute requireAdmin>
                   <AllergenesAdminPage />
+                </PrivateRoute>
+              } />
+             <Route path="/admin/stats" element={
+                <PrivateRoute requireAdmin>
+                  <StatsAdminPage />
                 </PrivateRoute>
               } />
             </Routes>

@@ -76,6 +76,11 @@ const Navbar = () => {
                   <Link to="/admin/plats" style={{ color: '#241b13', textDecoration: 'none' }}>
                     🍽️ Admin Plats
                   </Link>
+
+                 <Link to="/admin/stats" style={{ color: '#241b13', textDecoration: 'none' }}>
+                 📊 Statistiques
+                  </Link>
+
                   <Link to="/admin/allergenes" style={{ color: '#241b13', textDecoration: 'none' }}>
                     🥜 Admin Allergènes
                   </Link>
@@ -159,6 +164,9 @@ const Navbar = () => {
                   </Link>
                   <Link to="/admin/plats" style={{ color: '#241b13', textDecoration: 'none' }} onClick={closeMenu}>
                     🍽️ Admin Plats
+                  </Link>
+                 <Link to="/admin/stats" style={{ color: '#241b13', textDecoration: 'none' }} onClick={closeMenu}>
+                📊 Statistiques
                   </Link>
                   <Link to="/admin/allergenes" style={{ color: '#241b13', textDecoration: 'none' }} onClick={closeMenu}>
                     🥜 Admin Allergènes
