@@ -84,7 +84,7 @@ const DashboardEmployePage = () => {
 
   return (
     <div style={{ padding: '20px', maxWidth: '1200px', margin: '0 auto' }}>
-      <h1>🏢 Dashboard Employé</h1>
+      <h1>🏢 Dashboard {user?.role === 'administrateur' ? 'Administrateur' : 'Employé'}</h1>
       <p>Bienvenue {user?.prenom} - Gestion des commandes</p>
 
       {/* Filtres */}
