@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Charte graphique — Vite &amp; Gourmand</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --creme:#f5ecdd; --brun:#241b13; --terracotta:#b1492a; --beige:#e3d5bf;
+    --brun-attenue:#7d6f5c; --vert:#2C5F2D; --blanc:#ffffff;
+    --display:"Fraunces",Georgia,"Times New Roman",serif;
+    --corps:-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:#f3f4f6;color:var(--brun);font-family:var(--corps);line-height:1.55;padding:32px 16px}
+  .wrap{max-width:900px;margin:0 auto;background:var(--blanc);padding:34px 38px;border-radius:10px;box-shadow:0 1px 3px rgba(0,0,0,.06)}
+  header.doc{border-bottom:3px solid var(--terracotta);padding-bottom:16px;margin-bottom:8px}
+  header.doc .brand{display:flex;align-items:center;gap:12px}
+  header.doc h1{font-family:var(--display);font-weight:700;font-size:30px;margin:0;color:var(--brun)}
+  header.doc p{margin:6px 0 0;color:var(--brun-attenue);font-size:14px}
+
+  h2.sec{font-family:var(--display);font-weight:600;font-size:21px;color:var(--terracotta);
+    margin:34px 0 14px;padding-bottom:6px;border-bottom:1px solid var(--beige)}
+  p.intro{color:var(--brun-attenue);font-size:14px;margin:0 0 16px}
+
+  /* logo */
+  .logo-mark{display:flex;align-items:center;gap:12px}
+  .wordmark{font-family:var(--display);font-weight:700;font-size:26px;color:var(--brun)}
+  .wordmark .amp{color:var(--terracotta)}
+  .logo-variants{display:flex;gap:18px;flex-wrap:wrap;margin-top:14px}
+  .logo-chip{border:1px solid var(--beige);border-radius:10px;padding:16px 20px;display:flex;align-items:center;gap:10px}
+  .logo-chip.dark{background:var(--brun)}
+  .logo-chip.dark .wordmark{color:#fff}
+  .logo-chip.cream{background:var(--creme)}
+
+  /* palette */
+  .palette{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+  .sw{border:1px solid #eee;border-radius:10px;overflow:hidden}
+  .sw .chip{height:64px}
+  .sw .meta{padding:8px 10px}
+  .sw .name{font-size:13px;font-weight:600}
+  .sw .hex{font-size:12px;color:var(--brun-attenue);font-family:ui-monospace,Menlo,Consolas,monospace}
+  .sw .use{font-size:11px;color:var(--brun-attenue);margin-top:2px}
+
+  .states{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:14px}
+  .state{border-radius:8px;padding:10px 12px;font-size:12px;font-weight:600}
+
+  /* typo */
+  .type-row{display:flex;align-items:baseline;gap:14px;border-bottom:1px dashed var(--beige);padding:10px 0}
+  .type-row .tag{width:140px;flex:none;font-size:12px;color:var(--brun-attenue);font-family:ui-monospace,Menlo,Consolas,monospace}
+  .d1{font-family:var(--display);font-weight:700;font-size:32px}
+  .d2{font-family:var(--display);font-weight:600;font-size:24px}
+  .d3{font-family:var(--display);font-weight:600;font-size:19px}
+  .bd{font-family:var(--corps);font-size:16px}
+  .sm{font-family:var(--corps);font-size:13px;color:var(--brun-attenue)}
+
+  /* composants */
+  .demo{display:flex;flex-wrap:wrap;gap:12px;align-items:center}
+  .btn{font-family:var(--corps);font-size:14px;font-weight:600;padding:9px 18px;border-radius:6px;border:1px solid transparent;cursor:default}
+  .btn.primary{background:var(--terracotta);color:#fff}
+  .btn.secondary{background:#fff;color:var(--brun);border-color:var(--beige)}
+  .btn.danger{background:#dc3545;color:#fff}
+  .field{max-width:280px}
+  .field label{display:block;font-size:13px;margin-bottom:4px;color:var(--brun)}
+  .field input{width:100%;padding:8px 10px;border:1px solid #ccc;border-radius:4px;font-size:14px;font-family:var(--corps)}
+  .badge{display:inline-block;font-size:12px;font-weight:600;padding:3px 10px;border-radius:20px}
+  .b-att{background:#fef3c7;color:#92400e}
+  .b-prep{background:#dbeafe;color:#1e40af}
+  .b-liv{background:#dcfce7;color:#166534}
+  .b-ann{background:#f8d7da;color:#721c24}
+  .menu-card{max-width:240px;border:1px solid var(--beige);border-radius:10px;overflow:hidden;background:#fff}
+  .menu-card .img{height:80px;background:var(--creme)}
+  .menu-card .body{padding:12px}
+  .menu-card .t{font-family:var(--display);font-weight:600;font-size:16px}
+  .menu-card .price{font-weight:700;color:var(--terracotta);margin-top:6px}
+  .navbar-demo{display:flex;align-items:center;justify-content:space-between;background:var(--creme);
+    border:1px solid var(--beige);border-radius:8px;padding:10px 16px}
+  .navbar-demo .links{display:flex;gap:18px;font-size:13px;color:var(--brun)}
+
+  .tokens{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+  .token{border:1px solid var(--beige);border-radius:8px;padding:10px 12px;font-size:13px}
+  .token b{font-family:ui-monospace,Menlo,Consolas,monospace}
+
+  ul.tips{font-size:13.5px;color:var(--brun);margin:6px 0 0;padding-left:18px}
+  ul.tips li{margin:4px 0}
+
+  @media print{
+    body{background:#fff;padding:0}
+    .wrap{box-shadow:none;border-radius:0;max-width:none;padding:0}
+    h2.sec{break-after:avoid}
+    section{break-inside:avoid}
+    @page{size:A4;margin:14mm}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="doc">
+    <div class="brand">
+      <svg width="34" height="34" viewBox="0 0 28 28" fill="none" stroke="#b1492a" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <circle cx="14" cy="15" r="5.4"/>
+        <path d="M5 4v5 M7.4 4v5 M6.2 9v15"/>
+        <path d="M22.6 4c-1.5 0-2.6 2.1-2.6 4.7 0 1.6 1 2.5 2.1 2.7 M22.1 11.4V24"/>
+      </svg>
+      <h1>Charte graphique</h1>
+    </div>
+    <p>Vite &amp; Gourmand — Application de traiteur événementiel · Jamesy MUKUNA MUKENKETAYI — Titre DWWM — Session Juin–Juillet 2026</p>
+  </header>
+
+  <section>
+    <h2 class="sec">1. Logo</h2>
+    <p class="intro">Un pictogramme « couvert + brin végétal » en terracotta, associé au nom en <i>Fraunces</i>. Le pictogramme peut s'utiliser seul (favicon, app).</p>
+    <div class="logo-mark">
+      <svg width="40" height="40" viewBox="0 0 28 28" fill="none" stroke="#b1492a" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <circle cx="14" cy="15" r="5.4"/>
+        <path d="M5 4v5 M7.4 4v5 M6.2 9v15"/>
+        <path d="M22.6 4c-1.5 0-2.6 2.1-2.6 4.7 0 1.6 1 2.5 2.1 2.7 M22.1 11.4V24"/>
+      </svg>
+      <span class="wordmark">Vite <span class="amp">&amp;</span> Gourmand</span>
+    </div>
+    <div class="logo-variants">
+      <div class="logo-chip cream"><span class="wordmark" style="font-size:20px">Vite <span class="amp">&amp;</span> Gourmand</span></div>
+      <div class="logo-chip dark">
+        <svg width="22" height="22" viewBox="0 0 28 28" fill="none" stroke="#b1492a" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="14" cy="15" r="5.4"/><path d="M6.2 9v15 M22.1 11.4V24"/></svg>
+        <span class="wordmark" style="font-size:20px">Vite <span class="amp" style="color:#d98b6f">&amp;</span> Gourmand</span>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2 class="sec">2. Palette de couleurs</h2>
+    <p class="intro">Une identité chaleureuse et artisanale : fond crème, texte brun, accent terracotta, touche verte « nature/bio ».</p>
+    <div class="palette">
+      <div class="sw"><div class="chip" style="background:#f5ecdd"></div><div class="meta"><div class="name">Crème</div><div class="hex">#F5ECDD</div><div class="use">Fond principal</div></div></div>
+      <div class="sw"><div class="chip" style="background:#241b13"></div><div class="meta"><div class="name">Brun foncé</div><div class="hex">#241B13</div><div class="use">Texte principal</div></div></div>
+      <div class="sw"><div class="chip" style="background:#b1492a"></div><div class="meta"><div class="name">Terracotta</div><div class="hex">#B1492A</div><div class="use">Accent, actions, logo</div></div></div>
+      <div class="sw"><div class="chip" style="background:#e3d5bf"></div><div class="meta"><div class="name">Beige</div><div class="hex">#E3D5BF</div><div class="use">Bordures, séparateurs</div></div></div>
+      <div class="sw"><div class="chip" style="background:#7d6f5c"></div><div class="meta"><div class="name">Brun atténué</div><div class="hex">#7D6F5C</div><div class="use">Texte secondaire</div></div></div>
+      <div class="sw"><div class="chip" style="background:#2C5F2D"></div><div class="meta"><div class="name">Vert nature</div><div class="hex">#2C5F2D</div><div class="use">Secondaire (bio), thème</div></div></div>
+      <div class="sw"><div class="chip" style="background:#ffffff;border:1px solid #eee"></div><div class="meta"><div class="name">Blanc</div><div class="hex">#FFFFFF</div><div class="use">Cartes, surfaces</div></div></div>
+    </div>
+    <p class="intro" style="margin:16px 0 6px"><b>Couleurs d'état</b> (messages &amp; statuts) :</p>
+    <div class="states">
+      <div class="state" style="background:#dcfce7;color:#166534">Succès · #166534</div>
+      <div class="state" style="background:#dbeafe;color:#1e40af">Information · #1E40AF</div>
+      <div class="state" style="background:#fef3c7;color:#92400e">Alerte · #92400E</div>
+      <div class="state" style="background:#f8d7da;color:#721c24">Erreur · #721C24</div>
+    </div>
+  </section>
+
+  <section>
+    <h2 class="sec">3. Typographie</h2>
+    <p class="intro"><b>Fraunces</b> (serif, Google Fonts) pour les titres et le logo — caractère artisanal. Police <b>système sans-serif</b> pour le corps de texte — lisibilité optimale.</p>
+    <div class="type-row"><span class="tag">Display / H1 · Fraunces 700 · 32px</span><span class="d1">Vite &amp; Gourmand</span></div>
+    <div class="type-row"><span class="tag">Titre / H2 · Fraunces 600 · 24px</span><span class="d2">Nos menus événementiels</span></div>
+    <div class="type-row"><span class="tag">Sous-titre / H3 · Fraunces 600 · 19px</span><span class="d3">Détail d'un menu</span></div>
+    <div class="type-row"><span class="tag">Corps · Système · 16px</span><span class="bd">Consultez nos menus et commandez en quelques clics pour votre événement.</span></div>
+    <div class="type-row"><span class="tag">Petit / légende · 13px</span><span class="sm">Prix indicatif, hors frais de livraison. Minimum de personnes selon le menu.</span></div>
+  </section>
+
+  <section>
+    <h2 class="sec">4. Composants d'interface</h2>
+    <p class="intro">Boutons</p>
+    <div class="demo">
+      <span class="btn primary">Commander ce menu</span>
+      <span class="btn secondary">Voir le détail</span>
+      <span class="btn danger">Annuler</span>
+    </div>
+    <p class="intro" style="margin-top:18px">Champ de formulaire</p>
+    <div class="field"><label for="d">Adresse de livraison</label><input id="d" type="text" placeholder="Saisir une adresse…"></div>
+    <p class="intro" style="margin-top:18px">Badges de statut</p>
+    <div class="demo">
+      <span class="badge b-att">en attente</span>
+      <span class="badge b-prep">en préparation</span>
+      <span class="badge b-liv">livrée</span>
+      <span class="badge b-ann">annulée</span>
+    </div>
+    <p class="intro" style="margin-top:18px">Carte menu &amp; barre de navigation</p>
+    <div class="demo" style="align-items:flex-start;gap:18px">
+      <div class="menu-card"><div class="img"></div><div class="body"><div class="t">Menu Prestige</div><div class="sm" style="margin-top:4px">Buffet gastronomique, 10 pers. min.</div><div class="price">à partir de 350 €</div></div></div>
+      <div style="flex:1;min-width:240px">
+        <div class="navbar-demo">
+          <span class="wordmark" style="font-size:17px">Vite <span class="amp">&amp;</span> Gourmand</span>
+          <span class="links"><span>Menus</span><span>Connexion</span><span style="color:var(--terracotta);font-weight:600">Inscription</span></span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2 class="sec">5. Espacements &amp; rayons</h2>
+    <div class="tokens">
+      <div class="token"><b>Rayon boutons / champs</b> — 4 à 6 px</div>
+      <div class="token"><b>Rayon cartes</b> — 8 à 10 px</div>
+      <div class="token"><b>Échelle d'espacement</b> — 4 / 8 / 12 / 16 / 24 px</div>
+      <div class="token"><b>Largeur de contenu</b> — ~960 px centré</div>
+    </div>
+  </section>
+
+  <section>
+    <h2 class="sec">6. Accessibilité &amp; ton</h2>
+    <ul class="tips">
+      <li><b>Contrastes</b> : combinaisons texte/fond visant un ratio ≥ 4,5:1 (brun foncé sur crème, blanc sur terracotta) — cohérent avec le travail RGAA.</li>
+      <li><b>Focus visible</b> et libellés explicites sur tous les champs ; intitulés de liens compréhensibles hors contexte.</li>
+      <li><b>Ton</b> : convivial, artisanal et rassurant — on parle « menus », « événement », « livraison », pas de jargon technique.</li>
+      <li><b>Imagerie</b> : photos de plats chaleureuses, lumière naturelle, cadrage généreux ; le crème et le terracotta rappellent la cuisine et le fait-maison.</li>
+    </ul>
+  </section>
+
+  <p class="sm" style="margin-top:26px;text-align:center">Charte graphique — Vite &amp; Gourmand · identité relevée dans l'application en production.</p>
+
+</div>
+</body>
+</html>

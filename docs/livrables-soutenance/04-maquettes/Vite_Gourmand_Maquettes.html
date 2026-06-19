@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Maquettes — Vite &amp; Gourmand</title>
+<style>
+  :root{
+    --ink:#1f2937; --muted:#6b7280; --line:#cbd5e1; --fill:#e5e7eb;
+    --fill2:#f1f5f9; --accent:#b1492a; --accent-soft:#f0ddd3; --paper:#ffffff;
+  }
+  *{box-sizing:border-box}
+  body{
+    margin:0; background:#f3f4f6; color:var(--ink);
+    font-family:-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;
+    line-height:1.5; padding:32px 16px;
+  }
+  .wrap{max-width:980px;margin:0 auto}
+  header.doc{margin-bottom:28px;border-bottom:2px solid var(--ink);padding-bottom:14px}
+  header.doc h1{margin:0 0 4px;font-size:26px;letter-spacing:-.01em}
+  header.doc p{margin:0;color:var(--muted);font-size:14px}
+  .legende{font-size:12.5px;color:var(--muted);margin-top:10px}
+  .legende b{color:var(--ink)}
+
+  .maquette{background:var(--paper);border:1px solid #e2e8f0;border-radius:10px;
+    padding:18px 18px 22px;margin:22px 0;box-shadow:0 1px 2px rgba(0,0,0,.04);break-inside:avoid}
+  .maquette > h2{font-size:16px;margin:0 0 2px;display:flex;align-items:center;gap:8px}
+  .maquette > h2 .num{background:var(--accent);color:#fff;font-size:12px;font-weight:700;
+    width:24px;height:24px;border-radius:6px;display:inline-flex;align-items:center;justify-content:center}
+  .maquette > .sous{color:var(--muted);font-size:13px;margin:0 0 14px 32px}
+  .notes{font-size:12.5px;color:var(--muted);margin:12px 0 0 32px;padding-left:16px}
+  .notes li{margin:2px 0}
+
+  /* --- cadre "écran" --- */
+  .frame{border:1.5px solid var(--line);border-radius:10px;overflow:hidden;background:#fff}
+  .frame .top{background:var(--fill2);border-bottom:1px solid var(--line);
+    padding:7px 10px;display:flex;align-items:center;gap:6px}
+  .dot{width:9px;height:9px;border-radius:50%;background:#cbd5e1}
+  .urlbar{flex:1;margin-left:8px;height:14px;background:#fff;border:1px solid var(--line);border-radius:7px}
+  .screen{padding:14px}
+
+  /* éléments wireframe */
+  .nav{display:flex;align-items:center;justify-content:space-between;
+    padding:8px 12px;border:1px dashed var(--line);border-radius:8px;background:var(--fill2);margin-bottom:12px}
+  .logo{font-weight:700;color:var(--accent);font-size:14px}
+  .links{display:flex;gap:14px}
+  .links span{height:10px;width:54px;background:var(--fill);border-radius:5px;display:block}
+  .bar{height:10px;background:var(--fill);border-radius:5px;display:block}
+  .bar.dark{background:#cbd5e1}
+  .box{background:var(--fill);border:1px dashed var(--line);border-radius:8px}
+  .btn{display:inline-block;background:var(--accent);color:#fff;font-size:11px;font-weight:600;
+    padding:7px 14px;border-radius:6px}
+  .btn.ghost{background:#fff;border:1px solid var(--line);color:var(--muted)}
+  .chip{display:inline-block;background:var(--accent-soft);color:var(--accent);
+    font-size:10px;padding:3px 8px;border-radius:20px;margin-right:5px}
+  .field{margin-bottom:10px}
+  .field .lbl{font-size:10.5px;color:var(--muted);margin-bottom:3px}
+  .field .inp{height:24px;border:1px solid var(--line);border-radius:6px;background:#fff}
+  .field .inp.area{height:48px}
+  .grid{display:grid;gap:10px}
+  .center-card{max-width:300px;margin:6px auto;border:1px dashed var(--line);border-radius:8px;padding:14px;background:var(--fill2)}
+  .stat{flex:1;border:1px dashed var(--line);border-radius:8px;padding:10px;background:var(--fill2)}
+  .stat .big{height:18px;width:60%;background:#cbd5e1;border-radius:5px;margin-bottom:6px}
+  .row{display:flex;gap:10px}
+  table.wf{width:100%;border-collapse:collapse;font-size:11px}
+  table.wf th,table.wf td{border:1px solid var(--line);padding:6px 8px;text-align:left;color:var(--muted)}
+  table.wf th{background:var(--fill2)}
+  .badge{font-size:9.5px;padding:2px 7px;border-radius:20px;background:var(--fill);color:var(--muted)}
+  .badge.green{background:#dcfce7;color:#166534}
+  .badge.orange{background:#fef3c7;color:#92400e}
+  .badge.blue{background:#dbeafe;color:#1e40af}
+  .chart{display:flex;align-items:flex-end;gap:14px;height:110px;padding:8px 4px;border-bottom:1px solid var(--line)}
+  .chart .col{flex:1;background:var(--accent-soft);border:1px solid var(--accent);border-bottom:none;border-radius:4px 4px 0 0}
+
+  /* --- mobile --- */
+  .phones{display:flex;gap:18px;flex-wrap:wrap;justify-content:center}
+  .phone{width:200px;border:1.5px solid var(--line);border-radius:20px;padding:8px;background:#fff}
+  .phone .notch{width:50px;height:5px;background:var(--line);border-radius:5px;margin:2px auto 8px}
+  .phone .pscreen{padding:6px}
+  .phone .pnav{display:flex;align-items:center;justify-content:space-between;border:1px dashed var(--line);border-radius:6px;padding:6px 8px;background:var(--fill2);margin-bottom:8px}
+  .phone .burger{font-size:14px;color:var(--muted)}
+
+  @media print{
+    body{background:#fff;padding:0}
+    .maquette{box-shadow:none;border:none;page-break-inside:avoid;margin:0 0 18px}
+    @page{size:A4;margin:14mm}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="doc">
+    <h1>Maquettes — Vite &amp; Gourmand</h1>
+    <p>Wireframes basse-fidélité des écrans principaux · Application de traiteur événementiel</p>
+    <p>Jamesy MUKUNA MUKENKETAYI — Titre DWWM — Session Juin–Juillet 2026</p>
+    <p class="legende"><b>Lecture :</b> les blocs gris représentent des zones de contenu (textes, images), les cadres en pointillés des conteneurs, les rectangles verts les actions principales. Ces maquettes décrivent la <b>structure</b> des pages, pas le design final.</p>
+  </header>
+
+  <!-- 1. Accueil -->
+  <section class="maquette">
+    <h2><span class="num">1</span> Page d'accueil</h2>
+    <p class="sous">Point d'entrée public — présentation et accès au catalogue.</p>
+    <div class="frame">
+      <div class="top"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="urlbar"></span></div>
+      <div class="screen">
+        <div class="nav"><span class="logo">Vite &amp; Gourmand</span><span class="links"><span></span><span></span><span></span></span></div>
+        <div class="box" style="height:120px;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:10px;text-align:center">
+          <span class="bar dark" style="width:55%"></span>
+          <span class="bar" style="width:38%"></span>
+          <span class="btn">Voir les menus</span>
+        </div>
+        <div class="grid" style="grid-template-columns:1fr 1fr 1fr;margin-top:12px">
+          <div class="box" style="height:70px"></div>
+          <div class="box" style="height:70px"></div>
+          <div class="box" style="height:70px"></div>
+        </div>
+      </div>
+    </div>
+    <ul class="notes">
+      <li>Barre de navigation présente sur toutes les pages (logo + liens Menus / Connexion / Inscription).</li>
+      <li>Bandeau d'accroche (slogan) avec appel à l'action vers le catalogue.</li>
+    </ul>
+  </section>
+
+  <!-- 2. Liste des menus -->
+  <section class="maquette">
+    <h2><span class="num">2</span> Liste des menus (avec filtres)</h2>
+    <p class="sous">Catalogue filtrable par prix, thème, régime et nombre de personnes.</p>
+    <div class="frame">
+      <div class="top"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="urlbar"></span></div>
+      <div class="screen">
+        <div class="nav"><span class="logo">Vite &amp; Gourmand</span><span class="links"><span></span><span></span></span></div>
+        <div class="box" style="padding:10px;margin-bottom:12px">
+          <div class="row">
+            <div class="field" style="flex:1"><div class="lbl">Prix max (€)</div><div class="inp"></div></div>
+            <div class="field" style="flex:1"><div class="lbl">Thème</div><div class="inp"></div></div>
+            <div class="field" style="flex:1"><div class="lbl">Régime</div><div class="inp"></div></div>
+            <div class="field" style="flex:1"><div class="lbl">Nb personnes</div><div class="inp"></div></div>
+          </div>
+          <span class="btn">Filtrer</span> <span class="btn ghost">Réinitialiser</span>
+        </div>
+        <div class="grid" style="grid-template-columns:1fr 1fr 1fr">
+          <div class="box" style="padding:10px"><span class="bar dark" style="width:70%"></span><br><span class="bar" style="width:90%;margin:8px 0"></span><span class="chip">thème</span><span class="chip">régime</span><br><br><span class="bar dark" style="width:40%"></span><br><span class="btn" style="margin-top:8px">Voir le détail</span></div>
+          <div class="box" style="padding:10px"><span class="bar dark" style="width:70%"></span><br><span class="bar" style="width:90%;margin:8px 0"></span><span class="chip">thème</span><span class="chip">régime</span><br><br><span class="bar dark" style="width:40%"></span><br><span class="btn" style="margin-top:8px">Voir le détail</span></div>
+          <div class="box" style="padding:10px"><span class="bar dark" style="width:70%"></span><br><span class="bar" style="width:90%;margin:8px 0"></span><span class="chip">thème</span><span class="chip">régime</span><br><br><span class="bar dark" style="width:40%"></span><br><span class="btn" style="margin-top:8px">Voir le détail</span></div>
+        </div>
+      </div>
+    </div>
+    <ul class="notes">
+      <li>Barre de filtres en haut ; chaque champ a un libellé (accessibilité).</li>
+      <li>Cartes menu : titre, description, badges thème/régime, prix, bouton détail.</li>
+    </ul>
+  </section>
+
+  <!-- 3. Détail d'un menu -->
+  <section class="maquette">
+    <h2><span class="num">3</span> Détail d'un menu</h2>
+    <p class="sous">Composition, allergènes, prix, avis et accès à la commande.</p>
+    <div class="frame">
+      <div class="top"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="urlbar"></span></div>
+      <div class="screen">
+        <div class="nav"><span class="logo">Vite &amp; Gourmand</span><span class="links"><span></span><span></span></span></div>
+        <div class="row">
+          <div class="box" style="width:42%;height:150px"></div>
+          <div style="flex:1">
+            <span class="bar dark" style="width:60%"></span>
+            <div style="margin:10px 0"><span class="bar" style="width:95%"></span></div>
+            <div style="margin:6px 0"><span class="bar" style="width:85%"></span></div>
+            <div style="margin:12px 0"><span class="chip">Allergène</span><span class="chip">Allergène</span><span class="chip">Allergène</span></div>
+            <span class="bar dark" style="width:30%"></span>
+            <div style="margin-top:12px"><span class="btn">Commander ce menu</span></div>
+          </div>
+        </div>
+        <div class="box" style="height:60px;margin-top:14px;padding:10px"><span class="bar" style="width:25%"></span><br><span class="bar" style="width:70%;margin-top:8px"></span></div>
+      </div>
+    </div>
+    <ul class="notes">
+      <li>Visuel du menu + composition (plats) et liste des allergènes.</li>
+      <li>Prix, note moyenne des avis validés, bouton « Commander ce menu ».</li>
+    </ul>
+  </section>
+
+  <!-- 4. Connexion / Inscription -->
+  <section class="maquette">
+    <h2><span class="num">4</span> Connexion / Inscription</h2>
+    <p class="sous">Authentification (Sanctum) et création de compte avec consentement RGPD.</p>
+    <div class="frame">
+      <div class="top"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="urlbar"></span></div>
+      <div class="screen">
+        <div class="nav"><span class="logo">Vite &amp; Gourmand</span><span class="links"><span></span></span></div>
+        <div class="row">
+          <div class="center-card" style="flex:1">
+            <span class="bar dark" style="width:40%"></span>
+            <div class="field" style="margin-top:10px"><div class="lbl">Email</div><div class="inp"></div></div>
+            <div class="field"><div class="lbl">Mot de passe</div><div class="inp"></div></div>
+            <span class="btn" style="width:100%;text-align:center">Se connecter</span>
+          </div>
+          <div class="center-card" style="flex:1">
+            <span class="bar dark" style="width:45%"></span>
+            <div class="field" style="margin-top:10px"><div class="lbl">Nom / Prénom</div><div class="inp"></div></div>
+            <div class="field"><div class="lbl">Email</div><div class="inp"></div></div>
+            <div class="field"><div class="lbl">Mot de passe</div><div class="inp"></div></div>
+            <div class="field"><div class="lbl">☐ J'accepte la politique de confidentialité</div></div>
+            <span class="btn" style="width:100%;text-align:center">S'inscrire</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <ul class="notes">
+      <li>Chaque champ possède un libellé associé ; case RGPD obligatoire à l'inscription.</li>
+      <li>Validation stricte du mot de passe (≥ 10 caractères, casse, chiffre, symbole).</li>
+    </ul>
+  </section>
+
+  <!-- 5. Commande -->
+  <section class="maquette">
+    <h2><span class="num">5</span> Formulaire de commande</h2>
+    <p class="sous">Date, adresse, quantité — prix calculé en temps réel (remise + livraison).</p>
+    <div class="frame">
+      <div class="top"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="urlbar"></span></div>
+      <div class="screen">
+        <div class="nav"><span class="logo">Vite &amp; Gourmand</span><span class="links"><span></span><span></span></span></div>
+        <div class="row">
+          <div style="flex:1">
+            <div class="field"><div class="lbl">Menu sélectionné</div><div class="inp"></div></div>
+            <div class="field"><div class="lbl">Date de livraison (future)</div><div class="inp"></div></div>
+            <div class="field"><div class="lbl">Adresse de livraison</div><div class="inp area"></div></div>
+            <div class="field"><div class="lbl">Quantité (≥ minimum du menu)</div><div class="inp"></div></div>
+          </div>
+          <div class="box" style="width:38%;padding:12px">
+            <span class="bar" style="width:60%"></span>
+            <div style="margin:10px 0"><span class="bar" style="width:80%"></span></div>
+            <div style="margin:6px 0"><span class="bar" style="width:70%"></span></div>
+            <div style="margin:6px 0"><span class="bar dark" style="width:50%"></span></div>
+            <span class="btn" style="width:100%;text-align:center;margin-top:8px">Valider la commande</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <ul class="notes">
+      <li>Récapitulatif : prix de base, remise 10 % (si quantité ≥ min + 5), frais de livraison (5 € + 0,59 €/km), total.</li>
+      <li>Contrôles : date future, quantité ≥ minimum, stock suffisant.</li>
+    </ul>
+  </section>
+
+  <!-- 6. Mes commandes -->
+  <section class="maquette">
+    <h2><span class="num">6</span> Mes commandes (client)</h2>
+    <p class="sous">Historique des commandes avec statuts et annulation possible.</p>
+    <div class="frame">
+      <div class="top"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="urlbar"></span></div>
+      <div class="screen">
+        <div class="nav"><span class="logo">Vite &amp; Gourmand</span><span class="links"><span></span><span></span></span></div>
+        <table class="wf">
+          <thead><tr><th>Menu</th><th>Date livraison</th><th>Prix</th><th>Statut</th><th>Action</th></tr></thead>
+          <tbody>
+            <tr><td>Menu Prestige</td><td>—/—/—</td><td>— €</td><td><span class="badge orange">en attente</span></td><td><span class="badge">Annuler</span></td></tr>
+            <tr><td>Menu Bio</td><td>—/—/—</td><td>— €</td><td><span class="badge blue">en préparation</span></td><td>—</td></tr>
+            <tr><td>Menu Mariage</td><td>—/—/—</td><td>— €</td><td><span class="badge green">livrée</span></td><td><span class="badge">Laisser un avis</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <ul class="notes">
+      <li>Statuts colorés ; annulation visible uniquement si « en attente ».</li>
+      <li>Invitation à laisser un avis lorsque la commande est terminée.</li>
+    </ul>
+  </section>
+
+  <!-- 7. Dashboard employé -->
+  <section class="maquette">
+    <h2><span class="num">7</span> Dashboard employé</h2>
+    <p class="sous">Suivi des commandes, gestion des statuts et modération des avis.</p>
+    <div class="frame">
+      <div class="top"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="urlbar"></span></div>
+      <div class="screen">
+        <div class="nav"><span class="logo">Vite &amp; Gourmand · Employé</span><span class="links"><span></span><span></span></span></div>
+        <div class="row" style="margin-bottom:12px">
+          <div class="stat"><div class="big"></div><span class="bar" style="width:80%"></span></div>
+          <div class="stat"><div class="big"></div><span class="bar" style="width:80%"></span></div>
+          <div class="stat"><div class="big"></div><span class="bar" style="width:80%"></span></div>
+        </div>
+        <table class="wf">
+          <thead><tr><th>Commande</th><th>Client</th><th>Statut</th><th>Changer statut</th></tr></thead>
+          <tbody>
+            <tr><td>#1024</td><td>—</td><td><span class="badge orange">en attente</span></td><td><span class="badge">→ acceptée</span></td></tr>
+            <tr><td>#1023</td><td>—</td><td><span class="badge blue">en préparation</span></td><td><span class="badge">→ en livraison</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <ul class="notes">
+      <li>Indicateurs : commandes en attente, avis à modérer, CA du jour.</li>
+      <li>Évolution des statuts selon le workflow (8 statuts).</li>
+    </ul>
+  </section>
+
+  <!-- 8. Dashboard admin / Stats -->
+  <section class="maquette">
+    <h2><span class="num">8</span> Dashboard administrateur — Statistiques (NoSQL)</h2>
+    <p class="sous">Graphique du chiffre d'affaires par menu, alimenté par MongoDB.</p>
+    <div class="frame">
+      <div class="top"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="urlbar"></span></div>
+      <div class="screen">
+        <div class="nav"><span class="logo">Vite &amp; Gourmand · Admin</span><span class="links"><span></span><span></span><span></span></span></div>
+        <div class="row" style="margin-bottom:12px">
+          <div class="stat"><div class="big"></div><span class="bar" style="width:70%"></span></div>
+          <div class="stat"><div class="big"></div><span class="bar" style="width:70%"></span></div>
+        </div>
+        <div class="box" style="padding:12px">
+          <span class="bar" style="width:35%"></span>
+          <div class="chart" style="margin-top:12px">
+            <div class="col" style="height:40%"></div>
+            <div class="col" style="height:75%"></div>
+            <div class="col" style="height:55%"></div>
+            <div class="col" style="height:90%"></div>
+            <div class="col" style="height:30%"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <ul class="notes">
+      <li>Accès aux fonctions employé + gestion plats / allergènes / utilisateurs.</li>
+      <li>Graphique CA par menu : données agrégées dans la collection NoSQL <code>statistiques_commandes</code>.</li>
+    </ul>
+  </section>
+
+  <!-- 9. Mobile -->
+  <section class="maquette">
+    <h2><span class="num">9</span> Versions mobile (responsive)</h2>
+    <p class="sous">Le site est responsive : sur mobile, la navigation se replie en bouton « hamburger » et les contenus passent en une seule colonne.</p>
+    <div class="phones">
+      <div class="phone"><div class="notch"></div><div class="pscreen">
+        <div class="pnav"><span class="logo" style="font-size:12px">V&amp;G</span><span class="burger">☰</span></div>
+        <div class="box" style="height:84px;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:6px"><span class="bar dark" style="width:70%"></span><span class="bar" style="width:50%"></span><span class="btn" style="font-size:10px">Voir les menus</span></div>
+        <div class="box" style="height:38px;margin-top:8px"></div>
+        <div class="box" style="height:38px;margin-top:8px"></div>
+        <p style="text-align:center;font-size:10px;color:var(--muted);margin:8px 0 0">Accueil</p>
+      </div></div>
+      <div class="phone"><div class="notch"></div><div class="pscreen">
+        <div class="pnav"><span class="logo" style="font-size:12px">V&amp;G</span><span class="burger">☰</span></div>
+        <div class="box" style="padding:6px;margin-bottom:8px"><div class="field" style="margin:0"><div class="lbl">Filtres</div><div class="inp" style="height:18px"></div></div></div>
+        <div class="box" style="padding:8px;margin-bottom:8px"><span class="bar dark" style="width:70%"></span><br><span class="bar" style="width:90%;margin:6px 0"></span><span class="chip">thème</span><br><br><span class="btn" style="font-size:10px;margin-top:6px">Détail</span></div>
+        <div class="box" style="padding:8px"><span class="bar dark" style="width:70%"></span><br><span class="bar" style="width:90%;margin:6px 0"></span><span class="chip">thème</span></div>
+        <p style="text-align:center;font-size:10px;color:var(--muted);margin:8px 0 0">Liste des menus</p>
+      </div></div>
+      <div class="phone"><div class="notch"></div><div class="pscreen">
+        <div class="pnav"><span class="logo" style="font-size:12px">V&amp;G</span><span class="burger">☰</span></div>
+        <div class="field"><div class="lbl">Menu</div><div class="inp" style="height:20px"></div></div>
+        <div class="field"><div class="lbl">Date de livraison</div><div class="inp" style="height:20px"></div></div>
+        <div class="field"><div class="lbl">Quantité</div><div class="inp" style="height:20px"></div></div>
+        <div class="box" style="padding:8px;margin-top:2px"><span class="bar" style="width:70%"></span><br><span class="bar dark" style="width:50%;margin-top:6px"></span></div>
+        <span class="btn" style="width:100%;text-align:center;font-size:10px;margin-top:8px">Valider la commande</span>
+        <p style="text-align:center;font-size:10px;color:var(--muted);margin:8px 0 0">Commander</p>
+      </div></div>
+    </div>
+    <ul class="notes">
+      <li>Navigation repliée en menu « hamburger » (avec <code>aria-label</code> et <code>aria-expanded</code> — accessibilité RGAA).</li>
+      <li>Contenus empilés en une colonne, cibles tactiles agrandies, mise en page fluide jusqu'à ~360 px.</li>
+    </ul>
+  </section>
+
+  <p class="legende" style="margin-top:24px">Document de conception — Vite &amp; Gourmand · 8 écrans · à compléter par les captures de l'application en production (annexe du dossier).</p>
+
+</div>
+</body>
+</html>
