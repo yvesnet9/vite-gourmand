@@ -14,14 +14,14 @@ class UpdateCommandeRequest extends FormRequest
     public function rules()
     {
         return [
-            'statut' => ['sometimes', 'in:en_attente,accepte,en_preparation,livre,annulee'],
+            'statut' => ['sometimes', 'in:en_attente,accepte,en_preparation,en_cours_livraison,livre,en_attente_retour_materiel,terminee,annulee'],
         ];
     }
 
     public function messages()
     {
         return [
-            'statut.in' => 'Le statut doit être: en_attente, confirmée, en_preparation, livrée ou annulée.',
+            'statut.in' => 'Statut invalide. Valeurs autorisees : en_attente, accepte, en_preparation, en_cours_livraison, livre, en_attente_retour_materiel, terminee, annulee.',
         ];
     }
 }
