@@ -290,7 +290,7 @@ const HomePage = () => {
                   <p style={{ color: '#241b13', fontWeight: 'bold' }}>
                     {avisItem.user?.prenom || 'Client'}
                   </p>
-                  <p style={{ color: '#9a8b76', fontSize: '14px' }}>
+                  <p style={{ color: '#6b5d4a', fontSize: '14px' }}>
                     {new Date(avisItem.created_at).toLocaleDateString('fr-FR')}
                   </p>
                 </div>

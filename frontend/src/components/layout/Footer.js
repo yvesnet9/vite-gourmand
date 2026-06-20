@@ -35,7 +35,7 @@ const Footer = () => {
             </h3>
             <p style={{
               lineHeight: '1.8',
-              color: '#cbbfa8',
+              color: '#e8dcc8',
               marginTop: '20px'
             }}>
               Votre traiteur professionnel pour tous vos événements. 
@@ -56,7 +56,7 @@ const Footer = () => {
             }}>
               Nos Horaires
             </h3>
-            <div style={{ marginTop: '20px', lineHeight: '2', color: '#cbbfa8' }}>
+            <div style={{ marginTop: '20px', lineHeight: '2', color: '#e8dcc8' }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '8px' }}>
                 <span>Lundi :</span>
                 <span style={{ fontWeight: 'bold', color: '#f5ecdd' }}>9h00 - 18h00</span>
@@ -101,7 +101,7 @@ const Footer = () => {
             }}>
               Contact
             </h3>
-            <div style={{ marginTop: '20px', lineHeight: '2', color: '#cbbfa8' }}>
+            <div style={{ marginTop: '20px', lineHeight: '2', color: '#e8dcc8' }}>
               <div style={{ marginBottom: '15px' }}>
                 <div style={{ fontWeight: 'bold', color: '#f5ecdd', marginBottom: '5px' }}>
                   📍 Adresse
@@ -142,12 +142,12 @@ const Footer = () => {
                 <Link
                   to="/menus"
                   style={{
-                    color: '#cbbfa8',
+                    color: '#e8dcc8',
                     textDecoration: 'none',
                     transition: 'color 0.3s'
                   }}
                   onMouseEnter={(e) => e.target.style.color = '#b1492a'}
-                  onMouseLeave={(e) => e.target.style.color = '#cbbfa8'}
+                  onMouseLeave={(e) => e.target.style.color = '#e8dcc8'}
                 >
                   → Nos Menus
                 </Link>
@@ -156,12 +156,12 @@ const Footer = () => {
                 <Link
                   to="/rgpd/mentions-legales"
                   style={{
-                    color: '#cbbfa8',
+                    color: '#e8dcc8',
                     textDecoration: 'none',
                     transition: 'color 0.3s'
                   }}
                   onMouseEnter={(e) => e.target.style.color = '#b1492a'}
-                  onMouseLeave={(e) => e.target.style.color = '#cbbfa8'}
+                  onMouseLeave={(e) => e.target.style.color = '#e8dcc8'}
                 >
                   → Mentions Légales
                 </Link>
@@ -170,12 +170,12 @@ const Footer = () => {
                 <Link
                   to="/rgpd/politique-confidentialite"
                   style={{
-                    color: '#cbbfa8',
+                    color: '#e8dcc8',
                     textDecoration: 'none',
                     transition: 'color 0.3s'
                   }}
                   onMouseEnter={(e) => e.target.style.color = '#b1492a'}
-                  onMouseLeave={(e) => e.target.style.color = '#cbbfa8'}
+                  onMouseLeave={(e) => e.target.style.color = '#e8dcc8'}
                 >
                   → Politique de Confidentialité
                 </Link>
@@ -184,12 +184,12 @@ const Footer = () => {
                 <Link
                   to="/rgpd/cgv"
                   style={{
-                    color: '#cbbfa8',
+                    color: '#e8dcc8',
                     textDecoration: 'none',
                     transition: 'color 0.3s'
                   }}
                   onMouseEnter={(e) => e.target.style.color = '#b1492a'}
-                  onMouseLeave={(e) => e.target.style.color = '#cbbfa8'}
+                  onMouseLeave={(e) => e.target.style.color = '#e8dcc8'}
                 >
                   → Conditions Générales de Vente
                 </Link>
@@ -204,7 +204,7 @@ const Footer = () => {
           paddingTop: '20px',
           marginTop: '40px',
           textAlign: 'center',
-          color: '#cbbfa8',
+          color: '#e8dcc8',
           fontSize: '14px'
         }}>
           <p>
