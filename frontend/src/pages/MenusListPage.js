@@ -50,11 +50,9 @@ const MenusListPage = () => {
               <label htmlFor="filtre-theme">Thème :</label>
               <select id="filtre-theme" name="theme" value={filters.theme} onChange={handleFilterChange} style={{ width: '100%', padding: '8px', marginTop: '5px' }}>
                 <option value="">Tous</option>
-                <option value="noel">Noël</option>
-                <option value="paques">Pâques</option>
-                <option value="anniversaire">Anniversaire</option>
-                <option value="mariage">Mariage</option>
-                <option value="entreprise">Entreprise</option>
+                <option value="bio">Bio</option>
+                <option value="gastronomique">Gastronomique</option>
+                <option value="végétarien">Végétarien</option>
               </select>
             </div>
             <div>

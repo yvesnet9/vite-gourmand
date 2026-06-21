@@ -245,11 +245,9 @@ const MenusAdminPage = () => {
                   style={{ width: '100%', padding: '10px', borderRadius: '4px', border: '1px solid #ccc' }}
                 >
                   <option value="">-- Sélectionner --</option>
-                  <option value="noel">Noël</option>
-                  <option value="paques">Pâques</option>
-                  <option value="anniversaire">Anniversaire</option>
-                  <option value="mariage">Mariage</option>
-                  <option value="entreprise">Entreprise</option>
+                  <option value="bio">Bio</option>
+                  <option value="gastronomique">Gastronomique</option>
+                  <option value="végétarien">Végétarien</option>
                 </select>
               </div>
 
