@@ -4,13 +4,14 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 use MongoDB\BSON\UTCDateTime;
 
 class AdminStatsController extends Controller
 {
     public function commandesParMenu(Request $request)
     {
-       if (! $request->user()?->isAdmin()) {
+        if (! $request->user()?->isAdmin()) {
             abort(403, 'Accès réservé aux administrateurs.');
         }
         $match = [];
@@ -42,12 +43,19 @@ class AdminStatsController extends Controller
         ]];
         $pipeline[] = ['$sort' => ['chiffre_affaires' => -1]];
 
-        $resultats = DB::connection('mongodb')
-            ->getMongoClient()
-            ->selectDatabase('vite_gourmand_stats')
-            ->selectCollection('commandes_stats')
-            ->aggregate($pipeline)
-            ->toArray();
+        // Dégradation gracieuse : si MongoDB est indisponible,
+        // on renvoie des statistiques vides plutôt qu'une erreur 500.
+        try {
+            $resultats = DB::connection('mongodb')
+                ->getMongoClient()
+                ->selectDatabase('vite_gourmand_stats')
+                ->selectCollection('commandes_stats')
+                ->aggregate($pipeline)
+                ->toArray();
+        } catch (\Throwable $e) {
+            Log::warning('Stats MongoDB indisponibles : ' . $e->getMessage());
+            return response()->json([]);
+        }
 
         $data = array_map(fn ($doc) => [
             'menu_id'          => $doc['_id'],

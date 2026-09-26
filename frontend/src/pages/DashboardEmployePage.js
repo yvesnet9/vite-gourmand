@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
 import commandeService from '../services/commandeService';
+import { getStatutLabel, getStatutColor } from '../utils/statuts';
 
 const DashboardEmployePage = () => {
   const { user, isEmployee } = useAuth();
@@ -34,7 +35,7 @@ const DashboardEmployePage = () => {
   };
 
   const handleChangeStatut = async (commandeId, newStatut) => {
-    if (!window.confirm(`Changer le statut en "${newStatut}" ?`)) {
+    if (!window.confirm(`Changer le statut en "${getStatutLabel(newStatut)}" ?`)) {
       return;
     }
 
@@ -47,20 +48,7 @@ const DashboardEmployePage = () => {
     }
   };
 
-  const getStatutColor = (statut) => {
-    const colors = {
-      'en_attente': '#ffc107',
-      'accepte': '#17a2b8',
-      'en_preparation': '#007bff',
-      'en_cours_livraison': '#6f42c1',
-      'livre': '#28a745',
-      'en_attente_retour_materiel': '#fd7e14',
-      'terminee': '#28a745',
-      'annulee': '#dc3545',
-    };
-    return colors[statut] || '#6c757d';
-  };
-
+ 
   // Filtrage des commandes
   const filteredCommandes = commandes.filter(commande => {
     if (filter !== 'all' && commande.statut !== filter) {
@@ -164,7 +152,7 @@ const DashboardEmployePage = () => {
                       marginBottom: '10px'
                     }}
                   >
-                    {commande.statut}
+                    {getStatutLabel(commande.statut)}
                   </div>
                   <div style={{ fontSize: '20px', fontWeight: 'bold', color: '#28a745' }}>
                     {commande.prix_total} €

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import commandeService from '../services/commandeService';
+import { getStatutLabel, getStatutColor } from '../utils/statuts';
 
 const MesCommandesPage = () => {
   const [commandes, setCommandes] = useState([]);
@@ -24,35 +25,7 @@ const MesCommandesPage = () => {
       setLoading(false);
     }
   };
-
-  const getStatutColor = (statut) => {
-    const colors = {
-      'en_attente': '#ffc107',
-      'accepte': '#17a2b8',
-      'en_preparation': '#007bff',
-      'en_cours_livraison': '#6f42c1',
-      'livre': '#28a745',
-      'en_attente_retour_materiel': '#fd7e14',
-      'terminee': '#28a745',
-      'annulee': '#dc3545',
-    };
-    return colors[statut] || '#6c757d';
-  };
-
-  const getStatutLabel = (statut) => {
-    const labels = {
-      'en_attente': '⏳ En attente',
-      'accepte': '✅ Acceptée',
-      'en_preparation': '👨‍🍳 En préparation',
-      'en_cours_livraison': '🚚 En livraison',
-      'livre': '📦 Livrée',
-      'en_attente_retour_materiel': '🔄 Retour matériel',
-      'terminee': '✅ Terminée',
-      'annulee': '❌ Annulée',
-    };
-    return labels[statut] || statut;
-  };
-
+  
   const handleAnnulerCommande = async (commandeId) => {
     try {
       await commandeService.annulerCommande(commandeId);

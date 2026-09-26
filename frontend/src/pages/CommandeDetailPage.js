@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import commandeService from '../services/commandeService';
 import avisService from '../services/avisService';
+import { getStatutLabel } from '../utils/statuts';
 
 const CommandeDetailPage = () => {
   const { id } = useParams();
@@ -83,7 +84,7 @@ const CommandeDetailPage = () => {
           borderRadius: '4px',
           background: commande.statut === 'livre' ? '#d4edda' : commande.statut === 'en_attente' ? '#fff3cd' : '#cce5ff',
           color: commande.statut === 'livre' ? '#155724' : commande.statut === 'en_attente' ? '#856404' : '#004085'
-        }}>{commande.statut.replace('_', ' ')}</span></p>
+        }}>{getStatutLabel(commande.statut)}</span></p>
         <p><strong>Prix total :</strong> {commande.prix_total} €</p>
       </div>
 
