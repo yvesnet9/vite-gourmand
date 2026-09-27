@@ -8,6 +8,7 @@ use App\Http\Requests\UpdateCommandeRequest;
 use App\Models\Commande;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Log;
 
 class CommandeController extends Controller
 {
@@ -115,13 +116,18 @@ class CommandeController extends Controller
             ];
             $message = $messages[$commande->statut] ?? "Statut : {$commande->statut}.";
 
-            Mail::raw(
-                "Bonjour {$commande->user->prenom},\n\n{$message}\n\nCommande #{$commande->id}\nVite & Gourmand",
-                function ($mail) use ($commande) {
-                    $mail->to($commande->user->email)
-                         ->subject('Mise a jour de votre commande #' . $commande->id);
-                }
-            );
+             // Envoi non bloquant : si Resend échoue, le statut reste enregistré
+            try {
+                Mail::raw(
+                    "Bonjour {$commande->user->prenom},\n\n{$message}\n\nCommande #{$commande->id}\nVite & Gourmand",
+                    function ($mail) use ($commande) {
+                        $mail->to($commande->user->email)
+                             ->subject('Mise a jour de votre commande #' . $commande->id);
+                    }
+                );
+            } catch (\Throwable $e) {
+                Log::warning("E-mail de statut non envoyé (commande {$commande->id}) : " . $e->getMessage());
+            }
         }
 
         return response()->json($commande->load('menu.plats.allergenes'));
