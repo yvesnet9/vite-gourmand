@@ -98,22 +98,12 @@ const MesDonneesPage = () => {
           marginBottom: '15px' 
         }}>
           <h3 style={{ marginBottom: '10px' }}>✏️ Modifier mes informations</h3>
-          <p style={{ color: '#666', marginBottom: '15px' }}>
-            Modifiez vos informations personnelles (nom, adresse, etc.).
+                    <p style={{ color: '#666', marginBottom: '15px' }}>
+            Pour modifier vos informations personnelles (nom, adresse, téléphone…),
+            écrivez-nous à{' '}
+            <a href="mailto:contact@vite-gourmand.fr">contact@vite-gourmand.fr</a>.
+            Nous effectuons la modification dans un délai d'un mois, conformément au RGPD.
           </p>
-          <button
-            onClick={() => navigate('/profile')}
-            style={{
-              padding: '10px 20px',
-              background: '#28a745',
-              color: 'white',
-              border: 'none',
-              borderRadius: '4px',
-              cursor: 'pointer'
-            }}
-          >
-            Modifier mes informations
-          </button>
         </div>
 
         {/* Supprimer mon compte */}
@@ -154,7 +144,7 @@ const MesDonneesPage = () => {
         <h3 style={{ marginBottom: '10px' }}>ℹ️ Vos droits RGPD</h3>
         <ul style={{ lineHeight: '1.8' }}>
           <li><strong>Droit d'accès :</strong> Vous pouvez télécharger toutes vos données</li>
-          <li><strong>Droit de rectification :</strong> Vous pouvez modifier vos informations</li>
+          <li><strong>Droit de rectification :</strong> Sur simple demande à contact@vite-gourmand.fr</li>
           <li><strong>Droit à l'effacement :</strong> Vous pouvez supprimer votre compte</li>
           <li><strong>Droit à la portabilité :</strong> Vos données sont exportables en JSON</li>
         </ul>
